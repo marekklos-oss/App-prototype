@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Nested repos with their own remotes — tracked separately
+/agents/
+/direct-design-system/
+
+# Generated single-file bundle for Claude Artifact hosting
+/prototype-bundle.html

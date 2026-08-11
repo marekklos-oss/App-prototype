@@ -1,0 +1,2830 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"
+    />
+    <meta name="theme-color" content="#f2f5f5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Direct — prototyp</title>
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+  <body>
+    <!-- Icon sprite — Iconoir glyphs exported from the Figma bottom bar (16×16, stroke 1.5) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="swoosh" x1="230" y1="0" x2="230" y2="500" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#EAF3A3" />
+          <stop offset="0.9" stop-color="#EAF3A3" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+
+      <symbol id="ic-home" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          transform="translate(1.25 1.70168)"
+        >
+          <path
+            d="M4.75 12.2985H3.41667C1.94391 12.2985 0.75 11.1045 0.75 9.63181V5.43688C0.75 4.50439 1.23707 3.63965 2.03453 3.15634L5.36786 1.13614C6.2174 0.621287 7.2826 0.621287 8.13213 1.13614L11.4655 3.15634C12.2629 3.63965 12.75 4.50439 12.75 5.43688V9.63181C12.75 11.1045 11.5561 12.2985 10.0833 12.2985H8.75M4.75 12.2985V9.63181C4.75 8.52721 5.6454 7.63181 6.75 7.63181C7.8546 7.63181 8.75 8.52721 8.75 9.63181V12.2985M4.75 12.2985H8.75"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-crown" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          transform="translate(1.25 3.9173)"
+        >
+          <path
+            d="M11.55 7.41667L12.75 0.750005L8.55002 2.75001L6.75002 0.750005L4.95002 2.75001L0.750021 0.750005L1.95002 7.41667H11.55Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-plus-circle" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            transform="translate(0.5821 0.5821)"
+            d="M7.41667 14.0833C11.0985 14.0833 14.0833 11.0985 14.0833 7.41667C14.0833 3.73477 11.0985 0.75 7.41667 0.75C3.73477 0.75 0.75 3.73477 0.75 7.41667C0.75 11.0985 3.73477 14.0833 7.41667 14.0833Z"
+          />
+          <path
+            transform="translate(4.5828 4.5828)"
+            d="M0.75 3.41667H3.41667M3.41667 3.41667H6.08333M3.41667 3.41667V0.75M3.41667 3.41667V6.08333"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-broken-vase" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            transform="translate(1.2728, 0.5833)"
+            d="M0.753139 2.27927C0.736672 2.15577 0.779746 2.03225 0.881232 1.95999C1.34515 1.62969 2.93648 0.75 6.72701 0.75C10.5175 0.75 12.1089 1.62968 12.5728 1.95999C12.6743 2.03225 12.7173 2.15577 12.7009 2.27927L11.5681 10.7752C11.4582 11.5996 10.9699 12.3255 10.2479 12.7381L10.0346 12.8599C7.98508 14.0311 5.46895 14.0311 3.41942 12.8599L3.20617 12.7381C2.48408 12.3255 1.99585 11.5996 1.88593 10.7752L0.753139 2.27927Z"
+          />
+          <path
+            transform="translate(1.46, 2.8117)"
+            d="M0.539882 0.520603C2.25417 2.29838 10.8256 2.29835 12.5399 0.520603"
+          />
+          <path
+            transform="translate(5.2498, 3.917)"
+            d="M0.750137 0.750137L2.4168 3.75014L0.750137 5.75014L2.4168 8.08347"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-user" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            transform="translate(2.5823, 7.2502)"
+            d="M0.75 6.08333V5.41667C0.75 2.83933 2.83934 0.75 5.41667 0.75C7.994 0.75 10.0833 2.83933 10.0833 5.41667V6.08333"
+          />
+          <path
+            transform="translate(4.5828, 1.9174)"
+            d="M3.41667 6.08333C4.8894 6.08333 6.08333 4.8894 6.08333 3.41667C6.08333 1.94391 4.8894 0.75 3.41667 0.75C1.94391 0.75 0.75 1.94391 0.75 3.41667C0.75 4.8894 1.94391 6.08333 3.41667 6.08333Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-settings" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            transform="translate(0.5821, 0.5821)"
+            d="M12.4983 6.34693L11.7665 4.57987L12.75 3.41667L11.4167 2.08333L10.2598 3.07197L8.4552 2.32983L8.0402 0.75H6.73733L6.31607 2.35075L4.55294 3.09397L3.41667 2.08333L2.08333 3.41667L3.05225 4.60923L2.33167 6.38087L0.75 6.75V8.08333L2.35074 8.52033L3.09383 10.2831L2.08333 11.4167L3.41667 12.75L4.61077 11.7769L6.348 12.4915L6.75 14.0833H8.08333L8.48633 12.4921L10.2534 11.7603C10.5479 11.9709 11.4167 12.75 11.4167 12.75L12.75 11.4167L11.7606 10.2496L12.4926 8.482L14.0833 8.06813L14.0833 6.75L12.4983 6.34693Z"
+          />
+          <path
+            transform="translate(5.25, 5.25)"
+            d="M2.75 4.75C3.8546 4.75 4.75 3.8546 4.75 2.75C4.75 1.6454 3.8546 0.75 2.75 0.75C1.6454 0.75 0.75 1.6454 0.75 2.75C0.75 3.8546 1.6454 4.75 2.75 4.75Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-buoy" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            transform="translate(0.5821 0.5821)"
+            d="M7.41667 14.0833C11.0985 14.0833 14.0833 11.0985 14.0833 7.41667C14.0833 3.73477 11.0985 0.75 7.41667 0.75C3.73477 0.75 0.75 3.73477 0.75 7.41667C0.75 11.0985 3.73477 14.0833 7.41667 14.0833Z"
+          />
+          <path
+            transform="translate(4.5828 4.5828)"
+            d="M0.75 3.41667C0.75 4.8894 1.94391 6.08333 3.41667 6.08333C4.8894 6.08333 6.08333 4.8894 6.08333 3.41667C6.08333 1.94391 4.8894 0.75 3.41667 0.75C1.94391 0.75 0.75 1.94391 0.75 3.41667Z"
+          />
+          <path transform="translate(2.5827 9.176)" d="M3.5734 0.75L0.75 3.48967" />
+          <path transform="translate(9.0931 9.176)" d="M0.75 0.75L3.5734 3.48967" />
+          <path transform="translate(9.0931 2.5824)" d="M0.75 3.48962L3.5734 0.75" />
+          <path transform="translate(2.5827 2.5824)" d="M3.5734 3.48962L0.75 0.75" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-menu" viewBox="0 0 16 16">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path transform="translate(1.25 2.5828)" d="M0.75 0.75H12.75" />
+          <path transform="translate(1.25 7.25)" d="M0.75 0.75H12.75" />
+          <path transform="translate(1.25 11.9172)" d="M0.75 0.75H12.75" />
+        </g>
+      </symbol>
+      <!-- Iconoir 24×24 glyphs (the DS icon library) -->
+      <symbol id="ic-arrow-right" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M9 6L15 12L9 18" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-group" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M1 20V19C1 15.134 4.13401 12 8 12C11.866 12 15 15.134 15 19V20" />
+          <path d="M13 14C13 11.2386 15.2386 9 18 9C20.7614 9 23 11.2386 23 14V14.5" />
+          <path
+            d="M8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12Z"
+          />
+          <path
+            d="M18 9C19.6569 9 21 7.65685 21 6C21 4.34315 19.6569 3 18 3C16.3431 3 15 4.34315 15 6C15 7.65685 16.3431 9 18 9Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-graph-up" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 20H4V4" />
+          <path d="M4 16.5L12 9L15 12L19.5 7.5" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-bell" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"
+          />
+          <path
+            d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-car" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M8 10L16 10" />
+          <path d="M7 14L8 14" />
+          <path d="M16 14L17 14" />
+          <path
+            d="M3 18V11.4105C3 11.1397 3.05502 10.8716 3.16171 10.6227L5.4805 5.21216C5.79566 4.47679 6.51874 4 7.31879 4H16.6812C17.4813 4 18.2043 4.47679 18.5195 5.21216L20.8383 10.6227C20.945 10.8716 21 11.1397 21 11.4105V18M3 18V20.4C3 20.7314 3.26863 21 3.6 21H6.4C6.73137 21 7 20.7314 7 20.4V18M3 18H7M21 18V20.4C21 20.7314 20.7314 21 20.4 21H17.6C17.2686 21 17 20.7314 17 20.4V18M21 18H17M7 18H17"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-airplane" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M10.5 4.5V9.16745C10.5 9.37433 10.3934 9.56661 10.218 9.67625L2.782 14.3237C2.60657 14.4334 2.5 14.6257 2.5 14.8325V15.7315C2.5 16.1219 2.86683 16.4083 3.24552 16.3136L9.75448 14.6864C10.1332 14.5917 10.5 14.8781 10.5 15.2685V18.2277C10.5 18.4008 10.4253 18.5654 10.2951 18.6793L8.13481 20.5695C7.6765 20.9706 8.03808 21.7204 8.63724 21.6114L11.8927 21.0195C11.9636 21.0066 12.0364 21.0066 12.1073 21.0195L15.3628 21.6114C15.9619 21.7204 16.3235 20.9706 15.8652 20.5695L13.7049 18.6793C13.5747 18.5654 13.5 18.4008 13.5 18.2277V15.2685C13.5 14.8781 13.8668 14.5917 14.2455 14.6864L20.7545 16.3136C21.1332 16.4083 21.5 16.1219 21.5 15.7315V14.8325C21.5 14.6257 21.3934 14.4334 21.218 14.3237L13.782 9.67625C13.6066 9.56661 13.5 9.37433 13.5 9.16745V4.5C13.5 3.67157 12.8284 3 12 3C11.1716 3 10.5 3.67157 10.5 4.5Z"
+          />
+        </g>
+      </symbol>
+
+      <!-- Iconoir has no pet glyph — drawn in the same stroke language -->
+      <symbol id="ic-pet" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 21C15.866 21 19 17.866 19 14C19 10.134 15.866 7 12 7C8.13401 7 5 10.134 5 14C5 17.866 8.13401 21 12 21Z" />
+          <path d="M6.6 8.6L5.4 3.6L9.8 6.2" />
+          <path d="M17.4 8.6L18.6 3.6L14.2 6.2" />
+          <path d="M9.5 13.5H9.51" />
+          <path d="M14.5 13.5H14.51" />
+          <path d="M12 16V17.5" />
+          <path d="M12 17.5C11.4 17.5 10.5 17.9 10.5 18.5" />
+          <path d="M12 17.5C12.6 17.5 13.5 17.9 13.5 18.5" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-piggy" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M14.5 8.5C13.7193 8.29761 12.6344 8 11.7647 8C7.47636 8 4 10.6676 4 13.9583C4 15.8493 5.14794 17.5345 6.93824 18.6261L6.45318 20.2259C6.33635 20.6112 6.62471 21 7.02736 21H8.79147C8.92135 21 9.04773 20.9579 9.15161 20.8799L10.5462 19.8333H12.9831L14.3777 20.8799C14.4816 20.9579 14.608 21 14.7379 21H16.502C16.9046 21 17.193 20.6112 17.0761 20.2259L16.5911 18.6261C17.6577 17.9758 18.4963 17.1147 19 16.125"
+          />
+          <path d="M14.5 8.5L19 7L18.916 10.6283L21 11.5V15L19.0741 16" />
+          <path d="M15.5 12.5H15.51" />
+          <path d="M2 10C2 10 2 12.4 4 13" />
+          <path
+            d="M12.8008 7.75296C12.9298 7.38131 13 6.98136 13 6.56472C13 4.59598 11.433 3 9.5 3C7.567 3 6 4.59598 6 6.56472C6 7.50638 6.35849 8.36275 6.94404 9"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-info" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 11.5V16.5" />
+          <path d="M12 7.51L12.01 7.49889" />
+          <path
+            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-shield" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M5 18L3.13036 4.91253C3.05646 4.39524 3.39389 3.91247 3.90398 3.79912L11.5661 2.09641C11.8519 2.03291 12.1481 2.03291 12.4339 2.09641L20.096 3.79912C20.6061 3.91247 20.9435 4.39524 20.8696 4.91252L19 18C18.9293 18.495 18.5 21.5 12 21.5C5.5 21.5 5.07071 18.495 5 18Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-odometer" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 4L12 8" />
+          <path d="M4 8L6.5 10.5" />
+          <path d="M17.5 10.5L20 8" />
+          <path d="M3 17H6" />
+          <path d="M12 17L13 11" />
+          <path d="M18 17H21" />
+          <path
+            d="M8.5 20.001H4C2.74418 18.3295 2 16.2516 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14C22 16.2516 21.2558 18.3295 20 20.001L15.5 20"
+          />
+          <path
+            d="M12 23C13.6569 23 15 21.6569 15 20C15 18.3431 13.6569 17 12 17C10.3431 17 9 18.3431 9 20C9 21.6569 10.3431 23 12 23Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-calendar" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 4V2M15 4V6M15 4H10.5M3 10V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V10H3Z" />
+          <path d="M3 10V6C3 4.89543 3.89543 4 5 4H7" />
+          <path d="M7 2V6" />
+          <path d="M21 10V6C21 4.89543 20.1046 4 19 4H18.5" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-flash" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M13 10V3L5 14H11V21L19 10H13Z" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-tools" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M10.0503 10.6066L2.97923 17.6777C2.19818 18.4587 2.19818 19.7251 2.97923 20.5061C3.76027 21.2872 5.0266 21.2872 5.80765 20.5061L12.8787 13.4351" />
+          <path d="M17.1927 13.7994L21.071 17.6777C21.8521 18.4587 21.8521 19.7251 21.071 20.5061C20.29 21.2872 19.0236 21.2872 18.2426 20.5061L12.0341 14.2977" />
+          <path d="M6.73267 5.90381L4.61135 6.61092L2.49003 3.07539L3.90424 1.66117L7.43978 3.78249L6.73267 5.90381ZM6.73267 5.90381L9.5629 8.73404" />
+          <path
+            d="M10.0503 10.6066C9.2065 8.45359 9.37147 5.62861 11.111 3.8891C12.8505 2.14958 16.0607 1.76778 17.8285 2.82844L14.7878 5.86911L14.5052 8.98015L17.6162 8.69754L20.6569 5.65686C21.7176 7.42463 21.3358 10.6349 19.5963 12.3744C17.8567 14.1139 15.0318 14.2789 12.8788 13.435"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-smiley" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z" />
+          <path d="M16.5 14.5C16.5 14.5 15 16.5 12 16.5C9 16.5 7.5 14.5 7.5 14.5" />
+          <path d="M15.5 8.5H15.51" />
+          <path d="M8.5 8.5H8.51" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-book" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 19V5C4 3.89543 4.89543 3 6 3H19.4C19.7314 3 20 3.26863 20 3.6V16.7143" />
+          <path d="M6 17L20 17" />
+          <path d="M6 21L20 21" />
+          <path d="M6 21C4.89543 21 4 20.1046 4 19C4 17.8954 4.89543 17 6 17" />
+          <path d="M9 7L15 7" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-phone" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M18.1182 14.702L14 15.5C11.2183 14.1038 9.5 12.5 8.5 10L9.26995 5.8699L7.81452 2L4.0636 2C2.93605 2 2.04814 2.93178 2.21654 4.04668C2.63695 6.83 3.87653 11.8765 7.5 15.5C11.3052 19.3052 16.7857 20.9564 19.802 21.6127C20.9668 21.8662 22 20.9575 22 19.7655L22 16.1812L18.1182 14.702Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-question" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7.90039 8.07954C7.90039 3.30678 15.4004 3.30682 15.4004 8.07955C15.4004 11.4886 11.9913 10.8067 11.9913 14.8976" />
+          <path d="M12 19.01L12.01 18.9989" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-warning" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20.0429 21H3.95705C2.41902 21 1.45658 19.3364 2.22324 18.0031L10.2662 4.01533C11.0352 2.67792 12.9648 2.67791 13.7338 4.01532L21.7768 18.0031C22.5434 19.3364 21.581 21 20.0429 21Z" />
+          <path d="M12 9V13" />
+          <path d="M12 17.01L12.01 16.9989" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-clock" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 6L12 12L18 12" />
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-pencil" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M14.3632 5.65156L15.8431 4.17157C16.6242 3.39052 17.8905 3.39052 18.6716 4.17157L20.0858 5.58579C20.8668 6.36683 20.8668 7.63316 20.0858 8.41421L18.6058 9.8942M14.3632 5.65156L4.74749 15.2672C4.41542 15.5993 4.21079 16.0376 4.16947 16.5054L3.92738 19.2459C3.87261 19.8659 4.39148 20.3848 5.0115 20.33L7.75191 20.0879C8.21972 20.0466 8.65806 19.8419 8.99013 19.5099L18.6058 9.8942M14.3632 5.65156L18.6058 9.8942" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-card" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 9V17C22 18.1046 21.1046 19 20 19H4C2.89543 19 2 18.1046 2 17V7C2 5.89543 2.89543 5 4 5H20C21.1046 5 22 5.89543 22 7V9ZM22 9H6" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-minus-circle" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+          <path d="M8 12H16" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-plus-circle-lg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+          <path d="M8 12H16M12 8V16" />
+        </g>
+      </symbol>
+
+      <symbol id="ic-pin" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" />
+          <path d="M12 22C14 18 20 15.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 15.4183 10 18 12 22Z" />
+        </g>
+      </symbol>
+
+      <symbol id="flag-cz" viewBox="0 0 24 24">
+        <rect width="24" height="12" fill="#fff" />
+        <rect y="12" width="24" height="12" fill="#D7141A" />
+        <path d="M0 0L12 12L0 24Z" fill="#11457E" />
+      </symbol>
+
+      <symbol id="flag-at" viewBox="0 0 24 24">
+        <rect width="24" height="8" fill="#ED2939" />
+        <rect y="8" width="24" height="8" fill="#fff" />
+        <rect y="16" width="24" height="8" fill="#ED2939" />
+      </symbol>
+
+      <symbol id="ic-xmark" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426"
+          />
+        </g>
+      </symbol>
+    </svg>
+
+    <div class="phone">
+      <div class="statusbar">
+        <span id="clock">9:41</span>
+        <span class="statusbar__icons" aria-hidden="true">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+            <rect x="0" y="8" width="3" height="4" rx="1" />
+            <rect x="5" y="5.5" width="3" height="6.5" rx="1" />
+            <rect x="10" y="3" width="3" height="9" rx="1" />
+            <rect x="15" y="0" width="3" height="12" rx="1" />
+          </svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+            <path
+              d="M8 11.5 5.6 8.9a3.5 3.5 0 0 1 4.8 0L8 11.5Zm0-5.4a6.3 6.3 0 0 0-4.4 1.8L2.2 6.5a8.3 8.3 0 0 1 11.6 0l-1.4 1.4A6.3 6.3 0 0 0 8 6.1Zm0-4a10.2 10.2 0 0 0-7.2 3L-.6 3.2a12.2 12.2 0 0 1 17.2 0l-1.4 1.4A10.2 10.2 0 0 0 8 2.1Z"
+            />
+          </svg>
+          <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
+            <rect
+              x="0.5"
+              y="0.5"
+              width="21"
+              height="11"
+              rx="3"
+              stroke="currentColor"
+              opacity="0.4"
+            />
+            <rect x="2" y="2" width="18" height="8" rx="1.6" fill="currentColor" />
+            <path
+              d="M23 4v4a2 2 0 0 0 0-4Z"
+              fill="currentColor"
+              opacity="0.4"
+            />
+          </svg>
+        </span>
+      </div>
+
+      <main class="screens">
+        <section class="screen" id="screen-domu" data-screen="domu" aria-labelledby="t-domu">
+          <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+            <path
+              fill="url(#swoosh)"
+              d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+            />
+          </svg>
+
+          <!-- ===== Můj svět carousel ===== -->
+          <div class="dblock">
+            <button class="cardhead" type="button" data-goto="muj-svet">
+              <h1 class="cardhead__title" id="t-domu">Můj svět</h1>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <div class="hscroll">
+              <div class="hscroll__track">
+                <article class="dpcard">
+                  <div class="dprod" data-goto="profil-auta" role="button" tabindex="0">
+                    <div class="dprod__media"><img src="assets/vehicle-volvo.png" alt="" /></div>
+                    <div class="dprod__body">
+                      <p class="dprod__title">Volvo XC90</p>
+                      <p class="dprod__sub">1AA 4990</p>
+                    </div>
+                    <button class="btn btn--secondary btn--icon btn--dot" type="button" aria-label="Detail vozidla">
+                      <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                    </button>
+                  </div>
+
+                  <div class="dins">
+                    <div class="dins__head">
+                      <span class="tag">Aktivní</span>
+                      <button class="btn btn--secondary btn--icon btn--dot" type="button" aria-label="Detail pojištění">
+                        <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                      </button>
+                    </div>
+                    <div class="dins__row">
+                      <span>Platnost</span><b>12. 3. 2023 – neurčito</b>
+                    </div>
+                    <div class="dpay">
+                      <div>
+                        <p class="dpay__amount">6 091 Kč</p>
+                        <p class="dpay__note">Do 20. 5. 2026</p>
+                      </div>
+                      <button class="btn btn--primary" type="button">Zaplatit</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dpcard">
+                  <div class="dprod" data-goto="profil-auta" role="button" tabindex="0">
+                    <div class="dprod__media"><img src="assets/vehicle-van.png" alt="" /></div>
+                    <div class="dprod__body">
+                      <p class="dprod__title">Fiat Ducato</p>
+                      <p class="dprod__sub">2B3 5921</p>
+                    </div>
+                    <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail vozidla">
+                      <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                    </button>
+                  </div>
+
+                  <div class="dins">
+                    <div class="dins__head">
+                      <span class="tag tag--muted">Nevyplněno</span>
+                      <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
+                        <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                      </button>
+                    </div>
+                    <div class="dpay">
+                      <div>
+                        <p class="dpay__amount">Platnost STK</p>
+                        <p class="dpay__note">do 28. 8. 2026</p>
+                      </div>
+                      <button class="btn btn--secondary" type="button">To mě zajímá</button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="dots" aria-hidden="true">
+              <i class="is-active"></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+
+            <button class="promo" type="button" data-open-sheet="add-vehicle">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+                <span class="promo__title">Přidat vozidlo</span>
+                <span class="promo__text">s pojištěním za 5 minut</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </div>
+
+          <!-- ===== Nabídky pro mě ===== -->
+          <div class="dblock">
+            <div class="cardhead"><h2 class="cardhead__title">Nabídky pro mě</h2></div>
+
+            <div class="hscroll">
+              <div class="hscroll__track">
+                <button class="banner" type="button">
+                  <span class="banner__pic"><img src="assets/banner-cestovko.png" alt="" /></span>
+                  <span class="banner__body">
+                    <span class="banner__title">Cestovko se slevou 200 Kč</span>
+                    <span class="banner__text"
+                      >Ať už v létě míříte k moři nebo na hory, nezapomeňte na cestovko od Directu.</span
+                    >
+                  </span>
+                </button>
+
+                <button class="banner" type="button">
+                  <span class="banner__pic"><img src="assets/banner-auto.png" alt="" /></span>
+                  <span class="banner__body">
+                    <span class="banner__title">Sleva 10 000 Kč na nákup auta</span>
+                    <span class="banner__text"
+                      >Přijďte si pro slevu 10 000 Kč do Direct auto parků v Praze, Brně a Olomouci.</span
+                    >
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="dots" aria-hidden="true">
+              <i class="is-active"></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+
+          <!-- ===== Odměny / investice ===== -->
+          <div class="dblock">
+            <article class="rcard">
+              <h2 class="rcard__title">Váš aktivní přístup se vyplácí</h2>
+              <p class="rcard__text">Přidejte produkt, sjednejte pojistku nebo aktualizujte údaje.</p>
+              <p class="rcard__text">Vaše odměny se hromadí. Sledujte, jak portfolio roste.</p>
+              <hr class="hr hr--strong" />
+              <span class="tag">Aktivní</span>
+              <p class="rcard__sub">Investice s pojištěným vkladem</p>
+              <div class="rowline">
+                <span class="rowline__label">Aktuální hodnota portfolia</span>
+                <span class="rowline__value"
+                  >186 Kč
+                  <span class="rowline__delta">+ 12 Kč · 8,6 %</span>
+                </span>
+              </div>
+              <div class="infobox">
+                <svg aria-hidden="true"><use href="#ic-info" /></svg>
+                <span>Při vkladu 500 Kč měsíčně budete mít za 3 roky 21 851 Kč.</span>
+              </div>
+              <div class="rcard__foot">
+                <button class="btn btn--secondary" type="button">
+                  <svg style="width: 16px; height: 16px" aria-hidden="true">
+                    <use href="#ic-arrow-right" />
+                  </svg>
+                  Detail portfolia
+                </button>
+                <button class="linkbtn" type="button">Jak odměny fungují</button>
+              </div>
+            </article>
+          </div>
+
+          <!-- ===== Potřebujete pomoc? ===== -->
+          <div class="dblock">
+            <div class="cardhead"><h2 class="cardhead__title">Potřebujete pomoc?</h2></div>
+
+            <div class="helpcard">
+              <span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <h3 class="helpcard__title">Asistenční linka (nonstop)</h3>
+              <p class="helpcard__text">Pokud potřebujete pomoc, zavolejte nám.</p>
+              <a class="btn btn--lime" href="tel:291291291">
+                <svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291
+              </a>
+            </div>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+              <span class="arow__label">Objednat odtah</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <span class="arow__label">Nahlásit událost</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow arow--outline" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-question" /></svg></span>
+              <span class="arow__label">Co mám v asistenci</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="screen"
+          id="screen-muj-svet"
+          data-screen="muj-svet"
+          aria-labelledby="t-muj-svet"
+        >
+          <header class="hero">
+            <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+              <path
+                fill="url(#swoosh)"
+                d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+              />
+            </svg>
+            <div class="hero__nav">
+              <div class="pillnav">
+                <button type="button" aria-label="Sjednané osoby">
+                  <svg aria-hidden="true"><use href="#ic-group" /></svg>
+                </button>
+                <button type="button" aria-label="Přehled">
+                  <svg aria-hidden="true"><use href="#ic-graph-up" /></svg>
+                </button>
+                <button type="button" aria-label="Notifikace">
+                  <svg aria-hidden="true"><use href="#ic-bell" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <h1 class="hero__title" id="t-muj-svet">Můj svět</h1>
+            <p class="hero__sub">Máte <b>2 aktivní smlouvy</b> u Direct</p>
+            <div class="hero__actions">
+              <button class="btn btn--secondary" type="button">Zobrazit ukončené</button>
+            </div>
+          </header>
+
+          <!-- ===== Vozidlo ===== -->
+          <section class="section">
+            <h2 class="section__title">Vozidlo</h2>
+
+            <article class="pcard">
+              <div class="panel" data-goto="profil-auta" role="button" tabindex="0">
+                <div class="panel__head">
+                  <span class="panel__label">PROFIL</span>
+                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail vozidla">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <div class="panel__media"><img src="assets/vehicle-volvo.png" alt="" /></div>
+                <div class="panel__body">
+                  <p class="panel__title">Volvo XC90</p>
+                  <p class="panel__subtitle">1AA 4990</p>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">POJIŠTĚNÍ</span>
+                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <span class="tag">Aktivní</span>
+                <div class="subcard">
+                  <div class="iconlabel">
+                    <div class="iconlabel__text">
+                      <p class="iconlabel__label">Přidat havarijní pojištění</p>
+                      <p class="iconlabel__value">od 2 159 Kč/rok</p>
+                    </div>
+                    <button class="btn btn--secondary" type="button">Přidat</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="pcard pcard--neutral">
+              <div class="panel" data-goto="profil-auta" role="button" tabindex="0">
+                <div class="panel__head">
+                  <span class="panel__label">PROFIL</span>
+                  <button
+                    class="btn btn--secondary btn--icon btn--dot"
+                    type="button"
+                    aria-label="Detail vozidla"
+                  >
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <div class="panel__media panel__media--profile">
+                  <img src="assets/vehicle-van.png" alt="" />
+                </div>
+                <div class="panel__body">
+                  <p class="panel__title">Fiat Ducato</p>
+                  <p class="panel__subtitle">2B3 5921</p>
+                </div>
+                <div class="subcard" data-stop>
+                  <div class="iconlabel">
+                    <div class="iconlabel__text">
+                      <p class="iconlabel__label">Platnost STK</p>
+                      <p class="iconlabel__value">do 28. 8. 2026</p>
+                    </div>
+                    <button class="btn btn--secondary" type="button">To mě zajímá</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">POJIŠTĚNÍ</span>
+                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <span class="tag tag--muted">Nevyplněno</span>
+              </div>
+            </article>
+
+            <button class="promo" type="button" data-open-sheet="add-vehicle">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+                <span class="promo__title">Přidat vozidlo</span>
+                <span class="promo__text"
+                  >Ukážeme vám aktuální hodnotu vašeho vozidla, pohlídáme za vás technickou, výměnu
+                  pneu a další</span
+                >
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+
+          <!-- ===== Domov ===== -->
+          <section class="section">
+            <h2 class="section__title">Domov</h2>
+
+            <article class="pcard">
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">PROFIL</span>
+                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail nemovitosti">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <div class="panel__media"><img src="assets/house.png" alt="" /></div>
+                <div class="panel__body">
+                  <p class="panel__title">Evropská 1234/32</p>
+                  <p class="panel__subtitle">Praha 160 00</p>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">POJIŠTĚNÍ</span>
+                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <span class="tag">Pojištěno jinde</span>
+                <div class="subcard">
+                  <div class="iconlabel">
+                    <div class="iconlabel__text">
+                      <p class="iconlabel__label">Srovnejte s Direct</p>
+                      <p class="iconlabel__value">Podmínky i cena se mohou lišit</p>
+                    </div>
+                    <button class="btn btn--secondary btn--icon" type="button" aria-label="Srovnat">
+                      <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <button class="promo" type="button">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span>
+                <span class="promo__title">Přidat nemovitost</span>
+                <span class="promo__text">Pohlídáme, abyste nebyli podpojištění, připomeneme revize</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+
+          <!-- ===== Cestování ===== -->
+          <section class="section">
+            <h2 class="section__title">Cestování</h2>
+
+            <article class="pcard pcard--warning">
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">PROFIL</span>
+                  <button class="btn btn--warning btn--icon" type="button" aria-label="Detail cestovního pojištění">
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <div class="panel__media"><img src="assets/globe.png" alt="" /></div>
+                <div class="panel__body">
+                  <p class="panel__title">Celý svět bez<br />USA a Kanady</p>
+                  <p class="panel__subtitle">krátkodobý</p>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel__head">
+                  <span class="panel__label">POJIŠTĚNÍ</span>
+                  <button
+                    class="btn btn--warning btn--icon btn--dot"
+                    type="button"
+                    aria-label="Detail pojištění"
+                  >
+                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </button>
+                </div>
+                <span class="tag tag--warning">Čeká na zaplacení</span>
+                <div class="subcard">
+                  <div class="iconlabel">
+                    <div class="iconlabel__text">
+                      <p class="iconlabel__label">Pojistné čeká na úhradu</p>
+                      <p class="iconlabel__value">1 084 Kč · do 20.10.2026</p>
+                    </div>
+                    <button class="btn btn--warning" type="button">Zaplatit</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <button class="promo" type="button">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-airplane" /></svg></span>
+                <span class="promo__title">Sjednat cestovní pojištění</span>
+                <span class="promo__text">Na dovolenou nebo opakovaně na rok</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+
+          <!-- ===== Mazlíčci ===== -->
+          <section class="section">
+            <h2 class="section__title">Mazlíčci</h2>
+            <button class="promo" type="button">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-pet" /></svg></span>
+                <span class="promo__title">Přidat mazlíčka</span>
+                <span class="promo__text">Připomeneme vám důležité termíny vašeho mazlíčka</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+
+          <!-- ===== Moje investice ===== -->
+          <section class="section">
+            <h2 class="section__title">Moje investice</h2>
+
+            <article class="pcard pcard--flat">
+              <span class="tag">Aktivní</span>
+              <p class="panel__title">Investice s pojištěným vkladem</p>
+              <hr class="hr" />
+              <div class="rowline">
+                <span class="rowline__label">Hodnota</span>
+                <span class="rowline__value"
+                  >186 Kč
+                  <span class="rowline__delta">+ 12 Kč · 8,6 %</span>
+                </span>
+              </div>
+              <div class="infobox">
+                <svg aria-hidden="true"><use href="#ic-info" /></svg>
+                <span>Při vkladu 500 Kč měsíčně a výnosu 8,6 % ročně budete mít za 3 roky 23 851 Kč.</span>
+              </div>
+              <div class="actions-right">
+                <button class="btn btn--secondary" type="button">
+                  <svg style="width: 16px; height: 16px" aria-hidden="true">
+                    <use href="#ic-arrow-right" />
+                  </svg>
+                  Detail portfolia
+                </button>
+              </div>
+            </article>
+
+            <button class="promo" type="button">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-piggy" /></svg></span>
+                <span class="promo__title">Přidat investici</span>
+                <span class="promo__text">Klasický účet nebo na důchod</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+        </section>
+
+        <section class="screen" id="screen-pridat" data-screen="pridat" aria-labelledby="t-pridat">
+          <header class="hero">
+            <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+              <path
+                fill="url(#swoosh)"
+                d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+              />
+            </svg>
+            <h1 class="hero__title" id="t-pridat" style="margin-top: 32px">Přidat do světa</h1>
+          </header>
+
+          <!-- ===== Direct pojišťovna ===== -->
+          <section class="section">
+            <div class="blockhead">
+              <h2 class="blockhead__title">Direct pojišťovna</h2>
+              <p class="blockhead__lead">
+                Přidejte vozidlo, nemovitost nebo jiný produkt a budeme vám pomáhat se o něj starat.
+              </p>
+            </div>
+
+            <div class="hscroll">
+              <div class="hscroll__track hscroll__track--rows2">
+                <button class="tile tile--dark" type="button" data-open-sheet="add-vehicle">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Přidat vozidlo</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text"
+                    >Ukážeme vám aktuální hodnotu vašeho vozidla, pohlídáme za vás technickou, výměnu
+                    pneu a další</span
+                  >
+                </button>
+
+                <button class="tile tile--dark" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-airplane" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Sjednat cestovní pojištění</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Na dovolenou nebo opakovaně na rok</span>
+                </button>
+
+                <button class="tile tile--dark" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-pet" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Přidat mazlíčka</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Připomeneme vám důležité termíny vašeho mazlíčka</span>
+                </button>
+
+                <button class="tile tile--dark" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Přidat nemovitost</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Pohlídáme, abyste nebyli podpojištění, připomeneme revize</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ===== Direct auto ===== -->
+          <section class="section">
+            <div class="blockhead"><h2 class="blockhead__title">Direct auto</h2></div>
+
+            <div class="hscroll">
+              <div class="hscroll__track">
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-puma.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Ford Puma 1.0 EcoBoost ST-Line</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>142 500 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2015</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>92 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>319 900 Kč</b><s>349 900 Kč</s></span>
+                  </span>
+                </button>
+
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-octavia.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Škoda Octavia 1.5 TSI Top Selection</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>86 000 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2020</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>120 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>559 900 Kč</b><s>589 900 Kč</s></span>
+                  </span>
+                </button>
+
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-caravelle.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Volkswagen Caravelle 2.0 TDI DSG Bulli</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>219 500 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2018</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>173 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>1 249 900 Kč</b><s>1 320 900 Kč</s></span>
+                  </span>
+                </button>
+
+                <button class="ccard ccard--all" type="button">
+                  <span class="circle"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                  <span>Zobrazit vše</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="promo" type="button">
+              <span class="promo__col">
+                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-tools" /></svg></span>
+                <span class="promo__title">Objednat servis</span>
+                <span class="promo__text">Prohlídka, oprava nebo STK</span>
+              </span>
+              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </section>
+
+          <!-- ===== Direct Fondee ===== -->
+          <section class="section">
+            <div class="blockhead"><h2 class="blockhead__title">Direct Fondee</h2></div>
+
+            <div class="hscroll">
+              <div class="hscroll__track hscroll__track--rows2">
+                <button class="tile tile--light" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-piggy" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Klasický účet</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Pro rezervu i dlouhodobé plány</span>
+                </button>
+
+                <button class="tile tile--light" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-smiley" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Přidat účet pro děti</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Pro cíle, které jsou ještě daleko</span>
+                </button>
+
+                <button class="tile tile--light" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-calendar" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Na důchod</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Příprava na budoucnost s daňovou úlevou</span>
+                </button>
+
+                <button class="tile tile--light" type="button">
+                  <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-book" /></svg></span>
+                  <span class="tile__row">
+                    <span class="tile__title">Pro studenty</span>
+                    <svg class="tile__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                  </span>
+                  <span class="tile__text">Zvýhodněný účet pro studenty do 26 let</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== Pomoc — mám vozidlo (Figma node 3837:26545) ===== -->
+        <section class="screen" id="screen-pomoc" data-screen="pomoc" aria-labelledby="t-pomoc">
+          <h1 class="page-title" id="t-pomoc">Potřebujete pomoc?</h1>
+
+          <div class="helpcard">
+            <span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+            <h2 class="helpcard__title">Asistenční linka (nonstop)</h2>
+            <p class="helpcard__text">Pokud potřebujete pomoc, zavolejte nám.</p>
+            <a class="btn btn--lime" href="tel:291291291">
+              <svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291
+            </a>
+          </div>
+
+          <button class="arow" type="button">
+            <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+            <span class="arow__label">Objednat odtah</span>
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+
+          <button class="arow" type="button">
+            <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-broken-vase" /></svg></span>
+            <span class="arow__label">Nahlásit událost</span>
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+
+          <button class="arow arow--outline" type="button">
+            <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-question" /></svg></span>
+            <span class="arow__label">Co mám v asistenci</span>
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+        </section>
+
+        <!-- ===== Více (Figma node 610:29003) ===== -->
+        <section class="screen" id="screen-vice" data-screen="vice" aria-labelledby="t-vice">
+          <h1 class="sr-only" id="t-vice">Více</h1>
+
+          <div class="applogo"><img src="assets/logo-direct.svg" alt="Direct pojišťovna" /></div>
+
+          <div class="arowlist">
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-user" /></svg></span>
+              <span class="arow__label">Osobní údaje</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-settings" /></svg></span>
+              <span class="arow__label">Nastavení</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-question" /></svg></span>
+              <span class="arow__label">Časté dotazy</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-phone" /></svg></span>
+              <span class="arow__label">Kontakty</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </div>
+
+          <p class="appver">Verze aplikace: 3.9.0</p>
+        </section>
+        <!-- ===== Profil vozidla — Shrnutí (Figma node 23851:64928) ===== -->
+        <section
+          class="screen"
+          id="screen-profil-auta"
+          data-screen="profil-auta"
+          data-tab-parent="muj-svet"
+          aria-labelledby="t-profil-auta"
+        >
+          <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+            <path
+              fill="url(#swoosh)"
+              d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+            />
+          </svg>
+
+          <div class="detailbar">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+            <div class="detailbar__col">
+              <p class="detailbar__title" id="t-profil-auta">Profil vozidla</p>
+              <p class="detailbar__sub">Volvo XC90</p>
+            </div>
+            <button
+              class="circlebtn"
+              type="button"
+              data-toggle-proto
+              aria-pressed="false"
+              aria-label="Přepínač stavů (prototyp)"
+            >
+              <svg aria-hidden="true"><use href="#ic-smiley" /></svg>
+            </button>
+          </div>
+
+          <nav class="segmented" aria-label="Sekce profilu">
+            <button type="button" aria-current="true">Shrnutí</button>
+            <button type="button" data-goto="profil-stav">Stav</button>
+            <button type="button">Hodnota</button>
+            <button type="button" data-goto="profil-technicke">Technické údaje</button>
+          </nav>
+
+          <!-- Prototype-only: flips the card states drawn in Figma.
+               Delete this block to get the plain screen. -->
+          <div class="protobar" hidden>
+            <span class="protobar__label">Prototyp — stavy z Figmy</span>
+            <div class="protobar__row" data-vgroup="stk">
+              <span>STK</span>
+              <button type="button" data-variant="30" aria-current="true">30 dní</button>
+              <button type="button" data-variant="15">15 dní</button>
+              <button type="button" data-variant="3">3 dny</button>
+              <button type="button" data-variant="0">0 dní</button>
+            </div>
+            <div class="protobar__row" data-vgroup="tacho">
+              <span>Tacho</span>
+              <button type="button" data-variant="fresh" aria-current="true">0–60 dní</button>
+              <button type="button" data-variant="warn">60–120</button>
+              <button type="button" data-variant="stale">120+</button>
+            </div>
+            <div class="protobar__row" data-vgroup="stav">
+              <span>Stav voz.</span>
+              <button type="button" data-variant="full" aria-current="true">Vyplněno</button>
+              <button type="button" data-variant="empty">Neuvedeno</button>
+            </div>
+            <div class="protobar__row" data-vgroup="poj">
+              <span>Pojištění</span>
+              <button type="button" data-variant="zaplaceno" aria-current="true">Zaplaceno</button>
+              <button type="button" data-variant="ceka">Čeká na platbu</button>
+              <button type="button" data-variant="po-splatnosti">Po splatnosti</button>
+              <button type="button" data-variant="jinde">Jinde</button>
+              <button type="button" data-variant="neuvedeno">Neuvedeno</button>
+            </div>
+          </div>
+
+          <header class="carhero">
+            <span class="tag">Pojištěno</span>
+            <h1 class="carhero__title">Volvo XC90</h1>
+            <p class="carhero__plate">1AA 4990</p>
+            <img class="carhero__img" src="assets/vehicle-volvo.png" alt="Volvo XC90" />
+          </header>
+
+          <!-- alert / offer carousel -->
+          <div class="hscroll">
+            <div class="hscroll__track">
+              <div class="vgroup" data-group="stk">
+                <article class="icard" data-variant="30">
+                  <div class="icard__head">
+                    <svg aria-hidden="true"><use href="#ic-warning" /></svg>
+                    <div class="icard__col">
+                      <p class="icard__title">Platnost STK</p>
+                      <p class="icard__text">Je na čase začít řešit kontrolu, protože ti zbývá 30 dní</p>
+                    </div>
+                    <button class="icard__close" type="button" aria-label="Zavřít">
+                      <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+                    </button>
+                  </div>
+                  <button class="btn btn--primary" type="button">Rezervovat termín</button>
+                </article>
+
+                <article class="icard icard--warn" data-variant="15" hidden>
+                  <div class="icard__head">
+                    <svg aria-hidden="true"><use href="#ic-warning" /></svg>
+                    <div class="icard__col">
+                      <p class="icard__title">Platnost STK</p>
+                      <p class="icard__text">Je na čase začít řešit kontrolu, protože ti zbývá 15 dní</p>
+                    </div>
+                    <button class="icard__close" type="button" aria-label="Zavřít">
+                      <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+                    </button>
+                  </div>
+                  <button class="btn btn--outline-warning" type="button">Rezervovat</button>
+                </article>
+
+                <article class="icard icard--danger" data-variant="3" hidden>
+                  <div class="icard__head">
+                    <svg aria-hidden="true"><use href="#ic-warning" /></svg>
+                    <div class="icard__col">
+                      <p class="icard__title">Platnost STK</p>
+                      <p class="icard__text">Je na čase začít řešit kontrolu, protože ti zbývají 3 dny</p>
+                    </div>
+                    <button class="icard__close" type="button" aria-label="Zavřít">
+                      <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+                    </button>
+                  </div>
+                  <button class="btn btn--outline-danger" type="button">Rezervovat termín</button>
+                </article>
+
+                <article class="icard icard--critical" data-variant="0" hidden>
+                  <div class="icard__head">
+                    <svg aria-hidden="true"><use href="#ic-warning" /></svg>
+                    <div class="icard__col">
+                      <p class="icard__title">Platnost STK</p>
+                      <p class="icard__text">Je na čase začít řešit kontrolu, protože ti zbývá 0 dní</p>
+                    </div>
+                    <button class="icard__close" type="button" aria-label="Zavřít">
+                      <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+                    </button>
+                  </div>
+                  <button class="btn btn--on-critical" type="button">Rezervovat termín</button>
+                </article>
+              </div>
+
+              <article class="icard icard--plain">
+                <div class="icard__head">
+                  <svg aria-hidden="true"><use href="#ic-shield" /></svg>
+                  <div class="icard__col">
+                    <p class="icard__title">Přidat havarijní pojištění</p>
+                    <p class="icard__text">Nabízíme ti kompletní ochranu vozidla už od 2 159 Kč/rok</p>
+                  </div>
+                  <button class="icard__close" type="button" aria-label="Zavřít">
+                    <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+                  </button>
+                </div>
+                <button class="btn btn--secondary" type="button">Přidat</button>
+              </article>
+            </div>
+          </div>
+          <div class="dots" aria-hidden="true"><i class="is-active"></i><i></i></div>
+
+          <!-- odometer -->
+          <div class="dblock">
+            <div class="vgroup" data-group="tacho">
+              <article class="statcard" data-variant="fresh">
+                <h2 class="statcard__label">Stav tachometru</h2>
+                <p class="statcard__value">47 280 km</p>
+                <p class="statcard__meta">
+                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 24. 2. 2026
+                </p>
+                <div class="statcard__foot">
+                  <button class="btn btn--white" type="button" data-open-sheet="update-km">
+                    <svg aria-hidden="true"><use href="#ic-pencil" /></svg>Aktualizovat tachometr
+                  </button>
+                </div>
+              </article>
+
+              <article class="statcard statcard--warn" data-variant="warn" hidden>
+                <h2 class="statcard__label">Stav tachometru</h2>
+                <p class="statcard__value">47 280 km</p>
+                <p class="statcard__meta">
+                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 24. 2. 2026
+                </p>
+                <div class="statcard__foot">
+                  <button class="btn btn--white" type="button" data-open-sheet="update-km">
+                    <svg aria-hidden="true"><use href="#ic-pencil" /></svg>Aktualizovat tachometr
+                  </button>
+                </div>
+              </article>
+
+              <article class="statcard statcard--stale" data-variant="stale" hidden>
+                <h2 class="statcard__label">Stav tachometru</h2>
+                <p class="statcard__value">47 280 km</p>
+                <p class="statcard__meta">
+                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 24. 2. 2026
+                </p>
+                <div class="statcard__foot">
+                  <button class="btn btn--white" type="button" data-open-sheet="update-km">
+                    <svg aria-hidden="true"><use href="#ic-pencil" /></svg>Aktualizovat tachometr
+                  </button>
+                </div>
+              </article>
+            </div>
+            <button class="helperlink" type="button" data-open-sheet="helper-km">
+              Proč je důležitá pravidelná aktualizace kilometrů?
+            </button>
+          </div>
+
+          <!-- buy-back value + related cars -->
+          <div class="dblock">
+            <article class="statcard statcard--dark">
+              <h2 class="statcard__label">Výkupní hodnota vozidla</h2>
+              <p class="statcard__value">472 900 Kč</p>
+              <p class="statcard__meta">−4,7 % za 12 měsíců</p>
+              <p class="statcard__meta">
+                <svg aria-hidden="true"><use href="#ic-info" /></svg>Hodnota se odvíjí od aktuálního
+                počtu kilometrů
+              </p>
+              <div class="statcard__foot">
+                <button class="btn btn--ghost-light" type="button">
+                  Odkup vozidla
+                  <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+                </button>
+              </div>
+            </article>
+
+            <div class="blockhead" style="margin-top: 24px">
+              <h3 class="blockhead__title">Mohlo by vás zajímat</h3>
+            </div>
+
+            <div class="hscroll">
+              <div class="hscroll__track">
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-puma.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Ford Puma 1.0 EcoBoost ST-Line</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>142 500 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2015</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>92 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>319 900 Kč</b><s>349 900 Kč</s></span>
+                  </span>
+                </button>
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-octavia.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Škoda Octavia 1.5 TSI Top Selection</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>86 000 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2020</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>120 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>559 900 Kč</b><s>589 900 Kč</s></span>
+                  </span>
+                </button>
+                <button class="ccard" type="button">
+                  <span class="ccard__thumb"><img src="assets/car-caravelle.png" alt="" /></span>
+                  <span class="ccard__body">
+                    <span class="ccard__title">Volkswagen Caravelle 2.0 TDI DSG Bulli</span>
+                    <span class="ccard__specs">
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-odometer" /></svg>219 500 km</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-calendar" /></svg>2018</span>
+                      <span class="spec"><svg aria-hidden="true"><use href="#ic-flash" /></svg>173 kW</span>
+                    </span>
+                    <span class="ccard__price"><b>1 249 900 Kč</b><s>1 320 900 Kč</s></span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></div>
+          </div>
+
+          <!-- vehicle condition -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Stav vozidla</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="vgroup" data-group="stav">
+                <div class="scard__body" data-variant="full">
+                  <div class="svcrow">
+                    <span class="svcrow__img"><img src="assets/svc-oil.png" alt="" /></span>
+                    <span class="svcrow__col">
+                      <span class="svcrow__title">Motorový olej</span>
+                      <span class="svcrow__sub">Zbývá 5 700 km nebo 7 měsíců</span>
+                      <span class="progress">
+                        <span class="progress__track"><span class="progress__fill" style="width: 62%"></span></span>
+                        <span class="progress__pct">62 %</span>
+                      </span>
+                    </span>
+                  </div>
+                  <hr class="hr" />
+                  <div class="svcrow">
+                    <span class="svcrow__img"><img src="assets/svc-tyre.png" alt="" /></span>
+                    <span class="svcrow__col">
+                      <span class="svcrow__title">Pneumatiky</span>
+                      <span class="svcrow__sub">Koupeno 6/2025 · najeto 9 600 km</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="scard__body" data-variant="empty" hidden>
+                  <div class="svcrow svcrow--empty">
+                    <span class="svcrow__img"><img src="assets/svc-oil.png" alt="" /></span>
+                    <span class="svcrow__col">
+                      <span class="svcrow__title">Motorový olej</span>
+                      <span class="svcrow__sub">Neuvedeno</span>
+                    </span>
+                  </div>
+                  <hr class="hr" />
+                  <div class="svcrow svcrow--empty">
+                    <span class="svcrow__img"><img src="assets/svc-tyre.png" alt="" /></span>
+                    <span class="svcrow__col">
+                      <span class="svcrow__title">Pneumatiky</span>
+                      <span class="svcrow__sub">Neuvedeno</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="warnbox">
+              <div class="warnbox__head">
+                <svg aria-hidden="true"><use href="#ic-warning" /></svg>
+                <div>
+                  <p class="warnbox__title">Platnost STK končí 26. 7. 2026</p>
+                  <p class="warnbox__text">
+                    Je na čase začít řešit kontrolu, protože ti zbývá 15 dní
+                  </p>
+                </div>
+              </div>
+              <div class="warnbox__foot">
+                <button class="linkbtn" type="button" data-open-sheet="stk">Co s sebou</button>
+                <button class="btn btn--warning" type="button">Připravit vozidlo</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- basic data -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Základní údaje</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <div class="trow">
+                  <span class="trow__label">Model a řada</span>
+                  <span class="trow__value">Volvo XC90</span>
+                </div>
+                <div class="trow">
+                  <span class="trow__label">SPZ</span>
+                  <span class="trow__value">1AA 4990</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- insurance -->
+          <div class="dblock">
+            <div class="vgroup" data-group="poj">
+              <!-- Aktivní · zaplaceno -->
+              <article class="scard" data-variant="zaplaceno">
+                <button class="scard__head" type="button">
+                  <h2 class="scard__title">Pojištění</h2>
+                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                </button>
+                <div class="scard__body">
+                  <button class="iconlink" type="button">
+                    <svg aria-hidden="true"><use href="#ic-card" /></svg>Zelená karta
+                  </button>
+                  <div class="trow">
+                    <span class="trow__label">Stav</span>
+                    <span class="trow__tags">
+                      <span class="tag">Aktivní</span>
+                      <span class="tag tag--outline">Zaplaceno</span>
+                    </span>
+                  </div>
+                  <div class="trow trow--stacked">
+                    <span class="trow__label">Sjednáno</span>
+                    <span class="trow__value">Povinné ručení · Havarijní pojištění</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Číslo smlouvy</span>
+                    <span class="trow__value">123456789</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Platnost</span>
+                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Aktivní · čeká na platbu -->
+              <article class="scard scard--dot" data-variant="ceka" hidden>
+                <button class="scard__head" type="button">
+                  <h2 class="scard__title">Pojištění</h2>
+                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                </button>
+                <div class="scard__body">
+                  <button class="iconlink" type="button">
+                    <svg aria-hidden="true"><use href="#ic-card" /></svg>Zelená karta
+                  </button>
+                  <div class="trow">
+                    <span class="trow__label">Stav</span>
+                    <span class="trow__tags">
+                      <span class="tag">Aktivní</span>
+                      <span class="tag tag--warning">Čeká na platbu</span>
+                    </span>
+                  </div>
+                  <div class="trow trow--stacked">
+                    <span class="trow__label">Sjednáno</span>
+                    <span class="trow__value">Povinné ručení · Havarijní pojištění</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Číslo smlouvy</span>
+                    <span class="trow__value">123456789</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Platnost</span>
+                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Aktivní · po splatnosti -->
+              <article class="scard scard--dot" data-variant="po-splatnosti" hidden>
+                <button class="scard__head" type="button">
+                  <h2 class="scard__title">Pojištění</h2>
+                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                </button>
+                <div class="scard__body">
+                  <button class="iconlink" type="button">
+                    <svg aria-hidden="true"><use href="#ic-card" /></svg>Zelená karta
+                  </button>
+                  <div class="trow">
+                    <span class="trow__label">Stav</span>
+                    <span class="trow__tags">
+                      <span class="tag">Aktivní</span>
+                      <span class="tag tag--danger">Čeká na platbu</span>
+                    </span>
+                  </div>
+                  <div class="trow trow--stacked">
+                    <span class="trow__label">Sjednáno</span>
+                    <span class="trow__value">Povinné ručení · Havarijní pojištění</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Číslo smlouvy</span>
+                    <span class="trow__value">123456789</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Platnost</span>
+                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Pojištěno jinde -->
+              <article class="scard" data-variant="jinde" hidden>
+                <button class="scard__head" type="button">
+                  <h2 class="scard__title">Pojištění</h2>
+                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                </button>
+                <div class="scard__body">
+                  <div class="trow">
+                    <span class="trow__label">Stav</span>
+                    <span class="trow__tags"><span class="tag">Pojištěno jinde</span></span>
+                  </div>
+                  <div class="offerrow">
+                    <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
+                    <div>
+                      <p class="offerrow__title">Pojistné pojištění 16. 9. 2026</p>
+                      <p class="offerrow__text">
+                        Pošleme vám nabídku 60 dní před koncem, tedy kolem 16. 8. 2026
+                      </p>
+                    </div>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="linkbtn" type="button" data-open-sheet="pojisteni-jinde">
+                      Upravit datum
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Neuvedeno -->
+              <article class="scard" data-variant="neuvedeno" hidden>
+                <button class="scard__head" type="button">
+                  <h2 class="scard__title">Pojištění</h2>
+                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                </button>
+                <div class="scard__body">
+                  <div class="trow">
+                    <span class="trow__label">Stav</span>
+                    <span class="trow__tags"><span class="tag tag--neutral">Neuvedeno</span></span>
+                  </div>
+                  <div class="offerrow">
+                    <svg aria-hidden="true"><use href="#ic-info" /></svg>
+                    <div>
+                      <p class="offerrow__title">Povinné ručení od 4 909 Kč/rok</p>
+                      <p class="offerrow__text">
+                        Pojistíme si v nice sazbu, dlouhodobě odškodní vozidla
+                      </p>
+                    </div>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="linkbtn" type="button" data-open-sheet="pojisteni-jinde">
+                      Mám pojištění jinde
+                    </button>
+                    <button class="btn btn--secondary" type="button">Spočítat</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- help -->
+          <div class="dblock">
+            <div class="cardhead"><h2 class="cardhead__title">Potřebujete pomoc?</h2></div>
+
+            <div class="helpcard">
+              <span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <h3 class="helpcard__title">Asistenční linka (nonstop)</h3>
+              <a class="btn btn--lime" href="tel:291291291">
+                <svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291
+              </a>
+            </div>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+              <span class="arow__label">Objednat odtah</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <span class="arow__label">Nahlásit událost</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </div>
+        </section>
+        <!-- ===== Profil vozidla — Stav (Figma section 24676:61760) ===== -->
+        <section
+          class="screen"
+          id="screen-profil-stav"
+          data-screen="profil-stav"
+          data-tab-parent="muj-svet"
+          aria-labelledby="t-profil-stav"
+        >
+          <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+            <path
+              fill="url(#swoosh)"
+              d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+            />
+          </svg>
+
+          <div class="detailbar">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+            <div class="detailbar__col">
+              <p class="detailbar__title" id="t-profil-stav">Profil vozidla</p>
+              <p class="detailbar__sub">Volvo XC90</p>
+            </div>
+            <button
+              class="circlebtn"
+              type="button"
+              data-toggle-proto
+              aria-pressed="false"
+              aria-label="Přepínač stavů (prototyp)"
+            >
+              <svg aria-hidden="true"><use href="#ic-smiley" /></svg>
+            </button>
+          </div>
+
+          <nav class="segmented" aria-label="Sekce profilu">
+            <button type="button" data-goto="profil-auta">Shrnutí</button>
+            <button type="button" aria-current="true">Stav</button>
+            <button type="button">Hodnota</button>
+            <button type="button" data-goto="profil-technicke">Technické údaje</button>
+          </nav>
+
+          <div class="protobar" hidden>
+            <span class="protobar__label">Prototyp — stavy z Figmy</span>
+            <div class="protobar__row" data-vgroup="s-oil">
+              <span>Olej</span>
+              <button type="button" data-variant="full" aria-current="true">Vyplněno</button>
+              <button type="button" data-variant="empty">Neuvedeno</button>
+            </div>
+            <div class="protobar__row" data-vgroup="s-tyre">
+              <span>Pneu</span>
+              <button type="button" data-variant="full" aria-current="true">Vyplněno</button>
+              <button type="button" data-variant="empty">Neuvedeno</button>
+            </div>
+            <div class="protobar__row" data-vgroup="s-stk">
+              <span>STK</span>
+              <button type="button" data-variant="ok" aria-current="true">Vše OK</button>
+              <button type="button" data-variant="30">30 dní</button>
+            </div>
+            <div class="protobar__row" data-vgroup="s-hw">
+              <span>Známka</span>
+              <button type="button" data-variant="full" aria-current="true">2 známky</button>
+              <button type="button" data-variant="empty">Neuvedeno</button>
+            </div>
+          </div>
+
+          <!-- ===== Motorový olej ===== -->
+          <div class="vgroup" data-group="s-oil">
+            <div data-variant="full">
+              <article class="scard">
+                <div class="scard__head scard__head--static">
+                  <span class="scard__thumb"><img src="assets/svc-oil.png" alt="" /></span>
+                  <span class="scard__headcol">
+                    <h2 class="scard__title">Motorový olej</h2>
+                    <p class="scard__sub">Shell Helix HX7 · 5W-40</p>
+                  </span>
+                </div>
+                <div class="scard__body">
+                  <div class="trow">
+                    <span class="trow__label">Interval výměny</span>
+                    <span class="trow__value">15 000 km / 1 rok</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Poslední výměna</span>
+                    <span class="trow__value">9 300 km<small>11/2026</small></span>
+                  </div>
+                  <div>
+                    <div class="lifebar__head"><span>Životnost oleje</span><span>62 %</span></div>
+                    <div class="progress">
+                      <span class="progress__track"><span class="progress__fill" style="width: 62%"></span></span>
+                    </div>
+                    <p class="lifebar__note">Zbývá 5 700 km nebo 7 měsíců</p>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button">Zaznamenat výměnu</button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="oil-help">
+                Výměna motorového oleje
+              </button>
+            </div>
+
+            <div data-variant="empty" hidden>
+              <article class="scard">
+                <div class="scard__head scard__head--static">
+                  <span class="scard__thumb"><img src="assets/svc-oil.png" alt="" /></span>
+                  <span class="scard__headcol">
+                    <h2 class="scard__title">Motorový olej</h2>
+                    <p class="scard__sub">neuvedeno</p>
+                  </span>
+                </div>
+                <div class="scard__body">
+                  <div>
+                    <p class="emptybody__title">Zadejte typ a datum výměny</p>
+                    <p class="emptybody__text">Pohlídáme opotřebení i příští termín.</p>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button">Nastavit</button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="oil-help">
+                Výměna motorového oleje
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== Pneumatiky ===== -->
+          <div class="vgroup" data-group="s-tyre">
+            <div data-variant="full">
+              <article class="scard" style="margin-top: 24px">
+                <div class="scard__head scard__head--static">
+                  <span class="scard__thumb"><img src="assets/svc-tyre.png" alt="" /></span>
+                  <span class="scard__headcol"><h2 class="scard__title">Pneumatiky</h2></span>
+                </div>
+                <div class="scard__body">
+                  <p class="noterow__text" style="font-size: var(--fs-body2)">
+                    Na letní pneumatiky doporučujeme přezout po 1. 4. a na zimní od 1. 11.
+                  </p>
+                  <div class="pilltoggle" data-pilltoggle>
+                    <button type="button">Letní</button>
+                    <button type="button" aria-current="true">Zimní</button>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Disk</span>
+                    <span class="trow__value">7,5JM x 20 ET45</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Pneumatika</span>
+                    <span class="trow__value">245/50 R20 102V</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Koupeno</span>
+                    <span class="trow__value">11/2024</span>
+                  </div>
+                  <div class="trow">
+                    <span class="trow__label">Odhad nájezdu (km)</span>
+                    <span class="trow__value">27 500 km</span>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button">Upravit</button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="tyre-help">
+                Rozměry a péče o pneumatiky
+              </button>
+            </div>
+
+            <div data-variant="empty" hidden>
+              <article class="scard" style="margin-top: 24px">
+                <div class="scard__head scard__head--static">
+                  <span class="scard__thumb"><img src="assets/svc-tyre.png" alt="" /></span>
+                  <span class="scard__headcol"><h2 class="scard__title">Pneumatiky</h2></span>
+                </div>
+                <div class="scard__body">
+                  <div>
+                    <p class="emptybody__title">Nastavte pneumatiky</p>
+                    <p class="emptybody__text">Pohlídáme nájezd i termín přezutí.</p>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button">Nastavit</button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="tyre-help">
+                Rozměry a péče o pneumatiky
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== Nabídky ===== -->
+          <div class="dblock">
+            <div class="hscroll">
+              <div class="hscroll__track">
+                <article class="pbanner">
+                  <span class="pbanner__pic"><img src="assets/banner-servis.png" alt="" /></span>
+                  <span class="pbanner__body">
+                    <span>
+                      <span class="pbanner__title">Nechte vozidlo odborníkům</span>
+                      <span class="pbanner__text">Řešíte závadu a nebo chcete jenom dát miláčkovi péči?</span>
+                    </span>
+                    <button class="btn btn--lime-solid" type="button">Objednat servis</button>
+                  </span>
+                </article>
+
+                <article class="pbanner pbanner--lime">
+                  <span class="iconpill"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+                  <span class="pbanner__body">
+                    <span>
+                      <span class="pbanner__title">Není na čase si osedlat nového koně</span>
+                      <span class="pbanner__text"
+                        >Prohlédněte si nabídku a zbytek zařídíme za vás, včetně odkupu vozidla.</span
+                      >
+                    </span>
+                  </span>
+                  <span class="pbanner__foot">
+                    <button class="btn btn--primary" type="button">Prohlédnout</button>
+                    <button class="linkbtn" type="button">Jak funguje odkup</button>
+                  </span>
+                </article>
+              </div>
+            </div>
+            <div class="dots" aria-hidden="true"><i class="is-active"></i><i></i></div>
+          </div>
+
+          <!-- ===== Technická prohlídka ===== -->
+          <div class="vgroup" data-group="s-stk">
+            <div data-variant="ok">
+              <article class="scard">
+                <div class="scard__head scard__head--static">
+                  <span class="iconpill"><svg aria-hidden="true"><use href="#ic-card" /></svg></span>
+                  <span class="scard__headcol">
+                    <h2 class="scard__title">Technická prohlídka (STK)</h2>
+                  </span>
+                </div>
+                <div class="scard__body">
+                  <div class="trow">
+                    <span class="trow__label">Platná do</span>
+                    <span class="trow__value">26. 3. 2028<small>zbývá 753 dní</small></span>
+                  </div>
+                  <div class="noterow">
+                    <svg aria-hidden="true"><use href="#ic-info" /></svg>
+                    <div>
+                      <p class="noterow__title">Včas se vám připomeneme</p>
+                      <p class="noterow__text">Pohlídáme termín a ozveme se 30 dní předem.</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="stk-help">
+                Kde najdu nejbližší STK a co s sebou na STK?
+              </button>
+            </div>
+
+            <div data-variant="30" hidden>
+              <article class="scard">
+                <div class="scard__head scard__head--static">
+                  <span class="iconpill"><svg aria-hidden="true"><use href="#ic-card" /></svg></span>
+                  <span class="scard__headcol">
+                    <h2 class="scard__title">Technická prohlídka (STK)</h2>
+                  </span>
+                </div>
+                <div class="scard__body">
+                  <div class="trow">
+                    <span class="trow__label">Platná do</span>
+                    <span class="trow__value">26. 3. 2028<small>zbývá 30 dní</small></span>
+                  </div>
+                  <div class="noterow">
+                    <svg aria-hidden="true"><use href="#ic-info" /></svg>
+                    <div>
+                      <p class="noterow__title">Je na čase řešit kontrolu</p>
+                      <p class="noterow__text">
+                        Poslední měsíc do STK. Připravíme vozidlo, ať uspějete napoprvé.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button">Připravit vozidlo</button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="stk-help">
+                Kde najdu nejbližší STK a co s sebou na STK?
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== Dálniční známka ===== -->
+          <div class="vgroup" data-group="s-hw">
+            <div data-variant="full">
+              <article class="scard" style="margin-top: 24px">
+                <div class="scard__head scard__head--static">
+                  <span class="iconpill"><svg aria-hidden="true"><use href="#ic-card" /></svg></span>
+                  <span class="scard__headcol"><h2 class="scard__title">Dálniční známka</h2></span>
+                </div>
+                <div class="scard__body">
+                  <div class="flagrow">
+                    <span class="flagrow__flag"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#flag-cz" /></svg></span>
+                    <span class="flagrow__name">Česko</span>
+                    <span class="flagrow__col">Platí do 28. 6. 2027<small>Zbývá 270 dní</small></span>
+                    <button class="flagrow__edit" type="button" aria-label="Upravit">
+                      <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
+                    </button>
+                  </div>
+                  <div class="flagrow">
+                    <span class="flagrow__flag"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#flag-at" /></svg></span>
+                    <span class="flagrow__name">Rakousko</span>
+                    <span class="flagrow__col">Platí do 12. 10. 2026<small>Zbývá 20 dní</small></span>
+                    <button class="flagrow__edit" type="button" aria-label="Upravit">
+                      <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
+                    </button>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button" data-open-sheet="vignette">
+                      Přidat známku
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="vignette-help">
+                Kde koupit dálniční známku a kde se platí mýto
+              </button>
+            </div>
+
+            <div data-variant="empty" hidden>
+              <article class="scard" style="margin-top: 24px">
+                <div class="scard__head scard__head--static">
+                  <span class="iconpill"><svg aria-hidden="true"><use href="#ic-card" /></svg></span>
+                  <span class="scard__headcol"><h2 class="scard__title">Dálniční známka</h2></span>
+                </div>
+                <div class="scard__body">
+                  <div>
+                    <p class="emptybody__title">Zadejte platnost známky</p>
+                    <p class="emptybody__text">Pohlídáme termín konce platnosti.</p>
+                  </div>
+                  <div class="scard__foot">
+                    <button class="btn btn--secondary" type="button" data-open-sheet="vignette">
+                      Přidat známku
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <button class="helperlink" type="button" data-open-sheet="vignette-help">
+                Kde koupit dálniční známku a kde se platí mýto
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- ===== Profil vozidla — Technické údaje (Figma node 24676:61762) ===== -->
+        <section
+          class="screen"
+          id="screen-profil-technicke"
+          data-screen="profil-technicke"
+          data-tab-parent="muj-svet"
+          aria-labelledby="t-profil-tech"
+        >
+          <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
+            <path
+              fill="url(#swoosh)"
+              d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
+            />
+          </svg>
+
+          <div class="detailbar">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+            <div class="detailbar__col">
+              <p class="detailbar__title" id="t-profil-tech">Profil vozidla</p>
+              <p class="detailbar__sub">Volvo XC90</p>
+            </div>
+            <button
+              class="circlebtn"
+              type="button"
+              data-toggle-proto
+              aria-pressed="false"
+              aria-label="Přepínač stavů (prototyp)"
+            >
+              <svg aria-hidden="true"><use href="#ic-smiley" /></svg>
+            </button>
+          </div>
+
+          <nav class="segmented" aria-label="Sekce profilu">
+            <button type="button" data-goto="profil-auta">Shrnutí</button>
+            <button type="button" data-goto="profil-stav">Stav</button>
+            <button type="button">Hodnota</button>
+            <button type="button" aria-current="true">Technické údaje</button>
+          </nav>
+
+          <div class="protobar" hidden>
+            <span class="protobar__label">Prototyp — stavy z Figmy</span>
+            <div class="protobar__row" data-vgroup="t-ident">
+              <span>SPZ</span>
+              <button type="button" data-variant="default" aria-current="true">Výchozí</button>
+              <button type="button" data-variant="pending">Čeká na schválení</button>
+            </div>
+          </div>
+
+          <!-- Osoby -->
+          <div class="blockhead"><h1 class="blockhead__title">Osoby</h1></div>
+          <div class="datacard">
+            <div class="trow">
+              <span class="trow__label">Majitel</span>
+              <span class="trow__value">Franta Vomáčka</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Provozovatel</span>
+              <span class="trow__value">Leona Nováková</span>
+            </div>
+          </div>
+
+          <!-- Identifikace -->
+          <div class="blockhead"><h2 class="blockhead__title">Identifikace</h2></div>
+          <div class="vgroup" data-group="t-ident">
+            <div class="datacard" data-variant="default">
+              <div class="trow">
+                <span class="trow__label">Tovární značka</span>
+                <span class="trow__value">Volvo</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">Model</span>
+                <span class="trow__value">XC 90</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">SPZ</span>
+                <span class="trow__value trow__value--edit"
+                  >1AA 4490
+                  <button class="trow__edit" type="button" data-open-sheet="edit-spz" aria-label="Upravit SPZ">
+                    <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
+                  </button>
+                </span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">VIN kód</span>
+                <span class="trow__value">WP0ZZZ97ZHL121847</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">Technický průkaz č.:</span>
+                <span class="trow__value">UH143362</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">1. registrace</span>
+                <span class="trow__value">15. 3. 2018</span>
+              </div>
+            </div>
+
+            <div class="datacard" data-variant="pending" hidden>
+              <div class="trow">
+                <span class="trow__label">Tovární značka</span>
+                <span class="trow__value">Volvo</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">Model</span>
+                <span class="trow__value">XC 90</span>
+              </div>
+              <div class="trow trow--pending">
+                <span class="trow__label">SPZ</span>
+                <span class="trow__value trow__value--edit"
+                  >1AA 4490
+                  <button class="trow__edit" type="button" data-open-sheet="edit-spz" aria-label="Upravit SPZ">
+                    <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
+                  </button>
+                </span>
+              </div>
+              <p class="pendingnote">
+                <svg aria-hidden="true"><use href="#ic-clock" /></svg>
+                Vaše úprava čeká na schválení. Její posouzení obvykle trvá až 10 minut.
+              </p>
+              <div class="trow">
+                <span class="trow__label">VIN kód</span>
+                <span class="trow__value">WP0ZZZ97ZHL121847</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">Technický průkaz č.:</span>
+                <span class="trow__value">UH143362</span>
+              </div>
+              <div class="trow">
+                <span class="trow__label">1. registrace</span>
+                <span class="trow__value">15. 3. 2018</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vozidlo -->
+          <div class="blockhead"><h2 class="blockhead__title">Vozidlo</h2></div>
+          <div class="datacard">
+            <div class="trow">
+              <span class="trow__label">Karoserie</span>
+              <span class="trow__value">SUV</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Barva</span>
+              <span class="trow__value">Osmium Grey (met.)</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Počet míst</span>
+              <span class="trow__value">5</span>
+            </div>
+          </div>
+
+          <!-- Motor -->
+          <div class="blockhead"><h2 class="blockhead__title">Motor</h2></div>
+          <div class="datacard">
+            <div class="trow">
+              <span class="trow__label">Palivo</span>
+              <span class="trow__value">Benzín</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Objem</span>
+              <span class="trow__value">1 969 cm³</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Výkon</span>
+              <span class="trow__value">173 kW (235 PS)</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Emisní norma</span>
+              <span class="trow__value">Euro 6</span>
+            </div>
+          </div>
+
+          <!-- Přenos síly -->
+          <div class="blockhead"><h2 class="blockhead__title">Přenos síly</h2></div>
+          <div class="datacard">
+            <div class="trow">
+              <span class="trow__label">Převodovka</span>
+              <span class="trow__value">Automatická · 8 st.</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Pohon</span>
+              <span class="trow__value">AWD (4x4)</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav class="tabbar" aria-label="Hlavní navigace">
+        <div class="tabbar__menu">
+          <button class="tab" type="button" data-tab="domu">
+            <svg class="tab__icon" aria-hidden="true"><use href="#ic-home" /></svg>
+            <span class="tab__label">Domů</span>
+          </button>
+          <button class="tab" type="button" data-tab="muj-svet">
+            <svg class="tab__icon" aria-hidden="true"><use href="#ic-crown" /></svg>
+            <span class="tab__label">Můj svět</span>
+          </button>
+          <button class="tab" type="button" data-tab="pridat">
+            <svg class="tab__icon" aria-hidden="true"><use href="#ic-plus-circle" /></svg>
+            <span class="tab__label">Přidat</span>
+          </button>
+          <button class="tab" type="button" data-tab="pomoc">
+            <svg class="tab__icon" aria-hidden="true"><use href="#ic-buoy" /></svg>
+            <span class="tab__label">Pomoc</span>
+          </button>
+          <button class="tab" type="button" data-tab="vice">
+            <svg class="tab__icon" aria-hidden="true"><use href="#ic-menu" /></svg>
+            <span class="tab__label">Více</span>
+          </button>
+        </div>
+        <div class="home-indicator" aria-hidden="true"></div>
+      </nav>
+
+      <!-- AddProduct bottom sheet (Figma node 26480:143481) -->
+      <div class="sheet" id="sheet-add-vehicle" role="dialog" aria-modal="true" aria-labelledby="sheet-t">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title" id="sheet-t">Přidat vozidlo</h2>
+          <p class="sheet__sub">Vyberte si co potřebujete</p>
+
+          <button class="option" type="button">
+            <span class="option__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+            <span class="option__col">
+              <span class="option__title">Přidat vozidlo</span>
+              <span class="option__text"
+                >Vozidlo už vlastníte a chcete ho mít v appce — pojistíte ho třeba později</span
+              >
+            </span>
+            <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+
+          <button class="option" type="button">
+            <span class="option__icon option__icon--lime">
+              <svg aria-hidden="true"><use href="#ic-shield" /></svg>
+            </span>
+            <span class="option__col">
+              <span class="option__title">Sjednat pojištění</span>
+              <span class="option__text"
+                >Rovnou spočítáme cenu a uzavřeme pojistku na nové nebo existující vozidlo</span
+              >
+            </span>
+            <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- updateKm (Figma node 24470:43741) -->
+      <div class="sheet" id="sheet-update-km" role="dialog" aria-modal="true" aria-labelledby="sh-km">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__collapse" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-km">Aktualizace tachometru</h2>
+
+          <div class="stepper">
+            <button class="stepper__btn" type="button" data-step="-50" aria-label="Odebrat 50 km">
+              <svg aria-hidden="true"><use href="#ic-minus-circle" /></svg>
+            </button>
+            <div class="stepper__field">
+              <label for="km">Stav *</label>
+              <input id="km" type="text" value="47 280 km" data-km inputmode="numeric" />
+            </div>
+            <button class="stepper__btn" type="button" data-step="50" aria-label="Přidat 50 km">
+              <svg aria-hidden="true"><use href="#ic-plus-circle-lg" /></svg>
+            </button>
+          </div>
+          <p class="field__helper">Orientační rozptyl 50 km</p>
+
+          <div class="rewardbox">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__title">Odměna za pravidelnou aktualizaci</p>
+              <p class="rewardbox__text">
+                Získej až 120 Kč ročně za vyplňování stavu tachometru
+              </p>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="button" data-close-sheet>Uložit</button>
+        </div>
+      </div>
+
+      <!-- helperKm (Figma node 24121:23851) -->
+      <div class="sheet" id="sheet-helper-km" role="dialog" aria-modal="true" aria-labelledby="sh-hkm">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__collapse" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-hkm">
+            Proč je důležitá pravidelná aktualizace kilometrů?
+          </h2>
+          <ul class="bullets">
+            <li>Informujeme o stavu oleje a dalších komponent</li>
+            <li>Aktualizujeme výkupní hodnotu vozidla</li>
+            <li>Nemá to vliv na cenu pojistky</li>
+          </ul>
+          <div class="rewardbox rewardbox--lime">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__title">Odměna za pravidelnou aktualizaci</p>
+              <p class="rewardbox__text">
+                Při pravidelné aktualizaci od nás dostanete peníze, které můžete použít na investice
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Co s sebou na STK (Figma node 24459:42622) -->
+      <div class="sheet" id="sheet-stk" role="dialog" aria-modal="true" aria-labelledby="sh-stk">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__collapse" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+          <h2 class="sheet__title" id="sh-stk">Co s sebou na STK</h2>
+          <ul class="bullets">
+            <li>Techničák</li>
+            <li>Zelenou kartu</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mám pojištění jinde (Figma section 23851:65023) -->
+      <div class="sheet" id="sheet-pojisteni-jinde" role="dialog" aria-modal="true" aria-labelledby="sh-pj">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__collapse" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </button>
+          <h2 class="sheet__title" id="sh-pj">Mám pojištění jinde</h2>
+          <p class="sheet__sub">Mějte přehled o všech pojištěních na jednom místě</p>
+
+          <div class="field field--select">
+            <label for="pj-ins">Pojišťovna *</label>
+            <select id="pj-ins">
+              <option>Allianz pojišťovna, a.s.</option>
+              <option>Česká podnikatelská pojišťovna, a.s.</option>
+              <option>ČSOB Pojišťovna, a.s.</option>
+              <option>Generali Česká pojišťovna a.s.</option>
+              <option>Hasičská vzájemná pojišťovna, a.s.</option>
+              <option>Kooperativa pojišťovna, a.s.</option>
+              <option>Jiné</option>
+            </select>
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </div>
+
+          <div class="field">
+            <label for="pj-pay">Roční platba za pojištění</label>
+            <input id="pj-pay" type="text" inputmode="numeric" />
+          </div>
+          <p class="field__helper">Zadejte celou částku za rok</p>
+
+          <div class="field">
+            <label for="pj-date">Datum výročí smlouvy *</label>
+            <input id="pj-date" type="text" placeholder="16. 9. 2026" />
+            <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
+          </div>
+          <p class="field__helper">Datum výročí najdete i na vaší smlouvě</p>
+
+          <div class="rewardbox">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__title">Připravíme vám nabídku Direct pojistky</p>
+              <p class="rewardbox__text">
+                Připomeneme vám výročí smlouvy a pošleme ji 60 dní před výročím
+              </p>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="button" data-close-sheet>
+            Odeslat datum výročí
+          </button>
+        </div>
+      </div>
+      <!-- Výměna motorového oleje (helper) -->
+      <div class="sheet" id="sheet-oil-help" role="dialog" aria-modal="true" aria-labelledby="sh-oil">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-oil">Výměna motorového oleje</h2>
+          <p class="sheet__lead">
+            Motorový olej se mění podle servisního intervalu výrobce – vždy platí to, co nastane
+            dřív: po určitém počtu kilometrů nebo po uplynutí času.
+          </p>
+          <p class="sheet__lead">
+            U většiny osobních vozidel se doporučuje výměna <b>každých 10 000–15 000 km nebo jednou
+            ročně</b>, i když výrobce může u některých vozů povolovat delší (Long Life) intervaly.
+            Pokud jezdíte převážně krátké trasy, po městě nebo v náročných podmínkách, je vhodné
+            olej měnit častěji.
+          </p>
+          <h3 class="sheet__h3">Jak zjistit správný typ oleje?</h3>
+          <p class="sheet__lead">
+            Doporučenou specifikaci a viskozitu (např. 5W-30, 0W-20) najdete:
+          </p>
+          <ul class="bullets bullets--tight">
+            <li>v návodu k obsluze vozidla,</li>
+            <li>v servisní knížce,</li>
+            <li>na štítku v motorovém prostoru (u některých vozidel),</li>
+            <li>nebo podle VIN v autorizovaném servisu či online katalogu výrobce.</li>
+          </ul>
+          <div class="rewardbox">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__text">
+                Při každé výměně motorového oleje se doporučuje současně vyměnit také olejový filtr,
+                aby byla zajištěna správná ochrana motoru.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rozměry a péče o pneumatiky (helper) -->
+      <div class="sheet" id="sheet-tyre-help" role="dialog" aria-modal="true" aria-labelledby="sh-tyre">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title" id="sh-tyre">Pneumatiky</h2>
+          <p class="sheet__lead">
+            Pneumatiku vyměňte při prasklinách, boulích, nerovnoměrném opotřebení nebo při
+            nedostatečném dezénu. Zákonné minimum: 1,6 mm (letní), 4 mm (zimní).
+          </p>
+          <p class="sheet__lead">Používejte jen rozměry schválené výrobcem.</p>
+
+          <div class="pilltoggle" data-pilltoggle style="margin-bottom: 16px">
+            <button type="button">Letní</button>
+            <button type="button" aria-current="true">Zimní</button>
+          </div>
+
+          <table class="sizetable">
+            <thead>
+              <tr><th>Disk</th><th>Pneumatika</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>7,5J x 18 ET45</td><td>255/60 R18 104H</td></tr>
+              <tr><td>7,5JM x 20 ET45</td><td>245/50 R20 102V</td></tr>
+              <tr><td>7,5J x 20 ET45</td><td>255/50 R20 102V</td></tr>
+            </tbody>
+          </table>
+
+          <p class="field__helper">
+            Značení (např. 205/55 R16 91V) udává rozměry i nosnost. Stáří poznáte podle kódu DOT —
+            2424 = 24. týden 2024.
+          </p>
+        </div>
+      </div>
+
+      <!-- Kde najdu nejbližší STK (helper) -->
+      <div class="sheet" id="sheet-stk-help" role="dialog" aria-modal="true" aria-labelledby="sh-stkh">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-stkh">
+            Kde najdu nejbližší STK a co s sebou na STK?
+          </h2>
+          <p class="sheet__lead">
+            V případě, že vás čeká pravidelná technická kontrola, neměli byste doma zapomenout:
+          </p>
+          <ul class="bullets bullets--tight">
+            <li>
+              <b>Velký technický průkaz</b> (od 1. 1. 2024 již není povinnost velký technický průkaz
+              předkládat, ale doporučujeme jej mít s sebou pro doplnění údajů neuložených v registru
+              vozidel, např. alternativní rozměry pneu, tažné zařízení atd.)
+            </li>
+            <li><b>Osvědčení o registraci vozidla</b> (malý technický průkaz)</li>
+            <li>
+              <b>Osvědčení o protokolu o emisní kontrole</b> (typicky se měření emisí dělá ve stejný
+              den na stejném místě, pak tento protokol dostanete na místě).
+            </li>
+            <li>
+              <b>Protokol o předchozí kontrole</b> (pokud už jste někdy na STK byli a jedná se o
+              opakovanou kontrolu).
+            </li>
+          </ul>
+          <div class="rewardbox rewardbox--lime">
+            <svg aria-hidden="true"><use href="#ic-pin" /></svg>
+            <div>
+              <p class="rewardbox__title">Seznam STK podle krajů</p>
+              <p class="rewardbox__text">
+                Najděte si nejbližší stanici technické kontroly ve vašem kraji podle seznamu
+                ministerstva dopravy.
+              </p>
+            </div>
+          </div>
+          <button class="btn btn--primary btn--block" type="button">
+            <svg style="width: 16px; height: 16px" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            Zobrazit seznam v prohlížeči
+          </button>
+        </div>
+      </div>
+
+      <!-- Přidat známku (form) -->
+      <div class="sheet" id="sheet-vignette" role="dialog" aria-modal="true" aria-labelledby="sh-vig">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title" id="sh-vig">Přidat známku</h2>
+
+          <span class="fieldgroup__label">Země</span>
+          <div class="field field--select">
+            <label for="vg-country">Země *</label>
+            <select id="vg-country">
+              <option>Česko</option>
+              <option>Rakousko</option>
+              <option>Slovensko</option>
+              <option>Slovinsko</option>
+              <option>Maďarsko</option>
+            </select>
+            <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+          </div>
+
+          <span class="fieldgroup__label">Platnost</span>
+          <div class="field">
+            <label for="vg-from">Od kdy *</label>
+            <input id="vg-from" type="text" />
+            <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
+          </div>
+          <div class="field">
+            <label for="vg-to">Do kdy *</label>
+            <input id="vg-to" type="text" />
+            <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
+          </div>
+
+          <div class="rewardbox" style="margin-top: 16px">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__text">
+                Datum konce platnosti najdete na dokladu o koupi nebo v e-shopu, kde jste známku
+                kupovali.
+              </p>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="button" data-close-sheet>
+            Uložit známku
+          </button>
+        </div>
+      </div>
+
+      <!-- Kde koupit dálniční známku (helper) -->
+      <div class="sheet" id="sheet-vignette-help" role="dialog" aria-modal="true" aria-labelledby="sh-vgh">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-vgh">
+            Kde koupit dálniční známku a kde se platí mýto
+          </h2>
+          <ul class="bullets bullets--tight">
+            <li>Elektronickou známku koupíte na edalnice.cz nebo na pobočkách České pošty.</li>
+            <li>Známka je navázaná na SPZ, nic se nelepí na sklo.</li>
+            <li>Mýto se v Česku platí jen u vozidel nad 3,5 t.</li>
+            <li>V zahraničí si ověřte pravidla pro danou zemi — někde se platí mýto za úsek.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Základní údaje o vozidle — úprava SPZ (Figma node 24694:62981) -->
+      <div class="sheet" id="sheet-edit-spz" role="dialog" aria-modal="true" aria-labelledby="sh-spz">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel">
+          <div class="sheet__grabber"></div>
+          <button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít">
+            <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
+          </button>
+          <h2 class="sheet__title sheet__title--wide" id="sh-spz">Základní údaje o vozidle</h2>
+
+          <div class="field">
+            <label for="spz">SPZ *</label>
+            <input id="spz" type="text" value="1AA4490" />
+          </div>
+          <p class="field__helper">Změna se projeví i na pojistné smlouvě</p>
+
+          <div class="rewardbox">
+            <svg aria-hidden="true"><use href="#ic-info" /></svg>
+            <div>
+              <p class="rewardbox__text">
+                Potřebujete provést jiné úpravy? <b>Napište nám</b> a rádi vám pomůžeme
+              </p>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="button" data-close-sheet>Odeslat</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

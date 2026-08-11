@@ -1,0 +1,280 @@
+/* App shell + bottom tab bar. Built from Figma node 26480:143315 ("bottom bar"). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--content-primary);
+  background: var(--grey-50);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Phone frame ----------
+   Desktop: fixed 393px device frame. Phone: full bleed. */
+
+.phone {
+  position: relative;
+  width: var(--frame-w);
+  height: 852px;
+  max-height: 100dvh;
+  background: var(--surface-app);
+  overflow: hidden;
+  border-radius: 40px;
+  box-shadow: 0 24px 60px rgba(0, 64, 51, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 480px), (pointer: coarse) {
+  body {
+    background: var(--surface-app);
+  }
+  .phone {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ---------- iOS status bar ---------- */
+
+.statusbar {
+  flex: 0 0 auto;
+  height: 54px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  color: var(--content-primary);
+  background: transparent;
+}
+
+.statusbar__icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.9;
+}
+
+/* ---------- Screens ---------- */
+
+.screens {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--sp-16) calc(var(--tabbar-h) + var(--sp-16));
+  display: none;
+}
+
+.screen.is-active {
+  display: block;
+  animation: screen-in 180ms ease-out;
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Bottom tab bar ---------- */
+
+.tabbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--tabbar-h);
+  padding: 0 var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tabbar__menu {
+  pointer-events: auto;
+  width: 100%;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  background: var(--surface);
+  border: 1px solid var(--outline-hairline);
+  border-radius: var(--r-20);
+  filter: drop-shadow(var(--shadow-menu));
+}
+
+.tab {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 100%;
+  padding: 7px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: var(--r-12);
+  background: transparent;
+  color: var(--content-secondary);
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.tab__icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.tab__label {
+  font-size: var(--fs-body3);
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.24px;
+  white-space: nowrap;
+}
+
+.tab[aria-current="page"] {
+  background: var(--content-primary);
+  color: var(--content-on-dark);
+}
+
+@media (hover: hover) {
+  .tab:not([aria-current="page"]):hover {
+    background: var(--grey-25);
+  }
+}
+
+.tab:active {
+  transform: scale(0.97);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--dark-green-700);
+  outline-offset: 2px;
+}
+
+/* iOS home indicator */
+.home-indicator {
+  pointer-events: none;
+  width: 345px;
+  max-width: 100%;
+  height: 24px;
+  position: relative;
+}
+
+.home-indicator::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: #000;
+}
+
+/* ---------- Placeholder screen content ---------- */
+
+.page-title {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: 0.24px;
+  margin: var(--sp-24) 0 var(--sp-8);
+}
+
+.page-sub {
+  font-size: var(--fs-body1);
+  line-height: 130%;
+  color: var(--content-secondary);
+  margin: 0 0 var(--sp-24);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--r-16);
+  padding: var(--sp-16);
+  margin-bottom: var(--sp-16);
+  box-shadow: var(--shadow-card);
+}
+
+.card__title {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  margin: 0 0 var(--sp-4);
+}
+
+.card__text {
+  font-size: var(--fs-body2);
+  line-height: 120%;
+  color: var(--helper);
+  margin: 0;
+}
+
+.card--car {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card--car img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card--car .card__body {
+  padding: var(--sp-16);
+}
+
+/* jen pro screen readery — obrazovka Více nemá v designu viditelný nadpis */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

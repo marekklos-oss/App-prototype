@@ -1,0 +1,2813 @@
+/* Direct DS components used across screens.
+   Anatomy + tokens taken from Figma DSCard (node 26480:143338) and siblings. */
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 var(--sp-16);
+  border-radius: var(--sp-16);
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn--secondary {
+  background: var(--green-50);
+  border-color: var(--green-600);
+  color: var(--green-900);
+}
+
+.btn--secondary:active {
+  background: var(--green-100);
+}
+
+.btn--warning {
+  background: var(--warning-100);
+  border-color: var(--warning-700);
+  color: var(--warning-900);
+}
+
+/* Icon-only pill (the round chevron button on every card header) */
+.btn--icon {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.btn--icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* red notification dot */
+.btn--dot::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--error-600);
+}
+
+/* ---------- Tag ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: var(--fs-body3);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  line-height: 18px;
+  background: var(--green-500);
+  color: var(--green-900);
+  align-self: flex-start;
+}
+
+.tag--muted {
+  background: var(--dark-green-25);
+  color: var(--dark-green-800);
+}
+
+.tag--warning {
+  background: var(--warning-300);
+  color: var(--warning-900);
+}
+
+/* ---------- Section header ---------- */
+
+.section {
+  padding-top: var(--sp-24);
+}
+
+.section + .section {
+  border-top: 1px solid var(--dark-green-25);
+  margin-top: var(--sp-24);
+}
+
+.section__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: var(--content-primary);
+  margin: 0 0 var(--sp-16);
+}
+
+/* ---------- Product group card (outer DSCard) ---------- */
+
+.pcard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-8);
+  border: 1px solid var(--green-200);
+  border-radius: var(--r-28);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(196, 222, 0, 0.3) 50%
+  );
+  box-shadow: var(--shadow-app);
+  margin-bottom: var(--sp-24);
+}
+
+/* not-insured / incomplete state — mint tint instead of lime */
+.pcard--neutral {
+  border-color: var(--grey-50);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 128, 102, 0.12) 50%
+  );
+}
+
+/* awaiting payment / attention state */
+.pcard--warning {
+  border-color: var(--warning-400);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 185, 86, 0.28) 50%
+  );
+}
+
+.pcard--warning .panel__label,
+.pcard--warning .iconlabel__label {
+  color: var(--warning-800);
+}
+
+.pcard--warning .panel__subtitle {
+  color: var(--warning-800);
+}
+
+/* ---------- Panel (white DSCard inside a group) ---------- */
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  border-radius: var(--r-20);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  position: relative;
+  z-index: 1;
+}
+
+.panel__label {
+  font-size: var(--fs-body3);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.24px;
+  color: var(--helper);
+}
+
+.panel__media {
+  position: absolute;
+  right: -18px;
+  bottom: -15px;
+  width: 170px;
+  height: 100px;
+  pointer-events: none;
+}
+
+/* Panel that also holds a sub-card below the name: anchor the image to the
+   profile block instead of the bottom of the whole panel.
+   Same offset as a profile-only panel: 8+32+8+80+8 = 136 tall, image bottom −15
+   → top = 136 + 15 − 100 = 51 */
+.panel__media--profile {
+  top: 51px;
+  bottom: auto;
+}
+
+.panel__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.panel__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  width: 170px;
+  min-height: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.panel__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0.2px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.panel__subtitle {
+  font-size: var(--fs-body1);
+  line-height: 20.8px;
+  letter-spacing: 0.32px;
+  color: var(--green-800);
+  margin: 0;
+}
+
+/* ---------- Sub-card (bordered box inside a panel) ---------- */
+
+.subcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+  padding: var(--sp-16) var(--sp-8);
+  border: 1px solid var(--green-200);
+  border-radius: var(--r-12);
+  background: var(--surface);
+}
+
+.pcard--neutral .subcard {
+  border-color: var(--dark-green-25);
+}
+
+.pcard--warning .subcard {
+  border-color: var(--warning-300);
+}
+
+.iconlabel {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.iconlabel__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.iconlabel__label {
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  line-height: 14.4px;
+  letter-spacing: 0.24px;
+  color: var(--green-800);
+  margin: 0;
+}
+
+.iconlabel__value {
+  font-size: var(--fs-body1);
+  line-height: 1.3;
+  letter-spacing: 0.32px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+/* ---------- Promo / "add a product" card ---------- */
+
+.promo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-16);
+  border: 0;
+  border-radius: var(--r-28);
+  background: var(--green-200);
+  color: var(--content-primary);
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  margin-bottom: var(--sp-8);
+}
+
+.promo:active {
+  background: var(--green-300);
+}
+
+.promo__col {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.promo__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--dark-green-900);
+  color: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.promo__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.promo__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+.promo__text {
+  font-size: var(--fs-body1);
+  line-height: 130%;
+  letter-spacing: 0.32px;
+  color: var(--green-700);
+  margin: 0;
+}
+
+.promo__chevron {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: var(--content-primary);
+}
+
+/* ---------- Investment card bits ---------- */
+
+.pcard--flat {
+  gap: var(--sp-16);
+  padding: var(--sp-16);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(196, 222, 0, 0.22) 100%
+  );
+}
+
+.rowline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-16);
+}
+
+.rowline__label {
+  font-size: var(--fs-body1);
+  color: var(--green-800);
+}
+
+.rowline__value {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  color: var(--content-primary);
+  text-align: right;
+}
+
+.rowline__delta {
+  display: block;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+}
+
+.hr {
+  height: 1px;
+  background: var(--green-300);
+  border: 0;
+  margin: 0;
+}
+
+.infobox {
+  display: flex;
+  gap: var(--sp-8);
+  align-items: flex-start;
+  font-size: var(--fs-body3);
+  line-height: 1.4;
+  color: var(--green-800);
+}
+
+.infobox svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--grey-500);
+}
+
+.actions-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---------- Hero / top toolbar ---------- */
+
+.hero {
+  position: relative;
+  padding: var(--sp-8) 0 var(--sp-16);
+}
+
+.hero__deco {
+  position: absolute;
+  top: -140px;
+  right: -120px;
+  width: 330px;
+  height: 358px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__car {
+  position: absolute;
+  top: 24px;
+  right: -28px;
+  width: 210px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--sp-16);
+  position: relative;
+  z-index: 2;
+}
+
+.pillnav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 4px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--dark-green-25);
+  backdrop-filter: blur(6px);
+}
+
+.pillnav button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pillnav button:active {
+  background: var(--grey-25);
+}
+
+.pillnav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero__title {
+  position: relative;
+  z-index: 1;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.32px;
+  margin: 0 0 var(--sp-4);
+}
+
+.hero__sub {
+  position: relative;
+  z-index: 1;
+  font-size: var(--fs-body2);
+  line-height: 120%;
+  letter-spacing: 0.28px;
+  color: var(--content-secondary);
+  margin: 0 0 var(--sp-16);
+}
+
+.hero__sub b {
+  font-weight: 600;
+}
+
+.hero__actions {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Block header (section title + optional lead) ---------- */
+
+.blockhead {
+  margin: 0 0 var(--sp-16);
+}
+
+.blockhead__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.blockhead__lead {
+  font-size: var(--fs-body2);
+  line-height: 120%;
+  letter-spacing: 0.28px;
+  color: var(--green-700);
+  margin: var(--sp-8) 0 0;
+}
+
+/* ---------- Horizontal scroller ----------
+   Bleeds past the 16px screen gutter so cards run off the right edge. */
+
+.hscroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 calc(-1 * var(--sp-16));
+  padding: 0 0 var(--sp-8);
+  scroll-snap-type: x proximity;
+  scroll-padding-left: var(--sp-16);
+  scrollbar-width: none;
+}
+
+.hscroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hscroll__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  column-gap: 6px;
+  width: max-content;
+  /* the gutter lives on the scrolled track, not on the scroll box — that way
+     both the leading and the trailing 16px actually render */
+  padding: 0 var(--sp-16);
+}
+
+.hscroll__track--rows2 {
+  grid-template-rows: auto auto;
+  row-gap: 12px;
+}
+
+.hscroll__track > * {
+  scroll-snap-align: start;
+}
+
+/* ---------- Tile (the wide product-teaser card) ---------- */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  width: 352px;
+  max-width: 88vw;
+  padding: var(--sp-16);
+  border: 0;
+  border-radius: var(--r-20);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.tile__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.tile__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tile__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 120%;
+  margin: 0;
+}
+
+.tile__chevron {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.tile__text {
+  font-size: var(--fs-body2);
+  line-height: 130%;
+  margin: 0;
+}
+
+/* dark green scheme — "Direct pojišťovna" block */
+.tile--dark {
+  background-image: linear-gradient(227deg, #005544 0%, #004033 100%);
+  color: var(--green-50);
+}
+
+.tile--dark .tile__icon {
+  background: var(--green-500);
+  color: var(--green-900);
+}
+
+.tile--dark .tile__title {
+  color: var(--green-500);
+}
+
+.tile--dark .tile__text {
+  color: var(--green-200);
+}
+
+.tile--dark:active {
+  background-image: linear-gradient(227deg, #006b55 0%, #005544 100%);
+}
+
+/* light scheme — "Direct Fondee" block */
+.tile--light {
+  background: var(--surface);
+  border: 1px solid var(--grey-50);
+  color: var(--content-primary);
+}
+
+.tile--light .tile__icon {
+  background: var(--dark-green-900);
+  color: var(--green-50);
+}
+
+.tile--light .tile__text {
+  color: var(--green-700);
+}
+
+.tile--light:active {
+  background: var(--green-50);
+}
+
+/* ---------- Car card (Direct auto carousel) ---------- */
+
+.ccard {
+  display: flex;
+  flex-direction: column;
+  width: 173px;
+  padding: 4px;
+  border: 1px solid var(--grey-50);
+  border-radius: var(--r-16);
+  background: var(--surface);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ccard__thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 165 / 118;
+  border-radius: var(--r-12);
+  overflow: hidden;
+  background: var(--grey-25);
+}
+
+.ccard__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ccard__body {
+  padding: var(--sp-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+  flex: 1 1 auto;
+}
+
+.ccard__title {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  line-height: 120%;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.ccard__specs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  margin-top: auto;
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-800);
+}
+
+.spec svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--dark-green-900);
+}
+
+.ccard__price {
+  display: block;
+  text-align: right;
+}
+
+.ccard__price b {
+  display: block;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  color: var(--content-primary);
+}
+
+.ccard__price s {
+  font-size: var(--fs-body3);
+  color: var(--green-600);
+}
+
+/* "Zobrazit vše" tail card */
+.ccard--all {
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-16);
+  background: var(--green-200);
+  border-color: var(--green-200);
+  padding: var(--sp-16);
+}
+
+.ccard--all .circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ccard--all .circle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ccard--all span {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  color: var(--content-primary);
+}
+
+/* ================= Dashboard ================= */
+
+/* ---------- Card header (block title + optional "see all" chevron) ---------- */
+
+.cardhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  color: var(--content-primary);
+  cursor: pointer;
+  margin-bottom: var(--sp-16);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cardhead__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+.cardhead svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* dashboard blocks are separated by a hairline, not by the .section rule */
+.dblock {
+  padding-top: var(--sp-24);
+}
+
+.dblock + .dblock {
+  border-top: 1px solid var(--dark-green-25);
+  margin-top: var(--sp-24);
+}
+
+/* ---------- Carousel dots ---------- */
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-8);
+  padding: var(--sp-16) 0;
+}
+
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-500);
+}
+
+.dots i.is-active {
+  background: var(--dark-green-900);
+}
+
+/* ---------- Dashboard product card (carousel slide) ---------- */
+
+.dpcard {
+  width: 343px;
+  max-width: 86vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-8);
+  border: 1px solid var(--green-500);
+  border-radius: var(--r-28);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(196, 222, 0, 0.22) 100%
+  );
+  box-shadow: var(--shadow-app);
+}
+
+/* product row: image left, name right */
+.dprod {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  border-radius: var(--r-20);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.dprod__media {
+  width: 104px;
+  height: 88px;
+  flex: 0 0 auto;
+  margin: -8px 0 -8px -8px;
+}
+
+.dprod__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dprod__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dprod__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0.2px;
+  margin: 0 0 var(--sp-4);
+}
+
+.dprod__sub {
+  font-size: var(--fs-body1);
+  line-height: 20.8px;
+  color: var(--green-800);
+  margin: 0;
+}
+
+/* insurance row inside the slide */
+.dins {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+  padding: var(--sp-12);
+  border-radius: var(--r-20);
+  background: var(--surface);
+}
+
+.dins__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+}
+
+.dins__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  font-size: var(--fs-body2);
+  color: var(--green-800);
+}
+
+.dins__row b {
+  font-weight: 500;
+  color: var(--content-primary);
+}
+
+.dpay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  padding: var(--sp-8) var(--sp-8) var(--sp-8) var(--sp-12);
+  border: 1px solid var(--green-200);
+  border-radius: var(--r-12);
+}
+
+.dpay__amount {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.dpay__note {
+  font-size: var(--fs-body3);
+  color: var(--helper);
+  margin: 2px 0 0;
+}
+
+.btn--primary {
+  background: var(--dark-green-900);
+  border-color: var(--dark-green-900);
+  color: var(--green-50);
+}
+
+.btn--primary:active {
+  background: var(--dark-green-800);
+}
+
+/* ---------- Offer banner ---------- */
+
+.banner {
+  display: flex;
+  align-items: stretch;
+  width: 343px;
+  max-width: 86vw;
+  min-height: 150px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--dark-green-25);
+  border-radius: var(--r-20);
+  background: var(--surface);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.banner__pic {
+  width: 124px;
+  flex: 0 0 auto;
+}
+
+.banner__pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.banner__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--sp-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+.banner__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 120%;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.banner__text {
+  font-size: var(--fs-body3);
+  line-height: 130%;
+  color: var(--green-800);
+  margin: 0;
+}
+
+/* ---------- Rewards / investment card ---------- */
+
+.rcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+  padding: var(--sp-16);
+  border: 1px solid var(--green-500);
+  border-radius: var(--r-28);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(196, 222, 0, 0.18) 100%
+  );
+  box-shadow: var(--shadow-app);
+}
+
+.rcard__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.rcard__text {
+  font-size: var(--fs-body2);
+  line-height: 130%;
+  color: var(--green-800);
+  margin: 0;
+}
+
+.rcard__sub {
+  font-size: var(--fs-h5);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.rcard__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  flex-wrap: wrap;
+}
+
+.linkbtn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  letter-spacing: 0.28px;
+  color: var(--content-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hr--strong {
+  background: var(--dark-green-700);
+}
+
+/* ---------- Help block ---------- */
+
+.helpcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border-radius: var(--r-20);
+  background-image: linear-gradient(227deg, #005544 0%, #004033 100%);
+  color: var(--green-50);
+  margin-bottom: var(--sp-8);
+}
+
+.helpcard__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--green-500);
+  color: var(--green-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-8);
+}
+
+.helpcard__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.helpcard__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  color: var(--green-500);
+  margin: 0;
+}
+
+.helpcard__text {
+  font-size: var(--fs-body2);
+  line-height: 130%;
+  color: var(--green-200);
+  margin: 0 0 var(--sp-8);
+}
+
+.btn--lime {
+  height: 40px;
+  align-self: flex-start;
+  background: var(--green-500);
+  border-color: var(--green-500);
+  color: var(--green-900);
+  border-radius: 20px;
+  gap: var(--sp-8);
+}
+
+.btn--lime svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* single-line action rows */
+.arow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--sp-8) var(--sp-16);
+  margin-bottom: var(--sp-8);
+  border: 1px solid transparent;
+  border-radius: var(--r-20);
+  background: var(--green-200);
+  color: var(--content-primary);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.arow--outline {
+  background: var(--surface);
+  border-color: var(--dark-green-25);
+}
+
+.arow:active {
+  filter: brightness(0.97);
+}
+
+.arow__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dark-green-900);
+  color: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.arow__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.arow__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--fs-body1);
+  font-weight: 500;
+}
+
+.arow > svg:last-child {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* ---------- Detail-screen top bar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  padding: var(--sp-8) 0 var(--sp-16);
+}
+
+.topbar__back {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--dark-green-25);
+  background: var(--surface);
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.topbar__back svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(180deg);
+}
+
+.topbar__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+/* anything wired to open another screen */
+[data-goto] {
+  cursor: pointer;
+}
+
+/* ================= Car profile (carSummary) ================= */
+
+/* ---------- Detail bar: back · centered title · action ---------- */
+
+.detailbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  padding: var(--sp-8) 0 var(--sp-16);
+}
+
+.circlebtn {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--dark-green-25);
+  background: var(--surface);
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.circlebtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.circlebtn--back svg {
+  transform: rotate(180deg);
+}
+
+.circlebtn[aria-pressed="true"] {
+  background: var(--dark-green-900);
+  border-color: var(--dark-green-900);
+  color: var(--green-50);
+}
+
+.detailbar__col {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+}
+
+.detailbar__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 120%;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.detailbar__sub {
+  font-size: var(--fs-body2);
+  line-height: 120%;
+  color: var(--content-secondary);
+  margin: 2px 0 0;
+}
+
+/* ---------- Segmented control (Dynamic section) ---------- */
+
+.segmented {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 calc(-1 * var(--sp-16)) var(--sp-16);
+  padding: 0 var(--sp-16) var(--sp-8);
+}
+
+.segmented::-webkit-scrollbar {
+  display: none;
+}
+
+.segmented button {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  color: var(--content-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.segmented button[aria-current="true"] {
+  padding: var(--sp-12) var(--sp-24);
+  border-radius: 24px;
+  background: var(--dark-green-900);
+  color: var(--green-50);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ---------- Car hero ---------- */
+
+.carhero {
+  position: relative;
+  padding: var(--sp-8) 0 0;
+}
+
+.carhero__title {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.24px;
+  color: var(--content-primary);
+  margin: var(--sp-16) 0 var(--sp-4);
+}
+
+.carhero__plate {
+  font-size: var(--fs-body1);
+  color: var(--green-800);
+  margin: 0;
+}
+
+.carhero__img {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  margin: -12px auto 0;
+}
+
+/* ---------- Info card carousel (alerts / offers) ---------- */
+
+.icard {
+  position: relative;
+  width: 310px;
+  max-width: 82vw;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border-radius: var(--r-20);
+  background-image: linear-gradient(180deg, #eaf3a3 0%, #e1ed80 100%);
+  color: var(--content-primary);
+}
+
+.icard--plain {
+  background-image: none;
+  background: var(--surface);
+  border: 1px solid var(--green-200);
+}
+
+.icard__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+}
+
+.icard__head > svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  color: var(--content-primary);
+}
+
+.icard__col {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.icard__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 120%;
+  margin: 0 0 var(--sp-4);
+}
+
+.icard__text {
+  font-size: var(--fs-body2);
+  line-height: 130%;
+  color: var(--green-700);
+  margin: 0;
+}
+
+.icard__close {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--content-primary);
+  cursor: pointer;
+  padding: 0;
+}
+
+.icard__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icard .btn {
+  align-self: flex-end;
+}
+
+/* ---------- Stat card (odometer / buy-back value) ---------- */
+
+.statcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border-radius: var(--r-28);
+  background-image: linear-gradient(63deg, #c4de00 0%, #e1ff00 100%);
+  color: var(--green-900);
+  box-shadow: var(--shadow-app);
+}
+
+.statcard--dark {
+  background-image: linear-gradient(227deg, #005544 0%, #004033 100%);
+  color: var(--green-50);
+}
+
+.statcard__label {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  margin: 0 0 var(--sp-8);
+}
+
+.statcard__value {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.24px;
+  margin: 0;
+}
+
+.statcard__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  margin: 0;
+}
+
+.statcard__meta svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.statcard__foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--sp-8);
+}
+
+.btn--white {
+  height: 40px;
+  border-radius: 20px;
+  background: var(--surface);
+  border-color: var(--surface);
+  color: var(--green-900);
+  gap: var(--sp-8);
+}
+
+.btn--white svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn--ghost-light {
+  height: 40px;
+  border-radius: 20px;
+  background: var(--green-50);
+  border-color: var(--green-50);
+  color: var(--green-900);
+  gap: var(--sp-8);
+}
+
+.btn--ghost-light svg {
+  width: 16px;
+  height: 16px;
+}
+
+.helperlink {
+  display: inline-block;
+  margin: var(--sp-12) 0 0;
+  font-size: var(--fs-body3);
+  color: var(--green-700);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Section card (mint header + body rows) ---------- */
+
+.scard {
+  border: 1px solid var(--dark-green-25);
+  border-radius: var(--r-28);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-app);
+  margin-bottom: var(--sp-16);
+}
+
+.scard__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  width: 100%;
+  padding: var(--sp-16);
+  border: 0;
+  border-radius: var(--r-28);
+  background-image: linear-gradient(180deg, #a7decb 0%, #c9e8dd 100%);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scard__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.scard__head .circlebtn {
+  width: 32px;
+  height: 32px;
+  border-color: transparent;
+}
+
+.scard__head .circlebtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.scard__body {
+  padding: var(--sp-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+/* service item row */
+.svcrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+}
+
+.svcrow__img {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+}
+
+.svcrow__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.svcrow__col {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.svcrow__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0 0 2px;
+}
+
+.svcrow__sub {
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+  margin: 0;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  margin-top: var(--sp-8);
+}
+
+.progress__track {
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--dark-green-50);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--dark-green-900);
+}
+
+.progress__pct {
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-800);
+  flex: 0 0 auto;
+}
+
+/* table rows */
+.trow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  padding-bottom: var(--sp-16);
+  border-bottom: 1px solid var(--dark-green-25);
+  font-size: var(--fs-body1);
+}
+
+.trow:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.trow__label {
+  color: var(--content-primary);
+}
+
+.trow__value {
+  color: var(--content-primary);
+  text-align: right;
+}
+
+.trow__tags {
+  display: flex;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.trow--stacked {
+  display: block;
+}
+
+.trow--stacked .trow__label {
+  display: block;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+  margin-bottom: 2px;
+}
+
+.tag--outline {
+  background: transparent;
+  border: 1px solid var(--dark-green-900);
+  color: var(--content-primary);
+}
+
+.iconlink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  color: var(--content-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.iconlink svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+/* ---------- Warning box (STK) ---------- */
+
+.warnbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border: 1px solid var(--warning-700);
+  border-radius: var(--r-20);
+  background: var(--surface);
+  margin-bottom: var(--sp-16);
+}
+
+.warnbox__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+}
+
+.warnbox__head > svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  color: var(--warning-700);
+}
+
+.warnbox__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0 0 var(--sp-4);
+}
+
+.warnbox__text {
+  font-size: var(--fs-body2);
+  line-height: 130%;
+  color: var(--warning-800);
+  margin: 0;
+}
+
+.warnbox__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-16);
+}
+
+/* ================= State variants ================= */
+
+/* A .vgroup holds every variant of one card; JS unhides the active one.
+   display:contents keeps the visible child a direct grid/flex item. */
+.vgroup {
+  display: contents;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* --- STK notification severity (0–60 / 60–120 / … days left) --- */
+
+.icard--warn {
+  background-image: linear-gradient(180deg, #ffcb80 0%, #ffb956 100%);
+}
+
+.icard--warn .icard__head > svg,
+.icard--warn .icard__close {
+  color: var(--warning-900);
+}
+
+.icard--warn .icard__text {
+  color: var(--warning-900);
+}
+
+.icard--danger {
+  background-image: none;
+  background: var(--surface);
+  border: 1px solid var(--error-600);
+}
+
+.icard--danger .icard__head > svg,
+.icard--danger .icard__close {
+  color: var(--error-600);
+}
+
+.icard--danger .icard__text {
+  color: var(--error-700, #a11d14);
+}
+
+.icard--critical {
+  background-image: linear-gradient(63deg, #d02b1d 0%, #ff3927 100%);
+  color: var(--white);
+}
+
+.icard--critical .icard__head > svg,
+.icard--critical .icard__close,
+.icard--critical .icard__text {
+  color: var(--white);
+}
+
+.btn--outline-warning {
+  background: transparent;
+  border-color: var(--warning-700);
+  color: var(--warning-900);
+}
+
+.btn--outline-danger {
+  background: transparent;
+  border-color: var(--error-600);
+  color: var(--error-600);
+}
+
+.btn--on-critical {
+  background: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+/* --- Odometer freshness --- */
+
+.statcard--warn .statcard__meta,
+.statcard--warn .btn--white {
+  color: var(--warning-700);
+}
+
+.statcard--warn .btn--white {
+  border-color: var(--warning-700);
+}
+
+.statcard--stale .statcard__meta,
+.statcard--stale .btn--white {
+  color: var(--error-600);
+}
+
+.statcard--stale .btn--white {
+  border-color: var(--error-600);
+}
+
+.statcard--stale .statcard__meta svg {
+  color: var(--error-600);
+}
+
+/* --- Empty service row --- */
+
+.svcrow--empty .svcrow__sub {
+  color: var(--helper);
+}
+
+.tag--neutral {
+  background: var(--dark-green-50);
+  color: var(--dark-green-900);
+}
+
+.tag--danger {
+  background: var(--error-600);
+  color: var(--white);
+}
+
+/* red dot marker on a section card */
+.scard--dot {
+  position: relative;
+}
+
+.scard--dot::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--error-600);
+}
+
+/* offer row inside the insurance card */
+.offerrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-12);
+}
+
+.offerrow > svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--dark-green-700);
+}
+
+.offerrow__title {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0 0 2px;
+}
+
+.offerrow__text {
+  font-size: var(--fs-body3);
+  line-height: 130%;
+  color: var(--green-700);
+  margin: 0;
+}
+
+.scard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-16);
+}
+
+/* ================= Car profile — Stav ================= */
+
+/* header strip with a product thumbnail, no chevron */
+.scard__head--static {
+  cursor: default;
+  gap: var(--sp-12);
+}
+
+.scard__thumb {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+}
+
+.scard__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.scard__headcol {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.scard__sub {
+  font-size: var(--fs-body2);
+  color: var(--green-700);
+  margin: 2px 0 0;
+}
+
+/* key/value row where the value may carry a second line */
+.trow__value small {
+  display: block;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+}
+
+/* lifetime meter */
+.lifebar__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  font-size: var(--fs-body1);
+  color: var(--content-primary);
+}
+
+.lifebar__note {
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+  margin: 6px 0 0;
+}
+
+/* Letní / Zimní pill toggle */
+.pilltoggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 24px;
+  background: var(--dark-green-50);
+}
+
+.pilltoggle button {
+  flex: 1 1 0;
+  height: 36px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: var(--content-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pilltoggle button[aria-current="true"] {
+  background: var(--surface);
+  text-decoration: none;
+}
+
+/* country row for the motorway vignette */
+.flagrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  padding-bottom: var(--sp-16);
+  border-bottom: 1px solid var(--dark-green-25);
+}
+
+.flagrow:last-of-type {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.flagrow__flag {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.flagrow__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--content-primary);
+}
+
+.flagrow__col {
+  text-align: right;
+  font-size: var(--fs-body2);
+  color: var(--content-primary);
+}
+
+.flagrow__col small {
+  display: block;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--green-700);
+}
+
+.flagrow__edit {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--content-primary);
+  cursor: pointer;
+}
+
+.flagrow__edit svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* empty-state body inside a section card */
+.emptybody__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0 0 2px;
+}
+
+.emptybody__text {
+  font-size: var(--fs-body2);
+  color: var(--green-700);
+  margin: 0;
+}
+
+/* note row with a leading info icon */
+.noterow {
+  display: flex;
+  gap: var(--sp-12);
+  align-items: flex-start;
+}
+
+.noterow > svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--dark-green-700);
+}
+
+.noterow__title {
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  color: var(--content-primary);
+  margin: 0 0 2px;
+}
+
+.noterow__text {
+  font-size: var(--fs-body3);
+  line-height: 130%;
+  color: var(--green-700);
+  margin: 0;
+}
+
+/* ---------- Plain data card (technical specs) ---------- */
+
+.datacard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+  padding: var(--sp-16);
+  border: 1px solid var(--dark-green-25);
+  border-radius: var(--r-28);
+  background: var(--surface);
+  box-shadow: var(--shadow-app);
+  margin-bottom: var(--sp-24);
+}
+
+/* row with an inline edit affordance */
+.trow__value--edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.trow__edit {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--content-primary);
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.trow__edit svg {
+  width: 18px;
+  height: 18px;
+}
+
+.trow--pending .trow__value {
+  color: var(--helper);
+}
+
+.pendingnote {
+  display: flex;
+  gap: var(--sp-8);
+  align-items: flex-start;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  line-height: 130%;
+  color: var(--helper);
+  margin-top: calc(-1 * var(--sp-8));
+}
+
+.pendingnote svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* ---------- Wide promo banner used in the Stav carousel ---------- */
+
+.pbanner {
+  display: flex;
+  width: 310px;
+  max-width: 82vw;
+  min-height: 190px;
+  border-radius: var(--r-28);
+  overflow: hidden;
+  border: 1px solid var(--green-200);
+  background: var(--surface);
+  text-align: left;
+}
+
+.pbanner__pic {
+  width: 124px;
+  flex: 0 0 auto;
+}
+
+.pbanner__pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pbanner__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--sp-16) var(--sp-16) var(--sp-12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-12);
+}
+
+.pbanner__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 130%;
+  color: var(--content-primary);
+  margin: 0 0 var(--sp-12);
+}
+
+.pbanner__text {
+  font-size: var(--fs-body3);
+  line-height: 120%;
+  font-weight: 500;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.pbanner--lime {
+  flex-direction: column;
+  gap: var(--sp-16);
+  padding: var(--sp-12);
+  background: var(--green-200);
+  border-color: var(--green-500);
+  box-shadow: var(--shadow-app);
+}
+
+.pbanner--lime .pbanner__body {
+  padding: 0;
+}
+
+.pbanner__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  flex-wrap: wrap;
+}
+
+.btn--lime-solid {
+  background: var(--green-500);
+  border-color: var(--green-500);
+  color: var(--green-900);
+}
+
+.iconpill {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 0;
+  background: var(--dark-green-900);
+  color: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.iconpill svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Sheet extras for Stav ---------- */
+
+.sheet__lead {
+  font-size: var(--fs-body2);
+  line-height: 140%;
+  color: var(--green-800);
+  margin: 0 0 var(--sp-16);
+}
+
+.sheet__h3 {
+  font-size: var(--fs-body1);
+  font-weight: 600;
+  color: var(--content-primary);
+  margin: var(--sp-16) 0 var(--sp-8);
+}
+
+.bullets--tight {
+  font-size: var(--fs-body2);
+  line-height: 140%;
+}
+
+.fieldgroup__label {
+  display: block;
+  font-size: var(--fs-body3);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--helper);
+  margin: var(--sp-16) 0 var(--sp-8);
+}
+
+.sizetable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body2);
+  margin-bottom: var(--sp-16);
+}
+
+.sizetable th {
+  text-align: left;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  color: var(--helper);
+  padding-bottom: var(--sp-8);
+}
+
+.sizetable th:last-child,
+.sizetable td:last-child {
+  text-align: right;
+  font-weight: 600;
+}
+
+.sizetable td {
+  padding: var(--sp-8) 0;
+  border-top: 1px solid var(--dark-green-25);
+  color: var(--content-primary);
+}
+
+/* ---------- Prototype state switcher (not part of the design) ---------- */
+
+.protobar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 var(--sp-16);
+  padding: var(--sp-8) var(--sp-12);
+  border: 1px dashed var(--grey-300, #99b3ad);
+  border-radius: var(--r-12);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.protobar__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--helper);
+}
+
+.protobar__row {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.protobar__row::-webkit-scrollbar {
+  display: none;
+}
+
+.protobar__row > span {
+  flex: 0 0 auto;
+  align-self: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--helper);
+  width: 56px;
+}
+
+.protobar__row button {
+  flex: 0 0 auto;
+  border: 1px solid var(--grey-100);
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 3px 8px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--content-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.protobar__row button[aria-current="true"] {
+  background: var(--dark-green-900);
+  border-color: var(--dark-green-900);
+  color: var(--green-50);
+}
+
+/* ---------- Sheet extras ---------- */
+
+.sheet__collapse {
+  position: absolute;
+  top: var(--sp-16);
+  right: var(--sp-16);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--dark-green-25);
+  background: var(--surface);
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sheet__collapse svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(90deg);
+}
+
+.sheet__title--wide {
+  max-width: 260px;
+}
+
+.bullets {
+  margin: 0 0 var(--sp-16);
+  padding-left: 20px;
+  font-size: var(--fs-body1);
+  line-height: 150%;
+  color: var(--content-primary);
+}
+
+.bullets li::marker {
+  color: var(--dark-green-700);
+}
+
+.rewardbox {
+  display: flex;
+  gap: var(--sp-12);
+  align-items: flex-start;
+  padding: var(--sp-12);
+  border-radius: var(--r-12);
+  background: var(--dark-green-25);
+  margin-bottom: var(--sp-16);
+}
+
+.rewardbox--lime {
+  background: var(--green-200);
+}
+
+.rewardbox > svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--dark-green-700);
+}
+
+.rewardbox__title {
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  color: var(--content-primary);
+  margin: 0 0 2px;
+}
+
+.rewardbox__text {
+  font-size: var(--fs-body3);
+  line-height: 130%;
+  color: var(--green-800);
+  margin: 0;
+}
+
+.btn--block {
+  width: 100%;
+  height: 56px;
+  border-radius: 28px;
+  justify-content: center;
+  font-size: var(--fs-body1);
+}
+
+/* stepper input */
+.stepper {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--dark-green-700);
+  border-radius: var(--r-16);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.stepper__btn {
+  width: 56px;
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.stepper__btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stepper__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--sp-8) var(--sp-12);
+  border-left: 1px solid var(--dark-green-700);
+  border-right: 1px solid var(--dark-green-700);
+}
+
+.stepper__field label {
+  display: block;
+  font-size: var(--fs-body3);
+  color: var(--helper);
+}
+
+.stepper__field input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--content-primary);
+}
+
+.stepper__field input:focus {
+  outline: none;
+}
+
+.field__helper {
+  font-size: var(--fs-body3);
+  color: var(--helper);
+  margin: 0 0 var(--sp-16);
+}
+
+/* plain form field (select / text / date) */
+.field {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.field select,
+.field input {
+  width: 100%;
+  height: 56px;
+  padding: 18px var(--sp-16) 6px;
+  border: 1px solid var(--dark-green-700);
+  border-radius: var(--r-16);
+  background: var(--surface);
+  font-family: inherit;
+  font-size: var(--fs-body1);
+  color: var(--content-primary);
+  appearance: none;
+}
+
+.field label {
+  position: absolute;
+  top: 8px;
+  left: var(--sp-16);
+  font-size: var(--fs-body3);
+  color: var(--helper);
+  pointer-events: none;
+}
+
+.field--select svg {
+  transform: rotate(90deg);
+}
+
+.field svg {
+  position: absolute;
+  top: 18px;
+  right: var(--sp-16);
+  width: 20px;
+  height: 20px;
+  color: var(--content-primary);
+  pointer-events: none;
+}
+
+/* ---------- Bottom sheet ---------- */
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: none;
+}
+
+.sheet.is-open {
+  display: block;
+}
+
+.sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 32, 26, 0.35);
+  border: 0;
+  padding: 0;
+  width: 100%;
+  animation: fade-in 180ms ease-out;
+}
+
+.sheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 85%;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: var(--r-28) var(--r-28) 0 0;
+  padding: var(--sp-8) var(--sp-16) var(--sp-32);
+  animation: sheet-up 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+.sheet__grabber {
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+  background: var(--grey-200);
+  margin: 0 auto var(--sp-8);
+}
+
+.sheet__close {
+  position: absolute;
+  top: var(--sp-16);
+  right: var(--sp-16);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--dark-green-25);
+  background: var(--surface);
+  color: var(--content-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sheet__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sheet__title {
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  margin: var(--sp-24) 0 var(--sp-4);
+}
+
+.sheet__sub {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  color: var(--content-secondary);
+  margin: 0 0 var(--sp-24);
+}
+
+/* ---------- Option row (sheet list item) ---------- */
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-16);
+  margin-bottom: var(--sp-8);
+  border: 1px solid var(--green-200);
+  border-radius: var(--r-20);
+  background: var(--surface);
+  font-family: inherit;
+  color: var(--content-primary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.option:active {
+  background: var(--green-50);
+}
+
+.option__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--dark-green-25);
+  color: var(--dark-green-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.option__icon--lime {
+  background: var(--green-200);
+}
+
+.option__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.option__col {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.option__title {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+
+.option__text {
+  font-size: var(--fs-body2);
+  line-height: 120%;
+  color: var(--green-700);
+  margin: 0;
+}
+
+/* ---------- Více (main/more) ---------- */
+
+.applogo {
+  display: flex;
+  justify-content: center;
+  padding: var(--sp-16) 0 var(--sp-32);
+}
+
+.applogo img {
+  width: 133px;
+  height: 80px;
+}
+
+/* Karty Card 6 minimal jsou tu po 16 px, ne po 8 jako jinde */
+.arowlist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+.arowlist .arow {
+  margin-bottom: 0;
+}
+
+.appver {
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: 0.24px;
+  text-align: center;
+  color: var(--content-primary);
+  margin: var(--sp-32) 0 0;
+}
