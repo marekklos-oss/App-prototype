@@ -29,7 +29,29 @@ css/app.css         # shell (phone frame, status bar, screens) + tab bar
 css/components.css  # všechny DS komponenty
 js/app.js           # routing, sheety, carousely, přepínač stavů
 assets/             # obrázky vytažené z Figmy
+build.py            # sbalí to celé do jednoho souboru pro sdílení
 ```
+
+## Sdílení jako Claude Artifact
+
+```bash
+python3 prototype/build.py
+```
+
+Vyrobí `prototype-bundle.html` v kořeni repa (je v `.gitignore`, necommituje se).
+Artefakty nesmí sahat na externí zdroje, takže se CSS a JS inlinují a obrázky
+jdou do data URI — proto ten jeden tučný soubor (~4,4 MB, limit je 16 MB).
+Obal artefaktu dodává `<!doctype>`, `<html>`, `<head>` i `<body>`, takže build
+bere jen obsah `<body>`.
+
+Publikuje se přes Artifact tool na ten bundle. **Aby zůstala stejná URL, musí se
+při republishi předat ta původní** — jiná cesta k souboru = nový link.
+
+Aktuální artefakt: `https://claude.ai/code/artifact/4c7ee8ac-5cc8-4d25-a97d-831021504f3e`
+
+**Pozor na font.** `Direct Sans` není v repu jako soubor, prototyp spoléhá na
+systémovou instalaci. Komukoliv bez ní to spadne na Arial. Až se sežene
+`.woff2`, patří do `build.py` jako `@font-face` s data URI.
 
 ## Routing
 
