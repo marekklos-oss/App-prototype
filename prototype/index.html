@@ -214,6 +214,36 @@
         </g>
       </symbol>
 
+      <symbol id="ic-check-circle" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 12.5L10.5 16L17 9" />
+          <path
+            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+          />
+        </g>
+      </symbol>
+
+      <symbol id="ic-eye" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M3.5 12C3.5 12 6.5 5.5 12 5.5C17.5 5.5 20.5 12 20.5 12C20.5 12 17.5 18.5 12 18.5C6.5 18.5 3.5 12 3.5 12Z"
+          />
+          <path d="M12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12C9.5 13.3807 10.6193 14.5 12 14.5Z" />
+        </g>
+      </symbol>
+
       <symbol id="ic-bell" viewBox="0 0 24 24">
         <g
           fill="none"
@@ -639,7 +669,7 @@
                     </button>
                   </div>
 
-                  <div class="dins">
+                  <div class="dins" data-goto="pojisteni-vozidlo" role="button" tabindex="0">
                     <div class="dins__head">
                       <span class="tag">Aktivní</span>
                       <button class="btn btn--secondary btn--icon btn--dot" type="button" aria-label="Detail pojištění">
@@ -649,10 +679,10 @@
                     <div class="dins__row">
                       <span>Platnost</span><b>12. 3. 2023 – neurčito</b>
                     </div>
-                    <div class="dpay">
+                    <div class="dpay" data-stop>
                       <div>
                         <p class="dpay__amount">6 091 Kč</p>
-                        <p class="dpay__note">Do 20. 5. 2026</p>
+                        <p class="dpay__note">Do 5. 10. 2026</p>
                       </div>
                       <button class="btn btn--primary" type="button">Zaplatit</button>
                     </div>
@@ -674,9 +704,6 @@
                   <div class="dins">
                     <div class="dins__head">
                       <span class="tag tag--muted">Nevyplněno</span>
-                      <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
-                        <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
-                      </button>
                     </div>
                     <div class="dpay">
                       <div>
@@ -855,7 +882,7 @@
                 </div>
               </div>
 
-              <div class="panel">
+              <div class="panel" data-goto="pojisteni-vozidlo" role="button" tabindex="0">
                 <div class="panel__head">
                   <span class="panel__label">POJIŠTĚNÍ</span>
                   <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
@@ -863,11 +890,11 @@
                   </button>
                 </div>
                 <span class="tag">Aktivní</span>
-                <div class="subcard">
+                <div class="subcard" data-stop>
                   <div class="iconlabel">
                     <div class="iconlabel__text">
-                      <p class="iconlabel__label">Přidat havarijní pojištění</p>
-                      <p class="iconlabel__value">od 2 159 Kč/rok</p>
+                      <p class="iconlabel__label">Přidat pojištění skel</p>
+                      <p class="iconlabel__value">od 700 Kč/rok</p>
                     </div>
                     <button class="btn btn--secondary" type="button">Přidat</button>
                   </div>
@@ -908,9 +935,6 @@
               <div class="panel">
                 <div class="panel__head">
                   <span class="panel__label">POJIŠTĚNÍ</span>
-                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
-                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
-                  </button>
                 </div>
                 <span class="tag tag--muted">Nevyplněno</span>
               </div>
@@ -951,9 +975,6 @@
               <div class="panel">
                 <div class="panel__head">
                   <span class="panel__label">POJIŠTĚNÍ</span>
-                  <button class="btn btn--secondary btn--icon" type="button" aria-label="Detail pojištění">
-                    <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
-                  </button>
                 </div>
                 <span class="tag">Pojištěno jinde</span>
                 <div class="subcard">
@@ -1469,8 +1490,8 @@
                 <div class="icard__head">
                   <svg aria-hidden="true"><use href="#ic-shield" /></svg>
                   <div class="icard__col">
-                    <p class="icard__title">Přidat havarijní pojištění</p>
-                    <p class="icard__text">Nabízíme ti kompletní ochranu vozidla už od 2 159 Kč/rok</p>
+                    <p class="icard__title">Přidat pojištění skel</p>
+                    <p class="icard__text">Prasklé čelní sklo vyřešíme za vás, už od 700 Kč/rok</p>
                   </div>
                   <button class="icard__close" type="button" aria-label="Zavřít">
                     <svg aria-hidden="true"><use href="#ic-xmark" /></svg>
@@ -1489,7 +1510,7 @@
                 <h2 class="statcard__label">Stav tachometru</h2>
                 <p class="statcard__value">47 280 km</p>
                 <p class="statcard__meta">
-                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 24. 2. 2026
+                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 4. 8. 2026
                 </p>
                 <div class="statcard__foot">
                   <button class="btn btn--white" type="button" data-open-sheet="update-km">
@@ -1515,7 +1536,7 @@
                 <h2 class="statcard__label">Stav tachometru</h2>
                 <p class="statcard__value">47 280 km</p>
                 <p class="statcard__meta">
-                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 24. 2. 2026
+                  <svg aria-hidden="true"><use href="#ic-clock" /></svg>Aktualizováno: 12. 9. 2025
                 </p>
                 <div class="statcard__foot">
                   <button class="btn btn--white" type="button" data-open-sheet="update-km">
@@ -1648,7 +1669,7 @@
               <div class="warnbox__head">
                 <svg aria-hidden="true"><use href="#ic-warning" /></svg>
                 <div>
-                  <p class="warnbox__title">Platnost STK končí 26. 7. 2026</p>
+                  <p class="warnbox__title">Platnost STK končí 26. 8. 2026</p>
                   <p class="warnbox__text">
                     Je na čase začít řešit kontrolu, protože ti zbývá 15 dní
                   </p>
@@ -1686,7 +1707,7 @@
             <div class="vgroup" data-group="poj">
               <!-- Aktivní · zaplaceno -->
               <article class="scard" data-variant="zaplaceno">
-                <button class="scard__head" type="button">
+                <button class="scard__head" type="button" data-goto="pojisteni-vozidlo">
                   <h2 class="scard__title">Pojištění</h2>
                   <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
                 </button>
@@ -1718,7 +1739,7 @@
 
               <!-- Aktivní · čeká na platbu -->
               <article class="scard scard--dot" data-variant="ceka" hidden>
-                <button class="scard__head" type="button">
+                <button class="scard__head" type="button" data-goto="pojisteni-vozidlo">
                   <h2 class="scard__title">Pojištění</h2>
                   <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
                 </button>
@@ -1750,7 +1771,7 @@
 
               <!-- Aktivní · po splatnosti -->
               <article class="scard scard--dot" data-variant="po-splatnosti" hidden>
-                <button class="scard__head" type="button">
+                <button class="scard__head" type="button" data-goto="pojisteni-vozidlo">
                   <h2 class="scard__title">Pojištění</h2>
                   <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
                 </button>
@@ -1782,10 +1803,9 @@
 
               <!-- Pojištěno jinde -->
               <article class="scard" data-variant="jinde" hidden>
-                <button class="scard__head" type="button">
+                <div class="scard__head scard__head--static">
                   <h2 class="scard__title">Pojištění</h2>
-                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
-                </button>
+                </div>
                 <div class="scard__body">
                   <div class="trow">
                     <span class="trow__label">Stav</span>
@@ -1794,9 +1814,9 @@
                   <div class="offerrow">
                     <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
                     <div>
-                      <p class="offerrow__title">Pojistné pojištění 16. 9. 2026</p>
+                      <p class="offerrow__title">Pojistné pojištění 16. 11. 2026</p>
                       <p class="offerrow__text">
-                        Pošleme vám nabídku 60 dní před koncem, tedy kolem 16. 8. 2026
+                        Pošleme vám nabídku 60 dní před koncem, tedy kolem 17. 9. 2026
                       </p>
                     </div>
                   </div>
@@ -1810,10 +1830,9 @@
 
               <!-- Neuvedeno -->
               <article class="scard" data-variant="neuvedeno" hidden>
-                <button class="scard__head" type="button">
+                <div class="scard__head scard__head--static">
                   <h2 class="scard__title">Pojištění</h2>
-                  <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
-                </button>
+                </div>
                 <div class="scard__body">
                   <div class="trow">
                     <span class="trow__label">Stav</span>
@@ -1947,14 +1966,14 @@
                   </div>
                   <div class="trow">
                     <span class="trow__label">Poslední výměna</span>
-                    <span class="trow__value">9 300 km<small>11/2026</small></span>
+                    <span class="trow__value">9 300 km<small>11/2025</small></span>
                   </div>
                   <div>
                     <div class="lifebar__head"><span>Životnost oleje</span><span>62 %</span></div>
                     <div class="progress">
                       <span class="progress__track"><span class="progress__fill" style="width: 62%"></span></span>
                     </div>
-                    <p class="lifebar__note">Zbývá 5 700 km nebo 7 měsíců</p>
+                    <p class="lifebar__note">Zbývá 5 700 km nebo 3 měsíce</p>
                   </div>
                   <div class="scard__foot">
                     <button class="btn btn--secondary" type="button">Zaznamenat výměnu</button>
@@ -2103,7 +2122,7 @@
                 <div class="scard__body">
                   <div class="trow">
                     <span class="trow__label">Platná do</span>
-                    <span class="trow__value">26. 3. 2028<small>zbývá 753 dní</small></span>
+                    <span class="trow__value">26. 3. 2028<small>zbývá 593 dní</small></span>
                   </div>
                   <div class="noterow">
                     <svg aria-hidden="true"><use href="#ic-info" /></svg>
@@ -2130,7 +2149,7 @@
                 <div class="scard__body">
                   <div class="trow">
                     <span class="trow__label">Platná do</span>
-                    <span class="trow__value">26. 3. 2028<small>zbývá 30 dní</small></span>
+                    <span class="trow__value">10. 9. 2026<small>zbývá 30 dní</small></span>
                   </div>
                   <div class="noterow">
                     <svg aria-hidden="true"><use href="#ic-info" /></svg>
@@ -2164,7 +2183,7 @@
                   <div class="flagrow">
                     <span class="flagrow__flag"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#flag-cz" /></svg></span>
                     <span class="flagrow__name">Česko</span>
-                    <span class="flagrow__col">Platí do 28. 6. 2027<small>Zbývá 270 dní</small></span>
+                    <span class="flagrow__col">Platí do 28. 6. 2027<small>Zbývá 321 dní</small></span>
                     <button class="flagrow__edit" type="button" aria-label="Upravit">
                       <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
                     </button>
@@ -2172,7 +2191,7 @@
                   <div class="flagrow">
                     <span class="flagrow__flag"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#flag-at" /></svg></span>
                     <span class="flagrow__name">Rakousko</span>
-                    <span class="flagrow__col">Platí do 12. 10. 2026<small>Zbývá 20 dní</small></span>
+                    <span class="flagrow__col">Platí do 12. 10. 2026<small>Zbývá 62 dní</small></span>
                     <button class="flagrow__edit" type="button" aria-label="Upravit">
                       <svg aria-hidden="true"><use href="#ic-pencil" /></svg>
                     </button>
@@ -2399,6 +2418,230 @@
             </div>
           </div>
         </section>
+
+        <!-- ============================================================
+             Detail pojištění — Vozidlo · Shrnutí
+             Figma: 5830:45548 (stránka „🟢 Detail pojištění" 2292:38343)
+             ============================================================ -->
+        <section
+          class="screen"
+          id="screen-pojisteni-vozidlo"
+          data-screen="pojisteni-vozidlo"
+          data-tab-parent="muj-svet"
+          aria-labelledby="t-pojisteni-vozidlo"
+        >
+          <div class="detailbar detailbar--center">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+            <p class="detailbar__title" id="t-pojisteni-vozidlo">Pojistná smlouva</p>
+          </div>
+
+          <nav class="subnav" aria-label="Sekce smlouvy">
+            <div class="subnav__track">
+              <button type="button" aria-current="true">Shrnutí</button>
+              <button type="button">Pojištění</button>
+              <button type="button">Moje vozidlo</button>
+              <button type="button">Platby</button>
+            </div>
+          </nav>
+
+          <!-- contract card -->
+          <article class="contractcard">
+            <div class="contractcard__top">
+              <div class="contractcard__col">
+                <span class="tag">Aktivní</span>
+                <p class="contractcard__title">Volvo XC90</p>
+                <p class="contractcard__plate">1AA 4990</p>
+              </div>
+              <img class="contractcard__img" src="assets/vehicle-volvo.png" alt="Volvo XC90" />
+            </div>
+            <hr class="contractcard__divider" />
+            <div class="trow">
+              <span class="trow__label">Číslo smlouvy</span>
+              <span class="trow__value">123456789</span>
+            </div>
+            <div class="trow">
+              <span class="trow__label">Platnost</span>
+              <span class="trow__value">12. 3. 2023 – neurčito</span>
+            </div>
+          </article>
+
+          <!-- sjednaná pojištění -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Pojištění</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <p class="scard__eyebrow">sjednáno</p>
+                <hr class="hr" />
+                <p class="listline">Povinné ručení</p>
+                <p class="listline">Havarijní pojištění</p>
+                <p class="morelink">a další pojištění</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- help -->
+          <div class="dblock">
+            <div class="cardhead"><h2 class="cardhead__title">Potřebujete pomoc?</h2></div>
+
+            <div class="helpcard">
+              <span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <h3 class="helpcard__title">Asistenční linka (nonstop)</h3>
+              <p class="helpcard__text">Pokud potřebujete pomoc, zavolejte nám.</p>
+              <a class="btn btn--lime" href="tel:291291291">
+                <svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291
+              </a>
+            </div>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+              <span class="arow__label">Objednat odtah</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span>
+              <span class="arow__label">Nahlásit událost</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+
+            <button class="arow arow--outline" type="button">
+              <span class="arow__icon"><svg aria-hidden="true"><use href="#ic-question" /></svg></span>
+              <span class="arow__label">Co mám v asistenci</span>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+          </div>
+
+          <!-- základní údaje -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button" data-goto="profil-technicke">
+                <h2 class="scard__title">Základní údaje o vozidle</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <div class="trow">
+                  <span class="trow__label">tovární značka</span>
+                  <span class="trow__value">Volvo</span>
+                </div>
+                <div class="trow">
+                  <span class="trow__label">model</span>
+                  <span class="trow__value">XC90</span>
+                </div>
+                <p class="morelink">a další údaje</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- platby -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Platby</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <div class="paidband">
+                  <p class="paidband__head">
+                    <svg aria-hidden="true"><use href="#ic-check-circle" /></svg>Vše je zaplaceno.
+                  </p>
+                  <hr class="paidband__hr" />
+                  <div class="trow">
+                    <span class="trow__label">Přeplatek</span>
+                    <span class="trow__value">0 Kč</span>
+                  </div>
+                </div>
+                <div class="trow trow--tight">
+                  <span class="trow__label">Další platba ve výši</span>
+                  <span class="trow__value">6 091 Kč</span>
+                </div>
+                <div class="trow trow--sub">
+                  <span class="trow__label">Pojistné</span>
+                  <span class="trow__value">6 091 Kč</span>
+                </div>
+                <div class="trow trow--sub">
+                  <span class="trow__label">Přeplatek</span>
+                  <span class="trow__value">0 Kč</span>
+                </div>
+                <div class="trow">
+                  <span class="trow__label">Splatnost</span>
+                  <span class="trow__value">5. 10. 2026</span>
+                </div>
+                <hr class="hr" />
+                <div class="trow">
+                  <span class="trow__label">Cena za rok</span>
+                  <span class="trow__value">12 182 Kč</span>
+                </div>
+                <div class="trow">
+                  <span class="trow__label">Frekvence plateb</span>
+                  <span class="trow__value">Pololetně</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- dokumenty -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Dokumenty</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <button class="docrow" type="button">
+                  <span class="docrow__label">Zelená karta</span>
+                  <svg aria-hidden="true"><use href="#ic-eye" /></svg>
+                </button>
+                <hr class="hr" />
+                <button class="docrow" type="button">
+                  <span class="docrow__label">Akceptační dopis</span>
+                  <svg aria-hidden="true"><use href="#ic-eye" /></svg>
+                </button>
+                <hr class="hr" />
+                <button class="docrow" type="button">
+                  <span class="docrow__label">Smlouva 2340005221</span>
+                  <svg aria-hidden="true"><use href="#ic-eye" /></svg>
+                </button>
+                <hr class="hr" />
+                <button class="docrow" type="button">
+                  <span class="docrow__label">Všeobecné podmínky</span>
+                  <svg aria-hidden="true"><use href="#ic-eye" /></svg>
+                </button>
+                <p class="morelink">a další dokumenty</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- osoby -->
+          <div class="dblock">
+            <article class="scard">
+              <button class="scard__head" type="button">
+                <h2 class="scard__title">Osoby na smlouvě</h2>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </button>
+              <div class="scard__body">
+                <div class="personrow">
+                  <p class="personrow__name">James Dean</p>
+                  <p class="personrow__tags">
+                    <span class="tag tag--mint">Pojistník</span>
+                    <span class="tag tag--mint">Vlastník</span>
+                  </p>
+                </div>
+                <hr class="hr" />
+                <div class="personrow">
+                  <p class="personrow__name">Pina Colladová</p>
+                  <p class="personrow__tags">
+                    <span class="tag tag--mint">Provozovatel</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
       </main>
 
       <nav class="tabbar" aria-label="Hlavní navigace">
@@ -2579,7 +2822,7 @@
 
           <div class="field">
             <label for="pj-date">Datum výročí smlouvy *</label>
-            <input id="pj-date" type="text" placeholder="16. 9. 2026" />
+            <input id="pj-date" type="text" placeholder="16. 11. 2026" />
             <svg aria-hidden="true"><use href="#ic-calendar" /></svg>
           </div>
           <p class="field__helper">Datum výročí najdete i na vaší smlouvě</p>

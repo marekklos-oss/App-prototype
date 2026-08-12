@@ -46,8 +46,9 @@ Hash-based, funguje back button i deep linky. Obrazovky jsou
 | `#/profil-auta` | Profil vozidla — Shrnutí | `23851:64928` |
 | `#/profil-stav` | Profil vozidla — Stav | `25098:57918` / `24694:65589` |
 | `#/profil-technicke` | Profil vozidla — Technické údaje | `24676:61762` |
+| `#/pojisteni-vozidlo` | Detail pojištění — Vozidlo · Shrnutí | `5830:45548` |
 
-Detailové obrazovky (profil) nemají vlastní tab — mají `data-tab-parent="muj-svet"`,
+Detailové obrazovky (profil, detail pojištění) nemají vlastní tab — mají `data-tab-parent="muj-svet"`,
 takže v tab baru zůstane podsvícený Můj svět.
 
 ## Konvence v kódu
@@ -94,10 +95,10 @@ Vlajky CZ/AT a ikona mazlíčka jsou kreslené ručně — Iconoir je nemá.
 Ikony = Iconoir (design systém je používá), inlinované jako `<symbol>` sprite
 v `index.html` se `stroke="currentColor"`, aby se přebarvovaly podle stavu.
 
-## Rozpracováno: Detail pojištění (pojistná smlouva)
+## Detail pojištění (pojistná smlouva)
 
-**Stav: nic ještě není napsané.** Zadání nastudované, struktura odsouhlasená,
-čeká se na jedno rozhodnutí. Až se v tom bude pokračovat, začni tímhle blokem.
+**Stav: Shrnutí — Vozidlo je hotové** (`#/pojisteni-vozidlo`, 11. 8. 2026).
+Zbývá PROPERTY (odložené, viz níž), PET, TRAVEL a všechny podstránky.
 
 Ve Figmě je to celá stránka **`🟢 Detail pojištění`** (`2292:38343`). Profil je
 zvlášť pro každý typ pojištění (VEHICLE / PROPERTY / PET / TRAVEL) a každý má
@@ -106,27 +107,52 @@ Platby` (scrolluje, dál můžou být další).
 
 ### Co je domluvené
 
-- **Teď se dělá jen VEHICLE a PROPERTY, a z nich jen obrazovka Shrnutí.**
-  PET a TRAVEL později, ale struktura na ně má být připravená.
-- PROPERTY = varianta **Dům** (ne Byt).
+- **Teď se dělá jen VEHICLE, a z něj jen obrazovka Shrnutí.**
+  PROPERTY (Dům), PET a TRAVEL později, ale struktura na ně má být připravená.
+- **PROPERTY je odložené** (rozhodnuto 11. 8. 2026): jediná nemovitost v prototypu
+  (`Evropská 1234/32`) je „Pojištěno jinde", takže za ní žádná naše smlouva není
+  a obrazovka by neměla kudy. Až se to bude dělat, vstup bude proklik ze
+  „Srovnejte s Direct".
 - **Struktura = jedna `<section>` na kombinaci typ+podstránka**, tak jak to už
   dělá `profil-auta` / `profil-stav` / `profil-technicke`. Žádná JS šablona,
   žádné přepínání dat podle typu. Nový typ = zkopírovat sekci a vyměnit
   typové bloky. Zvážená a zamítnutá alternativa: jedna šablona + JS, který
   podle hashe přepíná typové bloky — míň duplicity, ale prototyp přestane být
   čitelný „obrazovka = kus HTML" a hrozí, že úprava jednoho typu rozbije ostatní.
-- Hash: `#/pojisteni-vozidlo`, `#/pojisteni-dum`.
+- Hash: `#/pojisteni-vozidlo` (`#/pojisteni-dum` až s PROPERTY).
 - Podstránky, které se teď nedělají, budou v pilulkovém navu **mrtvé**.
 
-### Co ještě není rozhodnuté
+### Odkud se otevírá (napojené)
 
-**Odkud se profil otevírá.** Marek to pošle. Kandidáti:
+Tři vstupy, všechny na VEHICLE → `#/pojisteni-vozidlo`:
 
-- karta **Pojištění** uvnitř `#/profil-auta` → VEHICLE (doporučeno, hierarchie
-  vozidlo → jeho smlouva, nic hotového se nerozbije)
-- produktové karty na `#/muj-svet` → `Evropská 1234/32` je dneska mrtvá, takže
-  PROPERTY se tam vejde bez konfliktu; u vozidel kolize — Volvo i Fiat už vedou
-  na `profil-auta`
+| Obrazovka | Element |
+|---|---|
+| `#/muj-svet` | `.panel` s labelem `POJIŠTĚNÍ` v kartě Volvo XC90 |
+| `#/domu` | `.dins` v carouselu Můj svět, karta Volvo XC90 |
+| `#/profil-auta` | `.scard__head` „Pojištění" (u variant `zaplaceno`, `ceka`, `po-splatnosti`) |
+
+`.dins` i `.panel` jsou sourozenci bloku s `data-goto="profil-auta"`, ne jeho
+potomci — takže kolize nehrozí. `data-stop` mají jen `.dpay` a `.subcard` uvnitř,
+aby tlačítka „Zaplatit" / „Přidat" nespouštěla proklik.
+
+### Nové komponenty (CSS na konci `components.css`)
+
+`.subnav` (nav podstránek), `.contractcard` (karta smlouvy),
+`.paidband` + `.trow--tight` / `.trow--sub` (Platby), `.docrow`
+(Dokumenty), `.personrow` + `.tag--mint` (Osoby), `.morelink` / `.listline` /
+`.scard__eyebrow` (drobnosti). Nové ikony ve sprite: `ic-eye`, `ic-check-circle`.
+
+**Pozor na jména tříd.** `.pillnav` a `.ccard` už v `components.css` existují pro
+jiné obrazovky (ikonový pill v hlavičce Můj svět, malá produktová kartička).
+Proto se tyhle jmenují `.subnav` a `.contractcard`. Než přidáš novou třídu,
+prohledej `components.css` — soubor je jeden a jmenný prostor je plochý.
+
+### Pravidlo: šipka = existuje detail
+
+Kolečko se šipkou u `POJIŠTĚNÍ` se ukazuje **jen když za ním je naše smlouva**.
+Stavy `Pojištěno jinde`, `Nevyplněno` a `Neuvedeno` ji nemají. Platí na
+`#/muj-svet`, v carouselu na `#/domu` i na kartě Pojištění v `#/profil-auta`.
 
 ### Figma node ID
 
@@ -148,7 +174,7 @@ Bloky Shrnutí — Vozidlo (shora dolů), pro rychlý `get_screenshot`:
 | produktová karta (Aktivní, Volvo XC90, 1AA 4990, číslo smlouvy, platnost) | `16528:31794` |
 | Pojištění — sjednáno | `6078:47162` |
 | Potřebujete pomoc? | `6072:37495` |
-| Připomínky | `6072:37841` |
+| ~~Připomínky~~ | `6072:37841` — **nedělat**, viz pravidlo výš |
 | Základní údaje o vozidle | `6076:38123` |
 | Platby | `12531:44638` |
 | dokumenty (viz odchylka níž) | `7754:204254` |
@@ -157,22 +183,50 @@ Bloky Shrnutí — Vozidlo (shora dolů), pro rychlý `get_screenshot`:
 Dům má stejnou kostru, jen jiné typové bloky + navíc „Smlouvy sjednal"
 (`12551:66543`).
 
-**Pozor na odchylku:** karta s dokumenty (`7754:204254`) má ve Figmě nadpis
-**„Platby"**, ale obsah jsou dokumenty (Zelená karta, Akceptační dopis, Smlouva,
-Všeobecné podmínky). Vypadá to na překlep v návrhu — psát jako „Dokumenty"
-a říct to Markovi.
+**Odchylka:** karta s dokumenty (`7754:204254`) má ve Figmě nadpis **„Platby"**,
+ale obsah jsou dokumenty (Zelená karta, Akceptační dopis, Smlouva, Všeobecné
+podmínky). Vypadá to na překlep v návrhu — v prototypu je napsaná jako
+**„Dokumenty"**. Řečeno Markovi 11. 8. 2026.
 
-Blok „Potřebujete pomoc?" na Shrnutí je ten samý, co je už hotový na Dashboardu
-a na `#/pomoc` — použít `.helpcard` + `.arow`, nepsat znova.
+Blok „Potřebujete pomoc?" na Shrnutí je ten samý, co je na Dashboardu a na
+`#/pomoc` — recyklovaný `.helpcard` + `.arow`.
+
+Ve Figmě jsou částky v kartě Platby jen `#### Kč`. V prototypu jsou dopsané tak,
+aby seděly na carousel na `#/domu` (další platba 6 091 Kč, splatnost 5. 10. 2026,
+pololetní frekvence → 12 182 Kč/rok).
 
 ## Co zbývá
 
+- **Detail pojištění:** podstránky (`Pojištění`, `Moje vozidlo`, `Platby`) jsou
+  v pilulkovém navu mrtvé; PROPERTY / PET / TRAVEL nejsou
 - **Hodnota** — poslední mrtvá položka v segmentovce profilu, chybí Figma link
 - Sekce „Maybe Future" ve Figmě — vědomě vynechaná (zadání)
 - Sheety za tlačítky „Zaznamenat výměnu", „Nastavit", „Upravit" v sekci Stav
   (Oil Processing / Tire Maintenance formuláře, ~8 dalších sheetů ve Figmě)
 - Karta „Přidat havarijní pojištění" má ve Figmě 4 barevná schémata, použité
   je jen bílé
+
+### Pravidlo: žádné Připomínky na detailu pojištění
+
+Karta **Připomínky** na stránky s pojištěním nepatří — **na žádnou**, ani na
+podstránky, ani na PROPERTY / PET / TRAVEL, až se budou dělat. Ve Figmě na
+Shrnutí je (`6072:37841`), v prototypu vědomě není. Zadání z 11. 8. 2026.
+
+(Připomínky zůstávají tam, kam patří — v profilu vozidla. Vynechané jsou i ve
+`#/vice`, viz Odchylky.)
+
+## Vyřešeno: co má Volvo sjednané
+
+Figma si odporovala — detail pojištění i profil tvrdí, že Volvo **má** havarijní
+pojištění, ale zároveň ho karty nabízely *přidat*. Rozhodnuto 11. 8. 2026:
+
+- **Sjednáno:** povinné ručení + havarijní pojištění. Nic víc.
+- **Upsell je pojištění skel**, od 700 Kč/rok — na `#/muj-svet` (subcard v kartě
+  Volvo) i v nabídkovém carouselu na `#/profil-auta`.
+- Ze seznamu „sjednáno" na `#/pojisteni-vozidlo` je proto **pojištění skel
+  vyškrtnuté** (ve Figmě `6078:47162` tam je).
+
+Kdyby se sáhlo na jedno místo, je potřeba projít všechna tři.
 
 ## Odchylky od Figmy (vědomé)
 
