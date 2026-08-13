@@ -29,7 +29,8 @@ css/app.css         # shell (phone frame, status bar, screens) + tab bar
 css/components.css  # všechny DS komponenty
 js/app.js           # routing, sheety, carousely, přepínač stavů
 assets/             # obrázky vytažené z Figmy
-build.py            # sbalí to celé do jednoho souboru pro sdílení
+build.py            # sbalí to celé do jednoho souboru pro Claude Artifact
+build_pages.py      # totéž + heslová závora, výstup do docs/ pro GitHub Pages
 ```
 
 ## Sdílení jako Claude Artifact
@@ -52,6 +53,31 @@ Aktuální artefakt: `https://claude.ai/code/artifact/4c7ee8ac-5cc8-4d25-a97d-83
 **Pozor na font.** `Direct Sans` není v repu jako soubor, prototyp spoléhá na
 systémovou instalaci. Komukoliv bez ní to spadne na Arial. Až se sežene
 `.woff2`, patří do `build.py` jako `@font-face` s data URI.
+
+## Publikování na GitHub Pages
+
+```bash
+python3 prototype/build_pages.py          # heslo Veslo
+python3 prototype/build_pages.py JineHeslo
+```
+
+Vyrobí `docs/index.html` (celý prototyp v jednom souboru + odemykací překryv)
+a `docs/.nojekyll`. Na rozdíl od `prototype-bundle.html` se **`docs/` commituje** —
+Pages servírují to, co je v repu.
+
+Nastavení na GitHubu: *Settings → Pages → Source: Deploy from a branch →
+`master` / `/docs`*. Adresa pak `https://<user>.github.io/App-prototype/`.
+
+### Heslo NENÍ zabezpečení
+
+Kontroluje se v prohlížeči a prototyp je ve stránce celý — kdokoliv si ho
+přečte přes „zobrazit zdroj". Navíc repo musí být **veřejné** (Pages z
+privátního repa chtějí GitHub Pro), takže zdroják leží i na GitHubu.
+Je to závora proti náhodnému kolemjdoucímu, nic víc. Vědomé rozhodnutí
+z 13. 8. 2026 — silnější ochrana nemá smysl, dokud je repo public.
+
+Odemčení si drží `sessionStorage`, takže se heslo neptá při každém refreshi,
+ale po zavření panelu ano.
 
 ## Routing
 
