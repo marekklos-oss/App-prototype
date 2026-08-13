@@ -24,6 +24,14 @@
         s.scrollTop = 0;
       }
     });
+    /* The contract subnav scrolls — bring the active pill into view, otherwise
+       the last tabs sit off-screen on load. */
+    if (current) {
+      var subnav = current.querySelector(".subnav");
+      var active = subnav && subnav.querySelector('[aria-current="true"]');
+      if (active) subnav.scrollLeft = Math.max(0, active.offsetLeft - 16);
+    }
+
     /* Detail screens (no tab of their own) keep their parent tab highlighted. */
     var highlight = (current && current.dataset.tabParent) || id;
     tabs.forEach(function (t) {
@@ -69,10 +77,17 @@
   /* keyboard access for the role="button" blocks */
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Enter" && e.key !== " ") return;
-    var g = e.target.closest && e.target.closest('[data-goto][role="button"]');
+    if (!e.target.closest) return;
+    var g = e.target.closest('[data-goto][role="button"]');
     if (g) {
       e.preventDefault();
       location.hash = "#/" + g.dataset.goto;
+      return;
+    }
+    var s = e.target.closest('[data-open-sheet][role="button"]');
+    if (s) {
+      e.preventDefault();
+      s.click();
     }
   });
 
@@ -110,6 +125,30 @@
     });
   });
 
+  /* "Zobrazit ukončené" switches the Můj svět body between the active contracts
+     and the archive — the two are never on screen at the same time. */
+  document.querySelectorAll("[data-toggle-ended]").forEach(function (btn) {
+    var screen = btn.closest(".screen");
+    var ended = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!screen || !ended) return;
+    var active = Array.prototype.filter.call(
+      screen.querySelectorAll(".section"),
+      function (s) {
+        return s !== ended;
+      }
+    );
+    btn.addEventListener("click", function () {
+      var showEnded = ended.hidden;
+      ended.hidden = !showEnded;
+      active.forEach(function (s) {
+        s.hidden = showEnded;
+      });
+      btn.setAttribute("aria-expanded", String(showEnded));
+      btn.textContent = showEnded ? "Zobrazit aktivní" : "Zobrazit ukončené";
+      screen.scrollTop = 0;
+    });
+  });
+
   /* Prototype state switcher: a .protobar row flips the variants inside the
      matching .vgroup (all variants live in the DOM, hidden via [hidden]). */
   document.querySelectorAll(".protobar__row[data-vgroup]").forEach(function (row) {
@@ -125,6 +164,29 @@
       group.querySelectorAll("[data-variant]").forEach(function (el) {
         el.hidden = el.dataset.variant !== btn.dataset.variant;
       });
+    });
+  });
+
+  /* "Zobrazit více / méně" folds the tail of a bullet list inside a card. */
+  document.querySelectorAll("[data-expand]").forEach(function (box) {
+    var btn = box.querySelector(".expandbtn");
+    var label = btn && btn.querySelector("span");
+    if (!label) return;
+    btn.addEventListener("click", function () {
+      box.classList.toggle("is-open");
+      label.textContent = box.classList.contains("is-open")
+        ? "Zobrazit méně"
+        : "Zobrazit více";
+    });
+  });
+
+  /* Collapsible section header (archiv dokumentů) — the chevron flips via CSS. */
+  document.querySelectorAll("[data-toggle-section]").forEach(function (btn) {
+    var body = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!body) return;
+    btn.addEventListener("click", function () {
+      body.hidden = !body.hidden;
+      btn.setAttribute("aria-expanded", String(!body.hidden));
     });
   });
 
@@ -160,6 +222,10 @@
   document.addEventListener("click", function (e) {
     var opener = e.target.closest("[data-open-sheet]");
     if (opener) {
+      /* Same [data-stop] contract as data-goto: a stopper sitting between the
+         click and the opener means the click belongs to the nested control. */
+      var stop = e.target.closest("[data-stop]");
+      if (stop && stop !== opener && opener.contains(stop)) return;
       var sheet = document.getElementById("sheet-" + opener.dataset.openSheet);
       if (sheet) sheet.classList.add("is-open");
       return;
