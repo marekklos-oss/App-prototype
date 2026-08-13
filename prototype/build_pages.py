@@ -5,16 +5,21 @@
 
 Výstup:
 
-    docs/index.html   celý prototyp v jednom souboru + odemykací překryv
-    docs/.nojekyll    ať Pages soubory neprohání Jekyllem
+    docs/index.html      odemykací stránka, pár kB — nese jen formulář
+    docs/prototype.html  celý prototyp v jednom souboru
+    docs/.nojekyll       ať Pages soubory neprohání Jekyllem
 
 Pages se pak pouští z větve master, složka /docs.
 
-POZOR — tohle NENÍ zabezpečení. Heslo se kontroluje v prohlížeči a prototyp je
-ve stránce celý, takže kdokoliv si ho přečte přes „zobrazit zdroj". A protože
-repo je veřejné, leží zdroják stejně na GitHubu. Je to závora proti náhodnému
-kolemjdoucímu, nic víc. Vědomé rozhodnutí z 13. 8. 2026: silnější ochrana nemá
-smysl, dokud je repo public (Pages z privátního repa chtějí GitHub Pro).
+Závora je samostatná stránka, ne překryv: prototyp se stahuje až po zadání
+hesla, takže na mobilu nikdo netáhne megabajty dřív, než se dostane dovnitř.
+Po odemčení se obsah vloží do stejné stránky (`document.write`), takže adresa
+zůstane na kořeni a hash routing i deep linky fungují dál.
+
+POZOR — tohle NENÍ zabezpečení. Heslo se kontroluje v prohlížeči a
+`prototype.html` je dostupný i přímo na své adrese. A protože repo musí být
+veřejné, leží zdroják stejně na GitHubu. Je to závora proti náhodnému
+kolemjdoucímu, nic víc. Vědomé rozhodnutí z 13. 8. 2026.
 """
 
 import os
@@ -32,15 +37,15 @@ def main():
     password = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PASSWORD
 
     page = full_document()
-    page = page.replace("</head>", GATE_STYLE + "  </head>", 1)
-    page = page.replace(
-        "<body>", "<body>\n" + GATE_MARKUP + GATE_SCRIPT.replace("__PASSWORD__", password), 1
-    )
+    gate = GATE.replace("__PASSWORD__", password)
 
     os.makedirs(OUT, exist_ok=True)
-    write(os.path.join(OUT, "index.html"), page)
+    write(os.path.join(OUT, "prototype.html"), page)
+    write(os.path.join(OUT, "index.html"), gate)
     write(os.path.join(OUT, ".nojekyll"), "")
-    print("docs/index.html — %.1f MB, heslo: %s" % (len(page.encode()) / 1024 / 1024, password))
+
+    print("docs/index.html     — %.1f kB, heslo: %s" % (len(gate.encode()) / 1024, password))
+    print("docs/prototype.html — %.1f MB" % (len(page.encode()) / 1024 / 1024))
 
 
 def full_document():
@@ -56,6 +61,7 @@ def full_document():
     )
     src = re.sub(r'\s*<link rel="stylesheet" href="css/[a-z]+\.css" />', "", src)
     src = src.replace("</head>", "  <style>\n%s\n    </style>\n  </head>" % styles, 1)
+
     # lambda, ne řetězec — v JS jsou zpětná lomítka, která by re.sub bral jako escapy
     inline_js = "\n    <script>\n%s\n    </script>" % build.read(build.JS)
     src = re.sub(
@@ -75,20 +81,28 @@ def write(path, text):
         f.write(text)
 
 
-GATE_STYLE = """    <style>
-      /* Heslová závora — překryv nad prototypem. Není to ochrana, viz build_pages.py. */
-      .gate {
-        position: fixed;
-        inset: 0;
-        z-index: 999;
+GATE = """<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#e5eceb" />
+    <title>Direct — prototyp</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 24px;
-        background: var(--grey-50, #e5eceb);
+        background: #e5eceb;
+        color: #004033;
+        font-family: "Direct Sans", Arial, Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
-      .gate[hidden] { display: none; }
-      .gate__box {
+      .gate {
         width: 100%;
         max-width: 360px;
         padding: 32px 24px;
@@ -97,10 +111,10 @@ GATE_STYLE = """    <style>
         box-shadow: 0 14px 34px rgba(0, 64, 51, 0.1);
         text-align: center;
       }
-      .gate h1 { font-size: 24px; font-weight: 500; margin: 0 0 8px; }
-      .gate p { font-size: 14px; line-height: 1.4; color: #006b55; margin: 0 0 24px; }
-      .gate label { display: block; text-align: left; font-size: 12px; color: #668c85; margin-bottom: 6px; }
-      .gate input {
+      h1 { font-size: 24px; font-weight: 500; margin: 0 0 8px; }
+      .lead { font-size: 14px; line-height: 1.4; color: #006b55; margin: 0 0 24px; }
+      label { display: block; text-align: left; font-size: 12px; color: #668c85; margin-bottom: 6px; }
+      input {
         width: 100%;
         height: 52px;
         padding: 0 16px;
@@ -110,8 +124,8 @@ GATE_STYLE = """    <style>
         font: inherit;
         color: inherit;
       }
-      .gate input:focus-visible { outline: 2px solid #004033; outline-offset: 2px; }
-      .gate button {
+      input:focus-visible { outline: 2px solid #004033; outline-offset: 2px; }
+      button {
         width: 100%;
         height: 52px;
         margin-top: 16px;
@@ -123,55 +137,80 @@ GATE_STYLE = """    <style>
         font-weight: 600;
         cursor: pointer;
       }
-      .gate__msg { min-height: 20px; margin: 12px 0 0; font-size: 13px; color: #d02b1d; }
+      button:disabled { opacity: 0.6; cursor: progress; }
+      .msg { min-height: 20px; margin: 12px 0 0; font-size: 13px; color: #d02b1d; }
+      .msg--info { color: #006b55; }
+      @media (prefers-reduced-motion: no-preference) {
+        .gate { animation: in 200ms ease-out; }
+        @keyframes in { from { opacity: 0; transform: translateY(6px); } }
+      }
     </style>
-"""
+  </head>
+  <body>
+    <main class="gate">
+      <h1>Direct — prototyp</h1>
+      <p class="lead">Klikací prototyp mobilní aplikace. Pro zobrazení zadejte heslo.</p>
+      <form id="f">
+        <label for="p">Heslo</label>
+        <input id="p" type="password" autocomplete="current-password" autofocus />
+        <button id="b" type="submit">Odemknout</button>
+      </form>
+      <p class="msg" id="m"></p>
+    </main>
 
-GATE_MARKUP = """    <div class="gate" id="gate">
-      <main class="gate__box">
-        <h1>Direct — prototyp</h1>
-        <p>Klikací prototyp mobilní aplikace. Pro zobrazení zadejte heslo.</p>
-        <form id="gate-form">
-          <label for="gate-pass">Heslo</label>
-          <input id="gate-pass" type="password" autocomplete="current-password" autofocus />
-          <button type="submit">Odemknout</button>
-        </form>
-        <p class="gate__msg" id="gate-msg"></p>
-      </main>
-    </div>
-"""
-
-GATE_SCRIPT = """    <script>
+    <script>
+      /* Prototyp se stahuje až po zadání hesla a vloží se do téhle stránky,
+         takže adresa zůstane na kořeni a hash routing funguje dál.
+         Není to ochrana — prototype.html je dostupný i přímo. */
       (function () {
-        var gate = document.getElementById("gate");
-        var form = document.getElementById("gate-form");
-        var pass = document.getElementById("gate-pass");
-        var msg = document.getElementById("gate-msg");
+        var form = document.getElementById("f");
+        var input = document.getElementById("p");
+        var button = document.getElementById("b");
+        var msg = document.getElementById("m");
         var KEY = "direct-prototyp-odemceno";
 
-        function open_() {
-          gate.hidden = true;
-          document.body.style.overflow = "";
-          try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+        function say(text, info) {
+          msg.textContent = text;
+          msg.className = info ? "msg msg--info" : "msg";
         }
 
-        if (sessionStorage.getItem(KEY) === "1") {
-          open_();
-        } else {
-          document.body.style.overflow = "hidden";
+        function load() {
+          button.disabled = true;
+          say("Načítám prototyp…", true);
+          fetch("prototype.html")
+            .then(function (r) {
+              if (!r.ok) throw new Error("http " + r.status);
+              return r.text();
+            })
+            .then(function (html) {
+              try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+              document.open();
+              document.write(html);
+              document.close();
+            })
+            .catch(function () {
+              button.disabled = false;
+              say("Prototyp se nepodařilo načíst. Zkuste stránku obnovit.", false);
+            });
         }
 
         form.addEventListener("submit", function (e) {
           e.preventDefault();
-          if (pass.value.trim() === "__PASSWORD__") {
-            open_();
+          if (input.value.trim() === "__PASSWORD__") {
+            load();
           } else {
-            msg.textContent = "Heslo nesedí. Zkuste to prosím znovu.";
-            pass.select();
+            say("Heslo nesedí. Zkuste to prosím znovu.", false);
+            input.select();
           }
         });
+
+        try {
+          if (sessionStorage.getItem(KEY) === "1") load();
+        } catch (e) {}
       })();
     </script>
+  </body>
+</html>
 """
 
 

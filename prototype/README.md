@@ -61,18 +61,31 @@ python3 prototype/build_pages.py          # heslo Veslo
 python3 prototype/build_pages.py JineHeslo
 ```
 
-Vyrobí `docs/index.html` (celý prototyp v jednom souboru + odemykací překryv)
-a `docs/.nojekyll`. Na rozdíl od `prototype-bundle.html` se **`docs/` commituje** —
-Pages servírují to, co je v repu.
+Vyrobí:
+
+| Soubor | Co to je |
+|---|---|
+| `docs/index.html` | odemykací stránka, ~4 kB — nese jen formulář |
+| `docs/prototype.html` | celý prototyp v jednom souboru, ~4,7 MB |
+| `docs/.nojekyll` | ať Pages soubory neprohání Jekyllem |
+
+Na rozdíl od `prototype-bundle.html` se **`docs/` commituje** — Pages servírují
+to, co je v repu.
+
+**Závora je samostatná stránka, ne překryv.** Prototyp se stahuje až po zadání
+hesla, takže na mobilu nikdo netáhne megabajty dřív, než se dostane dovnitř.
+Po odemčení se vloží do stejné stránky (`document.write`), takže adresa zůstane
+na kořeni a **hash routing i deep linky fungují** — `…/App-prototype/#/profil-fiat`
+otevře po odemčení rovnou profil Fiatu.
 
 Nastavení na GitHubu: *Settings → Pages → Source: Deploy from a branch →
 `master` / `/docs`*. Adresa pak `https://<user>.github.io/App-prototype/`.
 
 ### Heslo NENÍ zabezpečení
 
-Kontroluje se v prohlížeči a prototyp je ve stránce celý — kdokoliv si ho
-přečte přes „zobrazit zdroj". Navíc repo musí být **veřejné** (Pages z
-privátního repa chtějí GitHub Pro), takže zdroják leží i na GitHubu.
+Kontroluje se v prohlížeči a `docs/prototype.html` je dostupný i přímo na své
+adrese, bez ptaní. Navíc repo musí být **veřejné** (Pages z privátního repa
+chtějí GitHub Pro), takže zdroják leží i na GitHubu.
 Je to závora proti náhodnému kolemjdoucímu, nic víc. Vědomé rozhodnutí
 z 13. 8. 2026 — silnější ochrana nemá smysl, dokud je repo public.
 
