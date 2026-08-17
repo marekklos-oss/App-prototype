@@ -178,8 +178,8 @@ Platby` (scrolluje, dál můžou být další).
   struktura na ně má být připravená.
 - **PROPERTY je odložené** (rozhodnuto 11. 8. 2026): jediná nemovitost v prototypu
   (`Evropská 1234/32`) je „Pojištěno jinde", takže za ní žádná naše smlouva není
-  a obrazovka by neměla kudy. Až se to bude dělat, vstup bude proklik ze
-  „Srovnejte s Direct".
+  a obrazovka by neměla kudy. Až se to bude dělat, vstup povede z karty
+  nemovitosti.
 - **Struktura = jedna `<section>` na kombinaci typ+podstránka**, tak jak to už
   dělá `profil-auta` / `profil-stav` / `profil-technicke`. Žádná JS šablona,
   žádné přepínání dat podle typu. Nový typ = zkopírovat sekci a vyměnit
@@ -262,7 +262,7 @@ takže se ukazuje právě tehdy, když za ní něco je. Nemusí to být detail s
 |---|---|---|
 | `Aktivní` (Volvo) | ano | `#/pojisteni-vozidlo` |
 | `Nevyplněno` (Fiat) | ano | sheet `pojisteni-jinde` |
-| `Pojištěno jinde` (Evropská) | **ne** | nikam — až bude proklik ze „Srovnejte s Direct" |
+| `Pojištěno jinde` (Evropská) | **ne** | nikam — až bude detail majetku |
 
 Platí na `#/muj-svet` i v carouselu na `#/domu`; obě místa musí mít stejný stav.
 
