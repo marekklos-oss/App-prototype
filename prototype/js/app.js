@@ -69,9 +69,12 @@
       history.back();
       return;
     }
-    if (e.target.closest("[data-stop]")) return;
     var g = e.target.closest("[data-goto]");
-    if (g) location.hash = "#/" + g.dataset.goto;
+    if (g) {
+      location.hash = "#/" + g.dataset.goto;
+      return;
+    }
+    if (e.target.closest("[data-stop]")) return;
   });
 
   /* keyboard access for the role="button" blocks */

@@ -266,6 +266,14 @@ takže se ukazuje právě tehdy, když za ní něco je. Nemusí to být detail s
 
 Platí na `#/muj-svet` i v carouselu na `#/domu`; obě místa musí mít stejný stav.
 
+### Výběr karet do dashboard carouselu
+
+Carousel „Můj svět" na `#/domu` ukazuje nejvýše pět vyplněných položek z obrazovky
+`#/muj-svet`. Nejdřív bere první kartu z každé oblasti (`Vozidlo`, `Domov`,
+`Cestování`, `Mazlíčci`), poté doplní další karty v pořadí, v němž jsou na
+`#/muj-svet`. V tomto statickém prototypu se výběr upravuje ručně v obou místech;
+obrazovka nemá datový model ani řazení podle skutečného data přidání.
+
 Karta Pojištění na `#/profil-auta` je výjimka: varianty `jinde` a `neuvedeno`
 mají hlavičku bez šipky (`.scard__head--static`), protože si nesou vlastní
 tlačítka („Mám pojištění jinde", „Spočítat", „Upravit datum").
