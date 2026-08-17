@@ -728,7 +728,64 @@
                         <p class="dpay__amount">6 091 Kč</p>
                         <p class="dpay__note">Do 5. 10. 2026</p>
                       </div>
-                      <button class="btn btn--primary" type="button">Zaplatit</button>
+                      <button class="btn btn--primary" type="button" data-goto="pojisteni-vozidlo-platby">Zaplatit</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dpcard">
+                  <div class="dprod">
+                    <div class="dprod__head">
+                      <span class="panel__label">PROFIL</span>
+                    </div>
+                    <div class="dprod__row">
+                      <div class="dprod__media"><img src="assets/house.png" alt="" /></div>
+                      <div class="dprod__body">
+                        <p class="dprod__title">Evropská 1234/32</p>
+                        <p class="dprod__sub">Praha 160 00</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="dins">
+                    <div class="dins__head">
+                      <span class="panel__label">POJIŠTĚNÍ</span>
+                    </div>
+                    <span class="tag">Pojištěno jinde</span>
+                    <div class="dpay">
+                      <div>
+                        <p class="dpay__amount">Srovnejte s Direct</p>
+                        <p class="dpay__note">Podmínky i cena se mohou lišit</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dpcard">
+                  <div class="dprod">
+                    <div class="dprod__head">
+                      <span class="panel__label">PROFIL</span>
+                    </div>
+                    <div class="dprod__row">
+                      <div class="dprod__media"><img src="assets/globe.png" alt="" /></div>
+                      <div class="dprod__body">
+                        <p class="dprod__title">Celý svět bez USA a Kanady</p>
+                        <p class="dprod__sub">krátkodobý</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="dins">
+                    <div class="dins__head">
+                      <span class="panel__label">POJIŠTĚNÍ</span>
+                    </div>
+                    <span class="tag tag--warning">Čeká na zaplacení</span>
+                    <div class="dpay">
+                      <div>
+                        <p class="dpay__amount">1 084 Kč</p>
+                        <p class="dpay__note">Do 20. 10. 2026</p>
+                      </div>
+                      <button class="btn btn--warning" type="button">Zaplatit</button>
                     </div>
                   </div>
                 </article>
@@ -2816,7 +2873,7 @@
           <!-- platby -->
           <div class="dblock">
             <article class="scard">
-              <button class="scard__head" type="button">
+              <button class="scard__head" type="button" data-goto="pojisteni-vozidlo-platby">
                 <h2 class="scard__title">Platby</h2>
                 <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
               </button>
