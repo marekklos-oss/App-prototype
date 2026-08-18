@@ -734,7 +734,7 @@
                 </article>
 
                 <article class="dpcard">
-                  <div class="dprod">
+                  <div class="dprod" data-goto="profil-majetku" role="button" tabindex="0">
                     <div class="dprod__head">
                       <span class="panel__label">PROFIL</span>
                     </div>
@@ -2746,6 +2746,35 @@
           </div>
         </section>
 
+        <!-- ===== Profil majetku — byt ===== -->
+        <section class="screen" id="screen-profil-majetku" data-screen="profil-majetku" data-tab-parent="muj-svet" aria-labelledby="t-profil-majetku">
+          <div class="detailbar">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+            <div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div>
+            <button class="circlebtn" type="button" data-toggle-proto aria-pressed="false" aria-label="Přepínač stavů (prototyp)"><svg aria-hidden="true"><use href="#ic-smiley" /></svg></button>
+          </div>
+          <nav class="segmented" aria-label="Sekce profilu"><button type="button" aria-current="true">Shrnutí</button><button type="button" data-goto="profil-majetku-stav">Stav</button><button type="button" data-goto="profil-majetku-technicke">Technické údaje</button></nav>
+          <header class="propertyhero"><span class="tag tag--muted">Pojištěno jinde</span><h1>Evropská 1234/32</h1><p>Praha 160 00</p><img src="assets/house.png" alt="Byt Evropská 1234/32" /></header>
+          <div class="dblock"><article class="scard"><div class="scard__head scard__head--static"><h2 class="scard__title">Hodnota nemovitosti</h2></div><div class="scard__body"><div class="valuehero"><strong>5 mil. Kč</strong><span>Tržní cena bytu</span></div><p class="emptybody__text">Hodnotu aktualizujeme podle dostupných údajů o nemovitosti.</p></div></article></div>
+          <div class="dblock"><article class="scard"><div class="scard__head scard__head--static"><h2 class="scard__title">Pojištění</h2></div><div class="scard__body"><div class="trow"><span class="trow__label">Stav</span><span class="trow__tags"><span class="tag tag--muted">Pojištěno jinde</span></span></div><div class="trow"><span class="trow__label">Platnost</span><span class="trow__value">do 1. 10. 2026</span></div><p class="noterow__text">Podpojištění ukážeme jen u nemovitosti pojištěné u Directu.</p></div></article></div>
+          <div class="dblock"><article class="scard"><div class="scard__head scard__head--static"><h2 class="scard__title">Základní údaje</h2></div><div class="scard__body"><div class="trow"><span class="trow__label">Podlahová plocha</span><span class="trow__value">78 m²</span></div><div class="trow"><span class="trow__label">Typ stavby</span><span class="trow__value">Byt</span></div><div class="scard__foot"><button class="btn btn--secondary" type="button" data-goto="profil-majetku-technicke">Technické údaje</button></div></div></article></div>
+          <div class="dblock"><div class="cardhead"><h2 class="cardhead__title">Potřebujete pomoc?</h2></div><div class="helpcard"><span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span><h3 class="helpcard__title">Asistenční linka (nonstop)</h3><p class="helpcard__text">Pokud potřebujete pomoc s nemovitostí, zavolejte nám.</p><a class="btn btn--lime" href="tel:291291291"><svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291</a></div></div>
+        </section>
+
+        <section class="screen" id="screen-profil-majetku-stav" data-screen="profil-majetku-stav" data-tab-parent="muj-svet" aria-labelledby="t-profil-majetku-stav">
+          <div class="detailbar"><button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku-stav">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div></div>
+          <nav class="segmented" aria-label="Sekce profilu"><button type="button" data-goto="profil-majetku">Shrnutí</button><button type="button" aria-current="true">Stav</button><button type="button" data-goto="profil-majetku-technicke">Technické údaje</button></nav>
+          <div class="blockhead"><h1 class="blockhead__title">Revize</h1><p class="blockhead__sub">Pohlídáme termíny, které se doma snadno ztratí.</p></div>
+          <div class="reviewlist"><article class="reviewcard" data-review="boiler"></article><article class="reviewcard" data-review="chimney"></article><article class="reviewcard" data-review="extinguisher"></article></div>
+        </section>
+
+        <section class="screen" id="screen-profil-majetku-technicke" data-screen="profil-majetku-technicke" data-tab-parent="muj-svet" aria-labelledby="t-profil-majetku-technicke">
+          <div class="detailbar"><button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku-technicke">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div></div>
+          <nav class="segmented" aria-label="Sekce profilu"><button type="button" data-goto="profil-majetku">Shrnutí</button><button type="button" data-goto="profil-majetku-stav">Stav</button><button type="button" aria-current="true">Technické údaje</button></nav>
+          <div class="blockhead"><h1 class="blockhead__title">Údaje o majetku</h1></div>
+          <div class="datacard propertydata"><div class="trow"><span class="trow__label">Nemovitost</span><span class="trow__value">Byt</span></div><div class="trow"><span class="trow__label">Adresa</span><span class="trow__value">Evropská 1234/32,<br>Praha 160 00</span></div><div class="trow"><span class="trow__label">Podlahová plocha</span><span class="trow__value">78 m²</span></div><div class="trow"><span class="trow__label">Dispozice</span><span class="trow__value">2+1</span></div><div class="trow"><span class="trow__label">Hodnota nemovitosti</span><span class="trow__value">5 mil. Kč</span></div><div class="trow"><span class="trow__label">Kvalita bytu</span><span class="trow__value">Standard</span></div><div class="trow"><span class="trow__label">Byt ve vyšším patře</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Balkon/terasa</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Garážové stání</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Vedlejší stavby</span><span class="trow__value">Garáž, hrob</span></div></div>
+        </section>
+
         <!-- ============================================================
              Detail pojištění — Vozidlo · Shrnutí
              Figma: 5830:45548 (stránka „🟢 Detail pojištění" 2292:38343)
@@ -3996,6 +4025,20 @@
           <button class="btn btn--primary btn--block" type="button" data-close-sheet>Odeslat</button>
         </div>
       </div>
+      <!-- Revize majetku -->
+      <div class="sheet" id="sheet-review" role="dialog" aria-modal="true" aria-labelledby="sh-review">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button>
+        <div class="sheet__panel"><div class="sheet__grabber"></div><button class="sheet__close" type="button" data-close-sheet aria-label="Zavřít"><svg aria-hidden="true"><use href="#ic-xmark" /></svg></button>
+          <h2 class="sheet__title" id="sh-review">Nastavit revizi</h2><p class="sheet__sub" data-review-sheet-sub>Zadejte datum poslední revize. Pohlídáme termín té příští.</p>
+          <div data-review-boiler-fields><div class="field field--select"><label for="heat-source">Typ zdroje vytápění *</label><select id="heat-source"><option>Plynový kotel kondenzační</option><option>Plynový kotel (klasický)</option><option>Kotel na pevná paliva</option><option>Krbová kamna nebo krb s výměníkem</option><option>Kotel na kapalná paliva</option><option>Elektrický kotel</option><option>Tepelné čerpadlo</option><option>Dálkové vytápění</option></select></div><div class="field"><label for="heat-date">Datum poslední kontroly *</label><input id="heat-date" type="date" value="2026-08-17"></div><div class="field"><label for="heat-interval">Interval</label><input id="heat-interval" type="text" value="1 rok" readonly></div></div>
+          <div class="field"><label for="review-date">Datum revize *</label><input id="review-date" type="date" value="2026-08-17"></div>
+          <button class="btn btn--primary btn--block" type="button" data-save-review>Začít sledovat</button>
+        </div>
+      </div>
+      <div class="sheet" id="sheet-review-stop" role="dialog" aria-modal="true" aria-labelledby="sh-review-stop">
+        <button class="sheet__scrim" type="button" data-close-sheet aria-label="Zavřít"></button><div class="sheet__panel"><div class="sheet__grabber"></div><h2 class="sheet__title" id="sh-review-stop">Přestat sledovat revize?</h2><p class="sheet__sub">Připomínky k této revizi vypneme. Kdykoliv je můžete nastavit znovu.</p><button class="btn btn--danger-soft btn--block" type="button" data-confirm-stop>Přestat sledovat</button><button class="btn btn--secondary btn--block" type="button" data-close-sheet>Zpět</button></div>
+      </div>
+      <div class="toast" role="status" aria-live="polite" hidden data-review-toast></div>
     </div>
 
     <script src="js/app.js"></script>

@@ -3566,3 +3566,34 @@ a.promo {
 .covhead + .personrow__tags {
   margin-top: var(--sp-12);
 }
+
+/* ---------- Profil majetku ---------- */
+.propertyhero { padding: 8px 8px 24px; text-align: center; }
+.propertyhero h1 { margin: 12px 0 4px; font-size: var(--fs-h2); color: var(--content-primary); }
+.propertyhero p { margin: 0; color: var(--content-secondary); }
+.propertyhero img { display: block; width: min(220px, 72%); margin: 12px auto 0; }
+.valuehero { display: flex; flex-direction: column; gap: 4px; }
+.valuehero strong { font-size: 28px; line-height: 1.1; color: var(--content-primary); }
+.valuehero span { color: var(--content-secondary); font-size: var(--fs-body2); }
+.blockhead__sub { margin: 6px 0 0; color: var(--content-secondary); font-size: var(--fs-body2); }
+.reviewlist { display: flex; flex-direction: column; gap: var(--sp-16); }
+.reviewcard { background: var(--surface); border-radius: var(--r-16); box-shadow: var(--shadow-card); overflow: hidden; }
+.reviewcard__head { display: flex; gap: 12px; align-items: flex-start; padding: var(--sp-16); }
+.reviewcard__head svg { width: 24px; height: 24px; color: var(--green-800); flex: 0 0 auto; }
+.reviewcard__title { margin: 0; color: var(--content-primary); font-size: var(--fs-h3); }
+.reviewcard__sub { margin: 4px 0 0; color: var(--content-secondary); font-size: var(--fs-body3); }
+.reviewcard__body { padding: 0 var(--sp-16) var(--sp-16); }
+.reviewcard__body .btn { margin-top: var(--sp-16); }
+.reviewcard__meta { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--dark-green-25); color: var(--content-secondary); font-size: var(--fs-body3); }
+.reviewcard__meta b { color: var(--content-primary); font-weight: 500; text-align: right; }
+.reviewcard--warning { border: 1px solid var(--warning-300, #f5bf58); }
+.reviewcard--danger { border: 1px solid var(--danger-300, #f08282); }
+.reviewcard--locked { opacity: .72; }
+.reviewcard__banner { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--green-100); color: var(--content-primary); font-size: var(--fs-body3); }
+.reviewcard--warning .reviewcard__banner { background: #fff2d6; }
+.reviewcard--danger .reviewcard__banner { background: #fee5e5; }
+.propertydata { gap: 0; }
+.propertydata .trow { padding: 13px 0; border-bottom: 1px solid var(--dark-green-25); }
+.propertydata .trow:last-child { border-bottom: 0; }
+.propertydata .trow__value { text-align: right; }
+.toast { position: fixed; z-index: 30; bottom: 104px; left: 50%; width: calc(100% - 48px); max-width: 360px; transform: translateX(-50%); padding: 14px 16px; border-radius: 12px; background: var(--green-900); color: #fff; box-shadow: var(--shadow-card); font-size: var(--fs-body2); }
