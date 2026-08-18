@@ -242,6 +242,82 @@
 
   window.addEventListener("hashchange", closeSheets);
 
+  /* Property reviews. The prototype keeps the data deliberately local: the
+     production source will be DS, while this makes every state and form flow
+     clickable without inventing an API. */
+  var reviewState = { boiler: "empty", chimney: "locked", extinguisher: "empty" };
+  var activeReview = null;
+  var reviewNames = { boiler: "zdroje vytápění", chimney: "komína", extinguisher: "hasicího přístroje" };
+  var reviewTitles = { boiler: "Kotel / zdroj vytápění", chimney: "Komín (spalinová cesta)", extinguisher: "Hasicí přístroje" };
+
+  function reviewMarkup(key, state) {
+    var title = reviewTitles[key];
+    var icon = '<svg aria-hidden="true"><use href="#ic-card" /></svg>';
+    if (state === "locked") return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">Nejdřív zadejte kotel</p></div></div><div class="reviewcard__body"><p class="emptybody__text">Podle zdroje vytápění nastavíme správné lhůty pro komín.</p><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="boiler">Zadat kotel</button></div>';
+    if (state === "empty") return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">neuvedeno</p></div></div><div class="reviewcard__body"><p class="emptybody__text">Zadejte datum poslední revize. Pohlídáme termín té příští.</p><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="' + key + '">Nastavit</button></div>';
+    var warn = state === "warn";
+    var danger = state === "danger";
+    var remaining = danger ? "Překročeno o 2 měsíce" : warn ? "Zbývá 3 měsíce" : "Zbývá 8 měsíců";
+    var message = danger ? "Termín revize už uplynul." : warn ? "Čas se krátí" : "Včas se vám připomeneme";
+    return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">Sledujeme</p></div></div><div class="reviewcard__body"><div class="reviewcard__meta"><span>Další revize</span><b>' + (danger ? "17. 6. 2026" : warn ? "17. 11. 2026" : "17. 4. 2027") + '</b></div>' + (key === "chimney" ? '<div class="reviewcard__meta"><span>Čištění</span><b>1× ročně</b></div>' : '') + '<div class="reviewcard__banner">' + message + ' · ' + remaining + '</div><button class="btn ' + (danger ? 'btn--outline-danger' : warn ? 'btn--warning' : 'btn--secondary') + '" type="button" data-review-action="record" data-review="' + key + '">Zaznamenat revizi</button><button class="linkbtn" type="button" data-review-action="stop" data-review="' + key + '">Přestat sledovat revize</button></div>';
+  }
+  function renderReviews() {
+    document.querySelectorAll(".reviewcard[data-review]").forEach(function (card) {
+      var key = card.dataset.review;
+      if (!reviewState[key]) return;
+      card.hidden = reviewState[key] === "none";
+      if (card.hidden) return;
+      card.className = "reviewcard reviewcard--" + reviewState[key];
+      card.innerHTML = reviewMarkup(key, reviewState[key]);
+    });
+  }
+  function openReviewSheet(key, recording) {
+    activeReview = key;
+    var sheet = document.getElementById("sheet-review");
+    var boilerFields = sheet.querySelector("[data-review-boiler-fields]");
+    sheet.querySelector("#sh-review").textContent = recording ? "Zaznamenat revizi" : "Nastavit revizi";
+    sheet.querySelector("[data-review-sheet-sub]").textContent = recording ? "Datum revize přepočítá příští termín." : "Zadejte datum poslední revize. Pohlídáme termín té příští.";
+    boilerFields.hidden = key !== "boiler";
+    sheet.querySelector("[data-save-review]").textContent = recording ? "Zaznamenat revizi" : "Začít sledovat";
+    sheet.classList.add("is-open");
+  }
+  document.addEventListener("click", function (e) {
+    var action = e.target.closest("[data-review-action]");
+    if (action) {
+      var key = action.dataset.review;
+      if (action.dataset.reviewAction === "stop") { activeReview = key; document.getElementById("sheet-review-stop").classList.add("is-open"); }
+      else openReviewSheet(key, action.dataset.reviewAction === "record");
+      return;
+    }
+    if (e.target.closest("[data-save-review]")) {
+      if (!activeReview) return;
+      var entered = document.getElementById("review-date").value;
+      var reviewDate = entered ? new Date(entered + "T12:00:00") : new Date();
+      var next = new Date(reviewDate);
+      next.setFullYear(next.getFullYear() + 1);
+      var ratio = (next - new Date()) / (365.25 * 24 * 60 * 60 * 1000);
+      reviewState[activeReview] = ratio <= 0.15 ? "danger" : ratio <= 0.4 ? "warn" : "green";
+      if (activeReview === "boiler") {
+        var source = document.getElementById("heat-source").value;
+        reviewState.chimney = /Elektrický|Tepelné|Dálkové/.test(source) ? "none" : "empty";
+      }
+      closeSheets(); renderReviews(); showReviewToast("Začali jsme sledovat revize " + reviewNames[activeReview] + ".");
+      return;
+    }
+    if (e.target.closest("[data-confirm-stop]")) {
+      reviewState[activeReview] = "empty";
+      if (activeReview === "boiler") reviewState.chimney = "locked";
+      closeSheets(); renderReviews(); showReviewToast("Připomínky jsme vypnuli.");
+    }
+  });
+  function showReviewToast(message) {
+    var toast = document.querySelector("[data-review-toast]");
+    if (!toast) return;
+    toast.textContent = message; toast.hidden = false;
+    window.setTimeout(function () { toast.hidden = true; }, 3200);
+  }
+  renderReviews();
+
   /* Live clock in the fake iOS status bar */
   var clock = document.getElementById("clock");
   function tick() {

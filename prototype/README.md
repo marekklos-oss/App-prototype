@@ -107,6 +107,9 @@ Hash-based, funguje back button i deep linky. Obrazovky jsou
 | `#/profil-auta` | Profil vozidla — Shrnutí | `23851:64928` |
 | `#/profil-stav` | Profil vozidla — Stav | `25098:57918` / `24694:65589` |
 | `#/profil-technicke` | Profil vozidla — Technické údaje | `24676:61762` |
+| `#/profil-majetku` | Profil majetku — Shrnutí | — |
+| `#/profil-majetku-stav` | Profil majetku — Stav / revize | — |
+| `#/profil-majetku-technicke` | Profil majetku — Technické údaje | `5832:52082` |
 | `#/profil-fiat` | Profil vozidla — Fiat Ducato (nepojištěné) | karta `24548:59120` |
 | `#/pojisteni-vozidlo` | Detail pojištění — Vozidlo · Shrnutí | `5830:45548` |
 | `#/pojisteni-vozidlo-pojisteni` | Detail pojištění — Vozidlo · Pojištění | `5350:62123` |
@@ -148,7 +151,8 @@ Smazat = odstranit blok `.protobar` + `data-toggle-proto` z tlačítka.
 ## Bottom sheety
 
 `add-vehicle`, `update-km`, `helper-km`, `stk`, `pojisteni-jinde`, `oil-help`,
-`tyre-help`, `stk-help`, `vignette`, `vignette-help`, `edit-spz`.
+`tyre-help`, `stk-help`, `vignette`, `vignette-help`, `edit-spz`, `review`,
+`review-stop`.
 
 Pozor: sheety v Shrnutí mají v designu **kolečko se šipkou dolů**, sheety ve Stav
 a Technických údajích **křížek**. Je to tak i v kódu.
