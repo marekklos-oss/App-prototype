@@ -252,14 +252,14 @@
 
   function reviewMarkup(key, state) {
     var title = reviewTitles[key];
-    var icon = '<svg aria-hidden="true"><use href="#ic-card" /></svg>';
-    if (state === "locked") return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">Nejdřív zadejte kotel</p></div></div><div class="reviewcard__body"><p class="emptybody__text">Podle zdroje vytápění nastavíme správné lhůty pro komín.</p><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="boiler">Zadat kotel</button></div>';
-    if (state === "empty") return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">neuvedeno</p></div></div><div class="reviewcard__body"><p class="emptybody__text">Zadejte datum poslední revize. Pohlídáme termín té příští.</p><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="' + key + '">Nastavit</button></div>';
+    var head = '<div class="scard__head scard__head--static"><span class="iconpill"><svg aria-hidden="true"><use href="#ic-card" /></svg></span><span class="scard__headcol"><h2 class="scard__title">' + title + '</h2>';
+    if (state === "locked") return head + '<p class="scard__sub">Nejdřív zadejte kotel</p></span></div><div class="scard__body"><p class="emptybody__text">Podle zdroje vytápění nastavíme správné lhůty pro komín.</p><div class="scard__foot"><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="boiler">Zadat kotel</button></div></div>';
+    if (state === "empty") return head + '<p class="scard__sub">Neuvedeno</p></span></div><div class="scard__body"><p class="emptybody__text">Zadejte datum poslední revize. Pohlídáme termín té příští.</p><div class="scard__foot"><button class="btn btn--secondary" type="button" data-review-action="setup" data-review="' + key + '">Nastavit</button></div></div>';
     var warn = state === "warn";
     var danger = state === "danger";
     var remaining = danger ? "Překročeno o 2 měsíce" : warn ? "Zbývá 3 měsíce" : "Zbývá 8 měsíců";
     var message = danger ? "Termín revize už uplynul." : warn ? "Čas se krátí" : "Včas se vám připomeneme";
-    return '<div class="reviewcard__head">' + icon + '<div><h2 class="reviewcard__title">' + title + '</h2><p class="reviewcard__sub">Sledujeme</p></div></div><div class="reviewcard__body"><div class="reviewcard__meta"><span>Další revize</span><b>' + (danger ? "17. 6. 2026" : warn ? "17. 11. 2026" : "17. 4. 2027") + '</b></div>' + (key === "chimney" ? '<div class="reviewcard__meta"><span>Čištění</span><b>1× ročně</b></div>' : '') + '<div class="reviewcard__banner">' + message + ' · ' + remaining + '</div><button class="btn ' + (danger ? 'btn--outline-danger' : warn ? 'btn--warning' : 'btn--secondary') + '" type="button" data-review-action="record" data-review="' + key + '">Zaznamenat revizi</button><button class="linkbtn" type="button" data-review-action="stop" data-review="' + key + '">Přestat sledovat revize</button></div>';
+    return head + '<p class="scard__sub">Sledujeme</p></span></div><div class="scard__body"><div class="trow"><span class="trow__label">Další revize</span><span class="trow__value">' + (danger ? "17. 6. 2026" : warn ? "17. 11. 2026" : "17. 4. 2027") + '<small>' + remaining + '</small></span></div>' + (key === "chimney" ? '<div class="trow"><span class="trow__label">Čištění</span><span class="trow__value">1× ročně</span></div>' : '') + '<div class="noterow"><svg aria-hidden="true"><use href="#ic-info" /></svg><div><p class="noterow__title">' + message + '</p><p class="noterow__text">Pohlídáme termín a ozveme se včas.</p></div></div><div class="scard__foot"><button class="btn ' + (danger ? 'btn--outline-danger' : warn ? 'btn--warning' : 'btn--secondary') + '" type="button" data-review-action="record" data-review="' + key + '">Zaznamenat revizi</button></div><button class="linkbtn" type="button" data-review-action="stop" data-review="' + key + '">Přestat sledovat revize</button></div>';
   }
   function renderReviews() {
     document.querySelectorAll(".reviewcard[data-review]").forEach(function (card) {
@@ -267,7 +267,7 @@
       if (!reviewState[key]) return;
       card.hidden = reviewState[key] === "none";
       if (card.hidden) return;
-      card.className = "reviewcard reviewcard--" + reviewState[key];
+      card.className = "scard reviewcard reviewcard--" + reviewState[key];
       card.innerHTML = reviewMarkup(key, reviewState[key]);
     });
   }
