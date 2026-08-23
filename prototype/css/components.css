@@ -1053,6 +1053,17 @@ a.promo {
   display: block;
 }
 
+.banner__pic--foodora {
+  display: flex;
+  align-items: center;
+  background: #fff;
+}
+
+.banner__pic--foodora img {
+  height: auto;
+  object-fit: contain;
+}
+
 .banner__body {
   flex: 1 1 auto;
   min-width: 0;
