@@ -1,7 +1,7 @@
 # macOS
 .DS_Store
 
-# Nested repos with their own remotes — tracked separately
+# Local working copies of related repositories
 /agents/
 /direct-design-system/
 
@@ -10,4 +10,8 @@
 
 # Local dependencies and platform-specific binaries
 /sites/node_modules/
+
+# Generated deployment state, not source code
+/sites/.site-artifacts/
+
 /figma-mcp-server/node_modules/

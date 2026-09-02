@@ -29,68 +29,7 @@ css/app.css         # shell (phone frame, status bar, screens) + tab bar
 css/components.css  # všechny DS komponenty
 js/app.js           # routing, sheety, carousely, přepínač stavů
 assets/             # obrázky vytažené z Figmy
-build.py            # sbalí to celé do jednoho souboru pro Claude Artifact
-build_pages.py      # totéž + heslová závora, výstup do docs/ pro GitHub Pages
 ```
-
-## Sdílení jako Claude Artifact
-
-```bash
-python3 prototype/build.py
-```
-
-Vyrobí `prototype-bundle.html` v kořeni repa (je v `.gitignore`, necommituje se).
-Artefakty nesmí sahat na externí zdroje, takže se CSS a JS inlinují a obrázky
-jdou do data URI — proto ten jeden tučný soubor (~4,4 MB, limit je 16 MB).
-Obal artefaktu dodává `<!doctype>`, `<html>`, `<head>` i `<body>`, takže build
-bere jen obsah `<body>`.
-
-Publikuje se přes Artifact tool na ten bundle. **Aby zůstala stejná URL, musí se
-při republishi předat ta původní** — jiná cesta k souboru = nový link.
-
-Aktuální artefakt: `https://claude.ai/code/artifact/4c7ee8ac-5cc8-4d25-a97d-831021504f3e`
-
-**Pozor na font.** `Direct Sans` není v repu jako soubor, prototyp spoléhá na
-systémovou instalaci. Komukoliv bez ní to spadne na Arial. Až se sežene
-`.woff2`, patří do `build.py` jako `@font-face` s data URI.
-
-## Publikování na GitHub Pages
-
-```bash
-python3 prototype/build_pages.py          # heslo Veslo
-python3 prototype/build_pages.py JineHeslo
-```
-
-Vyrobí:
-
-| Soubor | Co to je |
-|---|---|
-| `docs/index.html` | odemykací stránka, ~4 kB — nese jen formulář |
-| `docs/prototype.html` | celý prototyp v jednom souboru, ~4,7 MB |
-| `docs/.nojekyll` | ať Pages soubory neprohání Jekyllem |
-
-Na rozdíl od `prototype-bundle.html` se **`docs/` commituje** — Pages servírují
-to, co je v repu.
-
-**Závora je samostatná stránka, ne překryv.** Prototyp se stahuje až po zadání
-hesla, takže na mobilu nikdo netáhne megabajty dřív, než se dostane dovnitř.
-Po odemčení se vloží do stejné stránky (`document.write`), takže adresa zůstane
-na kořeni a **hash routing i deep linky fungují** — `…/App-prototype/#/profil-fiat`
-otevře po odemčení rovnou profil Fiatu.
-
-Nastavení na GitHubu: *Settings → Pages → Source: Deploy from a branch →
-`master` / `/docs`*. Adresa pak `https://<user>.github.io/App-prototype/`.
-
-### Heslo NENÍ zabezpečení
-
-Kontroluje se v prohlížeči a `docs/prototype.html` je dostupný i přímo na své
-adrese, bez ptaní. Navíc repo musí být **veřejné** (Pages z privátního repa
-chtějí GitHub Pro), takže zdroják leží i na GitHubu.
-Je to závora proti náhodnému kolemjdoucímu, nic víc. Vědomé rozhodnutí
-z 13. 8. 2026 — silnější ochrana nemá smysl, dokud je repo public.
-
-Odemčení si drží `sessionStorage`, takže se heslo neptá při každém refreshi,
-ale po zavření panelu ano.
 
 ## Routing
 
@@ -107,6 +46,9 @@ Hash-based, funguje back button i deep linky. Obrazovky jsou
 | `#/profil-auta` | Profil vozidla — Shrnutí | `23851:64928` |
 | `#/profil-stav` | Profil vozidla — Stav | `25098:57918` / `24694:65589` |
 | `#/profil-technicke` | Profil vozidla — Technické údaje | `24676:61762` |
+| `#/profil-majetku` | Profil majetku — Shrnutí | — |
+| `#/profil-majetku-stav` | Profil majetku — Stav / revize | — |
+| `#/profil-majetku-technicke` | Profil majetku — Technické údaje | `5832:52082` |
 | `#/profil-fiat` | Profil vozidla — Fiat Ducato (nepojištěné) | karta `24548:59120` |
 | `#/pojisteni-vozidlo` | Detail pojištění — Vozidlo · Shrnutí | `5830:45548` |
 | `#/pojisteni-vozidlo-pojisteni` | Detail pojištění — Vozidlo · Pojištění | `5350:62123` |
@@ -148,7 +90,8 @@ Smazat = odstranit blok `.protobar` + `data-toggle-proto` z tlačítka.
 ## Bottom sheety
 
 `add-vehicle`, `update-km`, `helper-km`, `stk`, `pojisteni-jinde`, `oil-help`,
-`tyre-help`, `stk-help`, `vignette`, `vignette-help`, `edit-spz`.
+`tyre-help`, `stk-help`, `vignette`, `vignette-help`, `edit-spz`, `review`,
+`review-stop`.
 
 Pozor: sheety v Shrnutí mají v designu **kolečko se šipkou dolů**, sheety ve Stav
 a Technických údajích **křížek**. Je to tak i v kódu.
@@ -178,8 +121,8 @@ Platby` (scrolluje, dál můžou být další).
   struktura na ně má být připravená.
 - **PROPERTY je odložené** (rozhodnuto 11. 8. 2026): jediná nemovitost v prototypu
   (`Evropská 1234/32`) je „Pojištěno jinde", takže za ní žádná naše smlouva není
-  a obrazovka by neměla kudy. Až se to bude dělat, vstup bude proklik ze
-  „Srovnejte s Direct".
+  a obrazovka by neměla kudy. Až se to bude dělat, vstup povede z karty
+  nemovitosti.
 - **Struktura = jedna `<section>` na kombinaci typ+podstránka**, tak jak to už
   dělá `profil-auta` / `profil-stav` / `profil-technicke`. Žádná JS šablona,
   žádné přepínání dat podle typu. Nový typ = zkopírovat sekci a vyměnit
@@ -262,9 +205,17 @@ takže se ukazuje právě tehdy, když za ní něco je. Nemusí to být detail s
 |---|---|---|
 | `Aktivní` (Volvo) | ano | `#/pojisteni-vozidlo` |
 | `Nevyplněno` (Fiat) | ano | sheet `pojisteni-jinde` |
-| `Pojištěno jinde` (Evropská) | **ne** | nikam — až bude proklik ze „Srovnejte s Direct" |
+| `Pojištěno jinde` (Evropská) | **ne** | nikam — až bude detail majetku |
 
 Platí na `#/muj-svet` i v carouselu na `#/domu`; obě místa musí mít stejný stav.
+
+### Výběr karet do dashboard carouselu
+
+Carousel „Můj svět" na `#/domu` ukazuje nejvýše pět vyplněných položek z obrazovky
+`#/muj-svet`. Nejdřív bere první kartu z každé oblasti (`Vozidlo`, `Domov`,
+`Cestování`, `Mazlíčci`), poté doplní další karty v pořadí, v němž jsou na
+`#/muj-svet`. V tomto statickém prototypu se výběr upravuje ručně v obou místech;
+obrazovka nemá datový model ani řazení podle skutečného data přidání.
 
 Karta Pojištění na `#/profil-auta` je výjimka: varianty `jinde` a `neuvedeno`
 mají hlavičku bez šipky (`.scard__head--static`), protože si nesou vlastní
