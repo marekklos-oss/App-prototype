@@ -8,6 +8,7 @@
   var known = screens.map(function (s) {
     return s.dataset.screen;
   });
+  var screenTabOrigins = {};
 
   function tabFromHash() {
     var id = (location.hash || "").replace(/^#\/?/, "");
@@ -32,8 +33,9 @@
       if (active) subnav.scrollLeft = Math.max(0, active.offsetLeft - 16);
     }
 
-    /* Detail screens (no tab of their own) keep their parent tab highlighted. */
-    var highlight = (current && current.dataset.tabParent) || id;
+    /* Detail screens retain the tab from which they were opened. Their
+       data-tab-parent is the fallback for direct links. */
+    var highlight = screenTabOrigins[id] || (current && current.dataset.tabParent) || id;
     tabs.forEach(function (t) {
       if (t.dataset.tab === highlight) {
         t.setAttribute("aria-current", "page");
@@ -61,6 +63,52 @@
 
   render(tabFromHash());
 
+  /* Rewards and cashback share one local source. Add future states here so
+     the dashboard and the detail view always show the same figures. */
+  var rewardsState = {
+    current: "active",
+    states: {
+      active: {
+        rewardsValue: "120 Kč",
+        rewardsNote: "nasbíráno",
+        cashbackValue: "80 Kč",
+        cashbackNote: "připravujeme k poslání",
+        rewardsSent: "0 Kč",
+        rewardsGoal: "500 Kč",
+        cashbackDays: "Zbývá 6 dní",
+        cashbackPaid: "240 Kč"
+      }
+    }
+  };
+
+  function renderRewards() {
+    var card = document.querySelector("[data-rewards-card]");
+    var state = rewardsState.states[rewardsState.current];
+    if (!state) return;
+    if (card) {
+      card.querySelector("[data-rewards-value]").textContent = state.rewardsValue;
+      card.querySelector("[data-rewards-note]").textContent = state.rewardsNote;
+      card.querySelector("[data-cashback-value]").textContent = state.cashbackValue;
+      card.querySelector("[data-cashback-note]").textContent = state.cashbackNote;
+    }
+    document.querySelectorAll("[data-rewards-earned]").forEach(function (el) { el.textContent = state.rewardsValue; });
+    document.querySelectorAll("[data-rewards-sent]").forEach(function (el) { el.textContent = state.rewardsSent; });
+    document.querySelectorAll("[data-rewards-goal]").forEach(function (el) { el.textContent = state.rewardsGoal; });
+    document.querySelectorAll("[data-cashback-pending]").forEach(function (el) { el.textContent = state.cashbackValue; });
+    document.querySelectorAll("[data-cashback-days]").forEach(function (el) { el.textContent = state.cashbackDays; });
+    document.querySelectorAll("[data-cashback-paid]").forEach(function (el) { el.textContent = state.cashbackPaid; });
+  }
+
+  /* Temporary developer hook for later prototype state switching. */
+  window.setRewardsCardState = function (stateName) {
+    if (!rewardsState.states[stateName]) return false;
+    rewardsState.current = stateName;
+    renderRewards();
+    return true;
+  };
+
+  renderRewards();
+
   /* [data-goto="screen"] opens another screen; [data-stop] blocks the bubble so
      buttons nested inside a tappable block keep their own behaviour.
      [data-back] walks the history back. */
@@ -71,6 +119,11 @@
     }
     var g = e.target.closest("[data-goto]");
     if (g) {
+      var current = document.querySelector(".screen.is-active");
+      var origin = current && (screenTabOrigins[current.dataset.screen] || current.dataset.tabParent || current.dataset.screen);
+      if (origin && tabs.some(function (t) { return t.dataset.tab === origin; })) {
+        screenTabOrigins[g.dataset.goto] = origin;
+      }
       location.hash = "#/" + g.dataset.goto;
       return;
     }

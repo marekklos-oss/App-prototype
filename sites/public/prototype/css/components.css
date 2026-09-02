@@ -858,6 +858,335 @@ a.promo {
   margin-top: var(--sp-24);
 }
 
+/* ---------- Peněženka — odměny + cashback ---------- */
+
+.rewards-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  padding: var(--sp-16);
+  border: 1px solid var(--green-500);
+  border-radius: var(--r-28);
+  background-image: linear-gradient(to top right, var(--dark-green-900), var(--dark-green-800));
+  box-shadow: var(--shadow-app);
+  color: var(--green-50);
+}
+
+.rewards-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+}
+
+.rewards-card__icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--green-500);
+}
+
+.rewards-card__icon::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  background: var(--dark-green-900);
+  -webkit-mask: url("../assets/coins.svg") center / contain no-repeat;
+  mask: url("../assets/coins.svg") center / contain no-repeat;
+}
+
+.rewards-card__title {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 110%;
+}
+
+.rewards-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-16);
+}
+
+.rewards-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.rewards-card__eyebrow {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  line-height: 110%;
+  color: var(--green-500);
+}
+
+.rewards-card__stat strong {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 110%;
+}
+
+.rewards-card__stat > span:last-child {
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  line-height: 110%;
+}
+
+.rewards-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  width: 100%;
+  min-height: 40px;
+  padding: var(--sp-8) 0 0;
+  border: 0;
+  border-top: 1px solid var(--green-500);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  line-height: 110%;
+  text-align: left;
+}
+
+.rewards-card__cta svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+/* ---------- Odměny detail ---------- */
+
+.reward-summary {
+  padding: var(--sp-16);
+  border: 1px solid var(--green-500);
+  border-radius: var(--r-28);
+  background: linear-gradient(to top right, var(--dark-green-900), var(--dark-green-800));
+  color: var(--green-50);
+  box-shadow: var(--shadow-app);
+}
+
+.reward-summary__title {
+  margin: 0 0 var(--sp-24);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 110%;
+}
+
+.reward-summary__stat {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--sp-16);
+}
+
+.reward-summary__stat span {
+  font-size: var(--fs-body2);
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.reward-summary__stat strong {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 100%;
+  white-space: nowrap;
+}
+
+.reward-summary__stat--bottom {
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--green-500);
+}
+
+.reward-progress {
+  position: relative;
+  height: 18px;
+  margin-top: var(--sp-8);
+}
+
+.reward-progress::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green-500);
+}
+
+.reward-progress i {
+  position: absolute;
+  top: 2px;
+  left: var(--reward-progress);
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--dark-green-900);
+  border-radius: 50%;
+  background: var(--green-500);
+  transform: translateX(-50%);
+}
+
+.reward-progress__goal {
+  display: block;
+  margin: -2px 0 var(--sp-16);
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  line-height: 120%;
+  text-align: right;
+}
+
+.reward-summary__hint {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-8);
+  margin: var(--sp-16) 0 0;
+  font-size: var(--fs-body3);
+  font-weight: 500;
+  line-height: 130%;
+}
+
+.reward-summary__hint svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.reward-section {
+  padding-top: var(--sp-32);
+}
+
+.reward-section .blockhead {
+  padding: 0 0 var(--sp-16);
+}
+
+.reward-section .blockhead__title {
+  font-size: var(--fs-h4);
+}
+
+.reward-tasks {
+  display: grid;
+  gap: var(--sp-12);
+}
+
+.reward-task {
+  padding: var(--sp-12);
+  border: 1px solid var(--dark-green-25);
+  border-radius: var(--r-16);
+  background: var(--surface);
+}
+
+.reward-task--ready {
+  border-color: var(--green-500);
+  background: var(--green-100);
+}
+
+.reward-task__head {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.reward-task__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dark-green-25);
+  color: var(--dark-green-900);
+}
+
+.reward-task__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.reward-task__head h3,
+.reward-task__head p,
+.reward-task__text {
+  margin: 0;
+}
+
+.reward-task__head h3 {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.reward-task__head p,
+.reward-task__text {
+  font-size: var(--fs-body3);
+  line-height: 130%;
+  color: var(--content-secondary);
+}
+
+.reward-task__head strong {
+  font-size: var(--fs-body1);
+  font-weight: 500;
+  color: var(--green-800);
+  white-space: nowrap;
+}
+
+.reward-task__text {
+  margin-top: var(--sp-12);
+}
+
+.reward-task__action,
+.reward-section__more {
+  margin-top: var(--sp-12);
+}
+
+.reward-task__action {
+  width: 100%;
+  justify-content: center;
+}
+
+.reward-section__more {
+  width: 100%;
+  justify-content: center;
+}
+
+.reward-section--cashback {
+  margin-top: var(--sp-32);
+  border-top: 1px solid var(--dark-green-25);
+}
+
+.reward-summary--cashback .reward-summary__title {
+  margin-bottom: var(--sp-24);
+}
+
+.reward-summary__hint--account {
+  align-items: center;
+}
+
+.reward-summary__hint--account span {
+  flex: 1 1 auto;
+}
+
+.reward-summary__hint--account button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.reward-section--offers {
+  margin-top: var(--sp-32);
+  border-top: 1px solid var(--dark-green-25);
+  padding-bottom: var(--sp-32);
+}
+
 /* ---------- Carousel dots ---------- */
 
 .dots {

@@ -849,6 +849,33 @@
             </button>
           </div>
 
+          <!-- ===== Peněženka ===== -->
+          <div class="dblock">
+            <div class="cardhead"><h2 class="cardhead__title">Peněženka</h2></div>
+            <article class="rewards-card" data-rewards-card>
+              <div class="rewards-card__head">
+                <span class="rewards-card__icon" aria-hidden="true"></span>
+                <h3 class="rewards-card__title">Co u nás máš</h3>
+              </div>
+              <div class="rewards-card__stats">
+                <div class="rewards-card__stat">
+                  <span class="rewards-card__eyebrow">ODMĚNY</span>
+                  <strong data-rewards-value>0 Kč</strong>
+                  <span data-rewards-note>první investice (500 Kč)</span>
+                </div>
+                <div class="rewards-card__stat">
+                  <span class="rewards-card__eyebrow">CASHBACK</span>
+                  <strong data-cashback-value>0 Kč</strong>
+                  <span data-cashback-note>nemáš aktivní</span>
+                </div>
+              </div>
+              <button class="rewards-card__cta" type="button" data-goto="odmeny">
+                <span>Prozkoumat odměny</span>
+                <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+              </button>
+            </article>
+          </div>
+
           <!-- ===== Nabídky pro mě ===== -->
           <div class="dblock">
             <div class="cardhead"><h2 class="cardhead__title">Nabídky pro mě</h2></div>
@@ -880,8 +907,8 @@
             </div>
           </div>
 
-          <!-- ===== Odměny / investice ===== -->
-          <div class="dblock">
+          <!-- ===== Odměny / investice (dočasně skryté; vrátí se v nové podobě) ===== -->
+          <div class="dblock" hidden>
             <article class="rcard">
               <h2 class="rcard__title">Váš aktivní přístup se vyplácí</h2>
               <p class="rcard__text">Přidejte produkt, sjednejte pojistku nebo aktualizujte údaje.</p>
@@ -943,6 +970,97 @@
               <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
             </button>
           </div>
+        </section>
+
+        <!-- ===== Odměny ===== -->
+        <section class="screen" id="screen-odmeny" data-screen="odmeny" data-tab-parent="domu" aria-labelledby="t-odmeny">
+          <div class="detailbar detailbar--center">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
+            <p class="detailbar__title" id="t-odmeny">Co u nás máš</p>
+          </div>
+
+          <article class="reward-summary">
+            <h1 class="reward-summary__title">Odměny</h1>
+            <div class="reward-summary__stat">
+              <span>Nasbíráno</span>
+              <strong data-rewards-earned>120 Kč</strong>
+            </div>
+            <div class="reward-progress" style="--reward-progress: 24%" aria-hidden="true"><i></i></div>
+            <span class="reward-progress__goal" data-rewards-goal>500 Kč</span>
+            <div class="reward-summary__stat reward-summary__stat--bottom">
+              <span>Posláno na Fondee</span>
+              <strong data-rewards-sent>0 Kč</strong>
+            </div>
+            <p class="reward-summary__hint"><svg aria-hidden="true"><use href="#ic-info" /></svg>Sbírej dál, od 500 Kč si peníze pošleš do investice a vybereš, co chceš.</p>
+          </article>
+
+          <section class="reward-section" aria-labelledby="t-rozumne-rozhodnuti">
+            <div class="blockhead">
+              <h2 class="blockhead__title" id="t-rozumne-rozhodnuti">Za rozumné rozhodnutí</h2>
+              <p class="blockhead__sub">Odměna jde vždy do tvého Fondee — nikdy jako sleva. Rostou ti dál.</p>
+            </div>
+
+            <div class="reward-tasks">
+              <article class="reward-task reward-task--ready">
+                <div class="reward-task__head">
+                  <span class="reward-task__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
+                  <div><h3>Rok bez zaviněné škody</h3><p>Auto · Volvo XC90</p></div>
+                  <strong>+100 Kč</strong>
+                </div>
+                <p class="reward-task__text">Nikomu jsi za rok neublížil. Tohle je tvoje.</p>
+                <button class="btn btn--lime-solid reward-task__action" type="button">Vyzvednout</button>
+              </article>
+
+              <article class="reward-task">
+                <div class="reward-task__head">
+                  <span class="reward-task__icon"><svg aria-hidden="true"><use href="#ic-odometer" /></svg></span>
+                  <div><h3>Nájezd kilometrů</h3><p>Auto</p></div>
+                  <strong>+20 Kč</strong>
+                </div>
+                <p class="reward-task__text">Zabere to minutu. Na cenu pojistky to nemá vliv.</p>
+                <button class="btn btn--secondary reward-task__action" type="button">Zadat</button>
+              </article>
+
+              <article class="reward-task">
+                <div class="reward-task__head">
+                  <span class="reward-task__icon"><svg aria-hidden="true"><use href="#ic-calendar" /></svg></span>
+                  <div><h3>STK včas</h3><p>Auto · Volvo XC90 · do 20. 9.</p></div>
+                  <strong>+50 Kč</strong>
+                </div>
+                <p class="reward-task__text">Zjistíme si to sami z registru. Nemusíš nic dělat.</p>
+              </article>
+            </div>
+            <button class="btn btn--secondary reward-section__more" type="button">Zobrazit všechny odměny</button>
+          </section>
+
+          <section class="reward-section reward-section--cashback" aria-labelledby="t-cashback">
+            <article class="reward-summary reward-summary--cashback">
+              <h2 class="reward-summary__title" id="t-cashback">Cashback</h2>
+              <div class="reward-summary__stat">
+                <span>Připravujeme k poslání</span>
+                <strong data-cashback-pending>80 Kč</strong>
+              </div>
+              <div class="reward-progress" style="--reward-progress: 80%" aria-hidden="true"><i></i></div>
+              <span class="reward-progress__goal" data-cashback-days>Zbývá 6 dní</span>
+              <div class="reward-summary__stat reward-summary__stat--bottom">
+                <span>Celkově posláno na účet</span>
+                <strong data-cashback-paid>240 Kč</strong>
+              </div>
+              <p class="reward-summary__hint reward-summary__hint--account"><svg aria-hidden="true"><use href="#ic-info" /></svg><span>Posíláme na •••• 4412 · každý měsíc</span><button type="button">Upravit</button></p>
+            </article>
+          </section>
+
+          <section class="reward-section reward-section--offers" aria-labelledby="t-odmeny-nabidky">
+            <div class="cardhead"><h2 class="cardhead__title" id="t-odmeny-nabidky">Nabídky pro mě</h2></div>
+            <div class="hscroll"><div class="hscroll__track">
+              <button class="banner" type="button">
+                <span class="banner__pic"><img src="assets/banner-cestovko.png" alt="" /></span>
+                <span class="banner__body"><span class="banner__title">Cestovní pojištění se slevou 200 Kč</span><span class="banner__text">Míříte k moři nebo na hory? S cestovním od Directu zaplatíte o 200 Kč méně.</span></span>
+              </button>
+            </div></div>
+          </section>
         </section>
 
         <section
