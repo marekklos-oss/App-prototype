@@ -7,3 +7,6 @@
 
 # Generated deployment state, not source code
 /sites/.site-artifacts/
+
+# Local dependencies
+/figma-mcp-server/node_modules/
