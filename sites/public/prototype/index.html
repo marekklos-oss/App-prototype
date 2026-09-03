@@ -1032,7 +1032,7 @@
                 <p class="reward-task__text">Zjistíme si to sami z registru. Nemusíš nic dělat.</p>
               </article>
             </div>
-            <button class="btn btn--secondary reward-section__more" type="button">Zobrazit všechny odměny</button>
+            <button class="btn btn--secondary reward-section__more" type="button" data-goto="vsechny-odmeny">Zobrazit všechny odměny</button>
           </section>
 
           <section class="reward-section reward-section--cashback" aria-labelledby="t-cashback">
@@ -1060,6 +1060,24 @@
                 <span class="banner__body"><span class="banner__title">Cestovní pojištění se slevou 200 Kč</span><span class="banner__text">Míříte k moři nebo na hory? S cestovním od Directu zaplatíte o 200 Kč méně.</span></span>
               </button>
             </div></div>
+          </section>
+        </section>
+
+        <section class="screen" id="screen-vsechny-odmeny" data-screen="vsechny-odmeny" data-tab-parent="domu" aria-labelledby="t-vsechny-odmeny">
+          <div class="detailbar detailbar--center">
+            <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+            <p class="detailbar__title" id="t-vsechny-odmeny">Všechny odměny</p>
+          </div>
+          <nav class="reward-all__filters" aria-label="Filtr odměn">
+            <button class="is-active" type="button">Všechny světy</button>
+            <button type="button">Auto</button>
+            <button type="button">Domov</button>
+            <button type="button">Mazlíček</button>
+          </nav>
+          <section class="reward-all__section" aria-labelledby="t-vsechny-odmeny-list">
+            <h1 class="sr-only" id="t-vsechny-odmeny-list">Seznam všech odměn</h1>
+            <div class="reward-all__list" data-all-rewards-list></div>
+            <p class="reward-all__note"><strong data-all-rewards-earned>100 Kč</strong> nasbíráno · do 500 Kč zbývá <strong data-all-rewards-gap>400 Kč</strong></p>
           </section>
         </section>
 

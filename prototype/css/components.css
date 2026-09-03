@@ -1154,6 +1154,87 @@ a.promo {
   justify-content: center;
 }
 
+/* ---------- Všechny odměny ---------- */
+
+.reward-all__filters {
+  display: flex;
+  gap: var(--sp-24);
+  overflow-x: auto;
+  padding: var(--sp-16) 0 var(--sp-8);
+  scrollbar-width: none;
+}
+
+.reward-all__filters::-webkit-scrollbar { display: none; }
+
+.reward-all__filters button {
+  flex: 0 0 auto;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--content-primary);
+  font: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+}
+
+.reward-all__filters button.is-active {
+  padding: 8px 16px;
+  background: var(--dark-green-900);
+  color: var(--green-50);
+}
+
+.reward-all__section { padding-top: var(--sp-16); }
+.reward-all__list { display: grid; gap: var(--sp-12); }
+
+.reward-all__item {
+  position: relative;
+  padding: var(--sp-12);
+  border: 1px solid var(--dark-green-25);
+  border-radius: var(--r-16);
+  background: var(--surface);
+}
+
+.reward-all__item--ready { border: 3px solid var(--green-300); background: var(--green-50); }
+.reward-all__item--wallet { border-color: var(--green-500); background: var(--green-300); }
+.reward-all__item--fondee { border-color: var(--dark-green-700); color: var(--dark-green-900); }
+.reward-all__item--locked { border-style: dashed; color: var(--content-tertiary); }
+
+.reward-all__head {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.reward-all__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--green-200);
+  color: var(--dark-green-900);
+}
+
+.reward-all__item--wallet .reward-all__icon,
+.reward-all__item--fondee .reward-all__icon { background: var(--surface); }
+.reward-all__item--locked .reward-all__icon { background: var(--dark-green-25); }
+.reward-all__icon svg { width: 18px; height: 18px; }
+.reward-all__head h2, .reward-all__head p, .reward-all__text { margin: 0; }
+.reward-all__head h2 { font-size: var(--fs-body1); font-weight: 500; line-height: 120%; }
+.reward-all__head p, .reward-all__text { font-size: var(--fs-body3); line-height: 130%; color: var(--content-secondary); }
+.reward-all__item--locked .reward-all__head p, .reward-all__item--locked .reward-all__text { color: var(--content-tertiary); }
+.reward-all__head strong { font-size: var(--fs-body1); font-weight: 500; color: var(--green-800); white-space: nowrap; }
+.reward-all__item--locked .reward-all__head strong { color: var(--content-tertiary); }
+.reward-all__text { margin-top: var(--sp-12); }
+.reward-all__state { position: absolute; top: 12px; right: 12px; padding: 3px 8px; border-radius: 999px; background: var(--surface); font-size: var(--fs-body3); font-weight: 600; }
+.reward-all__item--locked .reward-all__state { background: var(--dark-green-25); }
+.reward-all__action { width: 100%; justify-content: center; margin-top: var(--sp-12); }
+.reward-all__item--wallet .reward-all__action, .reward-all__item--fondee .reward-all__action { display: none; }
+.reward-all__note { margin: var(--sp-16) 0 0; color: var(--content-secondary); font-size: var(--fs-body3); text-align: center; }
+
 .reward-section--cashback {
   margin-top: var(--sp-32);
   border-top: 1px solid var(--dark-green-25);
