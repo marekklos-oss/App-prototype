@@ -66,14 +66,14 @@
   /* Rewards and cashback share one local source. Add future states here so
      the dashboard and the detail view always show the same figures. */
   var rewardsState = {
-    current: "active",
+    current: "earned",
     states: {
-      active: {
-        rewardsValue: "100 Kč",
+      earned: {
+        rewardsValue: "50 Kč",
         rewardsNote: "nasbíráno",
         cashbackValue: "80 Kč",
         cashbackNote: "připravujeme k poslání",
-        rewardsSent: "100 Kč",
+        rewardsSent: "0 Kč",
         rewardsGoal: "500 Kč",
         cashbackDays: "Zbývá 6 dní",
         cashbackPaid: "240 Kč"
@@ -84,7 +84,7 @@
   var rewardItems = [
     { title: "Rok bez zaviněné škody", meta: "Auto · Volvo XC90", amount: 100, state: "ready", icon: "ic-car", text: "Nikomu jsi za rok neublížil. Tohle je tvoje." },
     { title: "Nájezd kilometrů", meta: "Auto", amount: 20, state: "ready", icon: "ic-odometer", text: "Zabere to minutu. Na cenu pojistky to nemá vliv." },
-    { title: "STK včas", meta: "Auto · Volvo XC90 · do 20. 9.", amount: 50, state: "active", icon: "ic-calendar", text: "Zjistíme si to sami z registru. Nemusíš nic dělat." },
+    { title: "STK včas", meta: "Auto · Volvo XC90", amount: 50, state: "earned", icon: "ic-calendar", text: "Zjistíme si to sami z registru. Nemusíš nic dělat." },
     { title: "Rok bez zaviněné škody", meta: "Auto · vyzvednuto 24. 8.", amount: 100, state: "wallet", icon: "ic-car", text: "Chybí {remaining} Kč a pošleme to do investice." },
     { title: "Rok bez zaviněné škody", meta: "Auto · odesláno 30. 8.", amount: 100, state: "fondee", icon: "ic-car", text: "Pojištěná investice · vybrat můžeš od 30. 11. 2026" },
     { title: "STK včas", meta: "Auto", amount: 50, state: "locked", icon: "ic-calendar", text: "Odemkne se, až si přidáš auto." },
@@ -100,7 +100,7 @@
     var goal = Number(state.rewardsGoal.replace(/[^0-9]/g, ""));
     var remaining = Math.max(0, goal - earned);
     list.innerHTML = rewardItems.map(function (item) {
-      var stateLabel = item.state === "wallet" ? "V peněžence" : item.state === "fondee" ? "Ve Fondee" : item.state === "locked" ? "Zamčeno" : "";
+      var stateLabel = item.state === "earned" ? "Nasbíráno" : item.state === "wallet" ? "V peněžence" : item.state === "fondee" ? "Ve Fondee" : item.state === "locked" ? "Zamčeno" : "";
       var action = item.state === "ready" ? '<button class="btn btn--lime-solid reward-all__action" type="button">Vyzvednout</button>' : item.state === "locked" ? '<button class="btn btn--secondary reward-all__action" type="button">Přidat auto</button>' : item.state === "active" ? '<button class="btn btn--secondary reward-all__action" type="button">Zadat</button>' : '';
       return '<article class="reward-all__item reward-all__item--' + item.state + '">' +
         '<div class="reward-all__head"><span class="reward-all__icon"><svg aria-hidden="true"><use href="#' + item.icon + '" /></svg></span><div><h2>' + item.title + '</h2><p>' + item.meta + '</p></div><strong>+' + item.amount + ' Kč</strong></div>' +
