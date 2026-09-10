@@ -972,8 +972,28 @@ a.promo {
   box-shadow: var(--shadow-app);
 }
 
+.reward-summary__icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-bottom: var(--sp-24);
+  border-radius: 50%;
+  background: var(--green-500);
+}
+
+.reward-summary__icon::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  background: var(--dark-green-900);
+  -webkit-mask: url("../assets/coins.svg") center / contain no-repeat;
+  mask: url("../assets/coins.svg") center / contain no-repeat;
+}
+
 .reward-summary__title {
-  margin: 0 0 var(--sp-24);
+  margin: 0 0 var(--sp-32);
   font-size: var(--fs-h3);
   font-weight: 500;
   line-height: 110%;
@@ -999,15 +1019,20 @@ a.promo {
   white-space: nowrap;
 }
 
-.reward-summary__stat--bottom {
-  padding-top: var(--sp-16);
-  border-top: 1px solid var(--green-500);
+.reward-summary__stat + .reward-summary__stat {
+  margin-top: var(--sp-16);
+}
+
+.reward-progresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  margin-top: var(--sp-24);
 }
 
 .reward-progress {
   position: relative;
   height: 6px;
-  margin-top: var(--sp-8);
   overflow: hidden;
   border-radius: 10px;
   background: #c4e9dc;
@@ -1024,16 +1049,37 @@ a.promo {
   background: #006b55;
 }
 
+.reward-progress--first::before {
+  width: var(--reward-progress-first);
+}
+
+.reward-progress--second::before {
+  width: var(--reward-progress-second);
+}
+
 .reward-progress i {
   display: none;
 }
 
-.reward-progress__goal {
-  display: block;
-  margin: var(--sp-8) 0 var(--sp-16);
+.reward-progress__labels {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--sp-8);
+  margin-top: var(--sp-8);
   font-size: var(--fs-body3);
-  font-weight: 500;
   line-height: 120%;
+}
+
+.reward-progress__labels strong,
+.reward-progress__labels span {
+  font-weight: 600;
+}
+
+.reward-progress__labels span {
+  text-align: center;
+}
+
+.reward-progress__labels strong:last-child {
   text-align: right;
 }
 
@@ -1041,7 +1087,7 @@ a.promo {
   display: flex;
   align-items: flex-start;
   gap: var(--sp-8);
-  margin: var(--sp-16) 0 0;
+  margin: var(--sp-32) 0 0;
   font-size: var(--fs-body3);
   font-weight: 500;
   line-height: 130%;
@@ -3278,6 +3324,10 @@ a.promo {
   text-align: center;
   /* keep the title optically centered against the single back button */
   margin-right: 40px;
+}
+
+.detailbar--center.detailbar--actions .detailbar__title {
+  margin-right: 0;
 }
 
 /* ---------- Pill nav (contract subpages) ---------- */

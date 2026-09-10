@@ -80,9 +80,11 @@
       }
     }
   };
+  var initialRewardsValue = Number(rewardsState.states.earned.rewardsValue.replace(/[^0-9]/g, ""));
+  var rewardClaims = { safeYear: false };
 
   var rewardItems = [
-    { title: "Rok bez zaviněné škody", meta: "Auto · Volvo XC90", amount: 100, state: "ready", icon: "ic-car", text: "Nikomu jsi za rok neublížil. Tohle je tvoje." },
+    { id: "safeYear", title: "Rok bez zaviněné škody", meta: "Auto · Volvo XC90", amount: 100, state: "ready", icon: "ic-car", text: "Nikomu jsi za rok neublížil. Tohle je tvoje." },
     { title: "Nájezd kilometrů", meta: "Auto", amount: 20, state: "ready", icon: "ic-odometer", text: "Zabere to minutu. Na cenu pojistky to nemá vliv." },
     { title: "STK včas", meta: "Auto · Volvo XC90", amount: 50, state: "earned", icon: "ic-calendar", text: "Zjistíme si to sami z registru. Nemusíš nic dělat." },
     { title: "Rok bez zaviněné škody", meta: "Auto · vyzvednuto 24. 8.", amount: 100, state: "wallet", icon: "ic-car", text: "Chybí {remaining} Kč a pošleme to do investice." },
@@ -92,17 +94,22 @@
     { title: "STK včas", meta: "Auto", amount: 50, state: "locked", icon: "ic-calendar", text: "Odemkne se, až si přidáš auto." }
   ];
 
+  function earnedRewardsValue() {
+    return initialRewardsValue + (rewardClaims.safeYear ? rewardItems[0].amount : 0);
+  }
+
   function renderRewardList() {
     var list = document.querySelector("[data-all-rewards-list]");
     if (!list) return;
     var state = rewardsState.states[rewardsState.current];
-    var earned = Number(state.rewardsValue.replace(/[^0-9]/g, ""));
+    var earned = earnedRewardsValue();
     var goal = Number(state.rewardsGoal.replace(/[^0-9]/g, ""));
     var remaining = Math.max(0, goal - earned);
     list.innerHTML = rewardItems.map(function (item) {
-      var stateLabel = item.state === "earned" ? "Nasbíráno" : item.state === "wallet" ? "V peněžence" : item.state === "fondee" ? "Ve Fondee" : item.state === "locked" ? "Zamčeno" : "";
-      var action = item.state === "ready" ? '<button class="btn btn--lime-solid reward-all__action" type="button">Vyzvednout</button>' : item.state === "locked" ? '<button class="btn btn--secondary reward-all__action" type="button">Přidat auto</button>' : item.state === "active" ? '<button class="btn btn--secondary reward-all__action" type="button">Zadat</button>' : '';
-      return '<article class="reward-all__item reward-all__item--' + item.state + '">' +
+      var itemState = item.id === "safeYear" && rewardClaims.safeYear ? "earned" : item.state;
+      var stateLabel = itemState === "earned" ? "Nasbíráno" : itemState === "wallet" ? "V peněžence" : itemState === "fondee" ? "Ve Fondee" : itemState === "locked" ? "Zamčeno" : "";
+      var action = itemState === "ready" ? '<button class="btn btn--lime-solid reward-all__action" type="button" data-reward-claim="' + (item.id || "") + '">Vyzvednout</button>' : itemState === "locked" ? '<button class="btn btn--secondary reward-all__action" type="button">Přidat auto</button>' : itemState === "active" ? '<button class="btn btn--secondary reward-all__action" type="button">Zadat</button>' : '';
+      return '<article class="reward-all__item reward-all__item--' + itemState + '">' +
         '<div class="reward-all__head"><span class="reward-all__icon"><svg aria-hidden="true"><use href="#' + item.icon + '" /></svg></span><div><h2>' + item.title + '</h2><p>' + item.meta + '</p></div><strong>+' + item.amount + ' Kč</strong></div>' +
         (stateLabel ? '<span class="reward-all__state">' + stateLabel + '</span>' : '') +
         '<p class="reward-all__text">' + item.text.replace("{remaining}", remaining) + '</p>' + action +
@@ -118,19 +125,35 @@
     var card = document.querySelector("[data-rewards-card]");
     var state = rewardsState.states[rewardsState.current];
     if (!state) return;
+    var earned = earnedRewardsValue();
+    var earnedText = earned + " Kč";
+    var goal = Number(state.rewardsGoal.replace(/[^0-9]/g, ""));
+    var remaining = Math.max(0, goal - earned);
     if (card) {
-      card.querySelector("[data-rewards-value]").textContent = state.rewardsValue;
+      card.querySelector("[data-rewards-value]").textContent = earnedText;
       card.querySelector("[data-rewards-note]").textContent = state.rewardsNote;
       card.querySelector("[data-cashback-value]").textContent = state.cashbackValue;
       card.querySelector("[data-cashback-note]").textContent = state.cashbackNote;
     }
-    document.querySelectorAll("[data-rewards-earned]").forEach(function (el) { el.textContent = state.rewardsValue; });
+    document.querySelectorAll("[data-rewards-earned]").forEach(function (el) { el.textContent = earnedText; });
     document.querySelectorAll("[data-rewards-sent]").forEach(function (el) { el.textContent = state.rewardsSent; });
     document.querySelectorAll("[data-rewards-goal]").forEach(function (el) { el.textContent = state.rewardsGoal; });
+    document.querySelectorAll("[data-rewards-gap]").forEach(function (el) { el.textContent = remaining + " Kč"; });
+    document.querySelectorAll(".reward-progresses").forEach(function (el) {
+      el.style.setProperty("--reward-progress-first", Math.min(100, earned / goal * 100) + "%");
+      el.style.setProperty("--reward-progress-second", Math.max(0, Math.min(100, (earned - goal) / goal * 100)) + "%");
+    });
     document.querySelectorAll("[data-cashback-pending]").forEach(function (el) { el.textContent = state.cashbackValue; });
     document.querySelectorAll("[data-cashback-days]").forEach(function (el) { el.textContent = state.cashbackDays; });
     document.querySelectorAll("[data-cashback-paid]").forEach(function (el) { el.textContent = state.cashbackPaid; });
     renderRewardList();
+    var taskCard = document.querySelector('[data-reward-card="safe-year"]');
+    if (taskCard) {
+      taskCard.classList.toggle("reward-task--ready", !rewardClaims.safeYear);
+      taskCard.classList.toggle("reward-task--earned", rewardClaims.safeYear);
+      taskCard.querySelector("[data-reward-claim]").hidden = rewardClaims.safeYear;
+      taskCard.querySelector("[data-reward-task-state]").hidden = !rewardClaims.safeYear;
+    }
   }
 
   /* Temporary developer hook for later prototype state switching. */
@@ -142,6 +165,19 @@
   };
 
   renderRewards();
+
+  document.addEventListener("click", function (e) {
+    var claim = e.target.closest('[data-reward-claim="safeYear"]');
+    if (claim) {
+      rewardClaims.safeYear = true;
+      renderRewards();
+      return;
+    }
+    if (e.target.closest("[data-reset-rewards]")) {
+      rewardClaims.safeYear = false;
+      renderRewards();
+    }
+  });
 
   /* [data-goto="screen"] opens another screen; [data-stop] blocks the bubble so
      buttons nested inside a tappable block keep their own behaviour.

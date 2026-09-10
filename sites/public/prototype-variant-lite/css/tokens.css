@@ -1,0 +1,87 @@
+/* Direct Group Design System — tokens used by the prototype.
+   Source: direct-design-system/tokens/*.md */
+
+:root {
+  /* --- primitives --- */
+  --green-50: #f9fce2;
+  --green-100: #f3f9c5;
+  --green-200: #eaf3a3;
+  --green-300: #e1ed80;
+  --green-500: #c4de00;
+  --green-600: #83a913;
+  --green-700: #417523;
+  --green-800: #215a2b;
+  --green-900: #004033;
+
+  --dark-green-25: #d1f3e7;
+  --dark-green-50: #c4e9dc;
+  --dark-green-700: #006b55;
+  --dark-green-800: #005544;
+  --dark-green-900: #004033;
+
+  --grey-25: #f2f5f5;
+  --grey-50: #e5ecebff;
+  --grey-100: #ccd9d6;
+  --grey-200: #b2c6c2;
+  --grey-400: #809f99;
+  --grey-500: #668c85;
+  --grey-600: #4d7970;
+
+  --highlight-400: #8645ff;
+  --error-500: #ff3927;
+  --error-600: #d02b1d;
+  --warning-100: #ffeed5;
+  --warning-300: #ffcb80;
+  --warning-400: #ffb956;
+  --warning-700: #ce6e00;
+  --warning-800: #9e4600;
+  --warning-900: #6d1f00;
+  --success-300: #6ae851;
+
+  --white: #ffffff;
+
+  /* --- semantic (Light scheme, used by the app chrome) --- */
+  --content-primary: var(--dark-green-900);
+  --content-secondary: var(--dark-green-700);
+  --content-on-dark: var(--green-50);
+  --helper: var(--grey-500);
+  --surface: var(--white);
+  --surface-app: var(--grey-25);
+  --outline-hairline: #ededed;
+
+  /* --- typography --- */
+  --font: "Direct Sans", Arial, Helvetica, sans-serif;
+  --fs-h1: 40px;
+  --fs-h2: 32px;
+  --fs-h3: 24px;
+  --fs-h4: 20px;
+  --fs-h5: 18px;
+  --fs-body1: 16px;
+  --fs-body2: 14px;
+  --fs-body3: 12px;
+
+  /* --- spacing (8px grid) --- */
+  --sp-4: 4px;
+  --sp-8: 8px;
+  --sp-12: 12px;
+  --sp-16: 16px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+
+  /* --- radius --- */
+  --r-12: 12px;
+  --r-16: 16px;
+  --r-20: 20px;
+  --r-28: 28px;
+
+  /* --- elevation --- */
+  --shadow-menu: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 12px rgba(0, 64, 51, 0.06);
+  /* "App elevation" from the Figma library */
+  --shadow-app: 0 3px 8px rgba(0, 0, 0, 0.02), 0 14px 14px rgba(0, 0, 0, 0.02),
+    0 31px 18px rgba(0, 0, 0, 0.012);
+
+  /* --- layout --- */
+  --frame-w: 393px;
+  --tabbar-h: 92px;
+}

@@ -182,6 +182,12 @@
         </g>
       </symbol>
 
+      <symbol id="ic-refresh" viewBox="0 0 24 24">
+        <path d="M20 11a8 8 0 0 0-14.5-4.6L4 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4 4v4h4M4 13a8 8 0 0 0 14.5 4.6L20 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20 20v-4h-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
       <symbol id="ic-group" viewBox="0 0 24 24">
         <g
           fill="none"
@@ -974,26 +980,37 @@
 
         <!-- ===== Odměny ===== -->
         <section class="screen" id="screen-odmeny" data-screen="odmeny" data-tab-parent="domu" aria-labelledby="t-odmeny">
-          <div class="detailbar detailbar--center">
+          <div class="detailbar detailbar--center detailbar--actions">
             <button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět">
               <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
             </button>
             <p class="detailbar__title" id="t-odmeny">Co u nás máš</p>
+            <button class="circlebtn" type="button" data-reset-rewards aria-label="Vrátit odměny do výchozího stavu">
+              <svg aria-hidden="true"><use href="#ic-refresh" /></svg>
+            </button>
           </div>
 
           <article class="reward-summary">
+            <span class="reward-summary__icon" aria-hidden="true"></span>
             <h1 class="reward-summary__title">Odměny</h1>
             <div class="reward-summary__stat">
               <span>Nasbíráno</span>
               <strong data-rewards-earned>50 Kč</strong>
             </div>
-            <div class="reward-progress" style="--reward-progress: 10%" aria-hidden="true"><i></i></div>
-            <span class="reward-progress__goal" data-rewards-goal>500 Kč</span>
-            <div class="reward-summary__stat reward-summary__stat--bottom">
-              <span>Posláno na Fondee</span>
+            <div class="reward-summary__stat">
+              <span>Převedeno</span>
               <strong data-rewards-sent>0 Kč</strong>
             </div>
-            <p class="reward-summary__hint"><svg aria-hidden="true"><use href="#ic-info" /></svg>Sbírej dál, od 500 Kč si peníze pošleš do investice a vybereš, co chceš.</p>
+            <div class="reward-progresses" style="--reward-progress-first: 10%; --reward-progress-second: 0%" aria-hidden="true">
+              <div class="reward-progress reward-progress--first"><i></i></div>
+              <div class="reward-progress reward-progress--second"><i></i></div>
+            </div>
+            <div class="reward-progress__labels">
+              <strong>Chybí <span data-rewards-gap>450 Kč</span></strong>
+              <span data-rewards-goal>500 Kč</span>
+              <strong>z 1 000 Kč</strong>
+            </div>
+            <p class="reward-summary__hint"><svg aria-hidden="true"><use href="#ic-info" /></svg>Od 500 Kč si peníze pošleš do Fondee. Pak už můžeš posílat kolik chceš a kdy chceš.</p>
           </article>
 
           <section class="reward-section" aria-labelledby="t-rozumne-rozhodnuti">
@@ -1003,14 +1020,15 @@
             </div>
 
             <div class="reward-tasks">
-              <article class="reward-task reward-task--ready">
+              <article class="reward-task reward-task--ready" data-reward-card="safe-year">
                 <div class="reward-task__head">
                   <span class="reward-task__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
                   <div><h3>Rok bez zaviněné škody</h3><p>Auto · Volvo XC90</p></div>
                   <strong>+100 Kč</strong>
                 </div>
+                <span class="reward-task__state" data-reward-task-state hidden>Nasbíráno</span>
                 <p class="reward-task__text">Nikomu jsi za rok neublížil. Tohle je tvoje.</p>
-                <button class="btn btn--lime-solid reward-task__action" type="button">Vyzvednout</button>
+                <button class="btn btn--lime-solid reward-task__action" type="button" data-reward-claim="safeYear">Vyzvednout</button>
               </article>
 
               <article class="reward-task">
@@ -1020,7 +1038,7 @@
                   <strong>+20 Kč</strong>
                 </div>
                 <p class="reward-task__text">Zabere to minutu. Na cenu pojistky to nemá vliv.</p>
-                <button class="btn btn--secondary reward-task__action" type="button">Zadat</button>
+                <button class="btn btn--secondary reward-task__action" type="button" data-goto="profil-auta">Zadat</button>
               </article>
 
               <article class="reward-task reward-task--earned">
@@ -1043,8 +1061,6 @@
                 <span>Připravujeme k poslání</span>
                 <strong data-cashback-pending>80 Kč</strong>
               </div>
-              <div class="reward-progress" style="--reward-progress: 80%" aria-hidden="true"><i></i></div>
-              <span class="reward-progress__goal" data-cashback-days>Zbývá 6 dní</span>
               <div class="reward-summary__stat reward-summary__stat--bottom">
                 <span>Celkově posláno na účet</span>
                 <strong data-cashback-paid>240 Kč</strong>

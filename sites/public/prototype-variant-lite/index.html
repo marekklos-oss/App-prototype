@@ -845,14 +845,6 @@
               <i class="is-active"></i><i></i><i></i><i></i><i></i><i></i><i></i>
             </div>
 
-            <button class="promo" type="button" data-open-sheet="add-vehicle">
-              <span class="promo__col">
-                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
-                <span class="promo__title">Přidat vozidlo</span>
-                <span class="promo__text">s pojištěním za 5 minut</span>
-              </span>
-              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
-            </button>
           </div>
 
           <!-- ===== Peněženka ===== -->
@@ -1375,44 +1367,6 @@
             </button>
           </section>
 
-          <!-- ===== Moje investice ===== -->
-          <section class="section">
-            <h2 class="section__title">Moje investice</h2>
-
-            <article class="pcard pcard--flat">
-              <span class="tag">Aktivní</span>
-              <p class="panel__title">Investice s pojištěným vkladem</p>
-              <hr class="hr" />
-              <div class="rowline">
-                <span class="rowline__label">Hodnota</span>
-                <span class="rowline__value"
-                  >186 Kč
-                  <span class="rowline__delta">+ 12 Kč · 8,6 %</span>
-                </span>
-              </div>
-              <div class="infobox">
-                <svg aria-hidden="true"><use href="#ic-info" /></svg>
-                <span>Při vkladu 500 Kč měsíčně a výnosu 8,6 % ročně budete mít za 3 roky 23 851 Kč.</span>
-              </div>
-              <div class="actions-right">
-                <button class="btn btn--secondary" type="button">
-                  <svg style="width: 16px; height: 16px" aria-hidden="true">
-                    <use href="#ic-arrow-right" />
-                  </svg>
-                  Detail portfolia
-                </button>
-              </div>
-            </article>
-
-            <button class="promo" type="button">
-              <span class="promo__col">
-                <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-piggy" /></svg></span>
-                <span class="promo__title">Přidat investici</span>
-                <span class="promo__text">Klasický účet nebo na důchod</span>
-              </span>
-              <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
-            </button>
-          </section>
         </section>
 
         <section class="screen" id="screen-pridat" data-screen="pridat" aria-labelledby="t-pridat">
@@ -1938,18 +1892,6 @@
               <div class="vgroup" data-group="stav">
                 <div class="scard__body" data-variant="full">
                   <div class="svcrow">
-                    <span class="svcrow__img"><img src="assets/svc-oil.png" alt="" /></span>
-                    <span class="svcrow__col">
-                      <span class="svcrow__title">Motorový olej</span>
-                      <span class="svcrow__sub">Zbývá 5 700 km nebo 7 měsíců</span>
-                      <span class="progress">
-                        <span class="progress__track"><span class="progress__fill" style="width: 62%"></span></span>
-                        <span class="progress__pct">62 %</span>
-                      </span>
-                    </span>
-                  </div>
-                  <hr class="hr" />
-                  <div class="svcrow">
                     <span class="svcrow__img"><img src="assets/svc-tyre.png" alt="" /></span>
                     <span class="svcrow__col">
                       <span class="svcrow__title">Pneumatiky</span>
@@ -1959,14 +1901,6 @@
                 </div>
 
                 <div class="scard__body" data-variant="empty" hidden>
-                  <div class="svcrow svcrow--empty">
-                    <span class="svcrow__img"><img src="assets/svc-oil.png" alt="" /></span>
-                    <span class="svcrow__col">
-                      <span class="svcrow__title">Motorový olej</span>
-                      <span class="svcrow__sub">Neuvedeno</span>
-                    </span>
-                  </div>
-                  <hr class="hr" />
                   <div class="svcrow svcrow--empty">
                     <span class="svcrow__img"><img src="assets/svc-tyre.png" alt="" /></span>
                     <span class="svcrow__col">
@@ -2239,11 +2173,6 @@
 
           <div class="protobar" hidden>
             <span class="protobar__label">Prototyp — stavy z Figmy</span>
-            <div class="protobar__row" data-vgroup="s-oil">
-              <span>Olej</span>
-              <button type="button" data-variant="full" aria-current="true">Vyplněno</button>
-              <button type="button" data-variant="empty">Neuvedeno</button>
-            </div>
             <div class="protobar__row" data-vgroup="s-tyre">
               <span>Pneu</span>
               <button type="button" data-variant="full" aria-current="true">Vyplněno</button>
@@ -2262,7 +2191,7 @@
           </div>
 
           <!-- ===== Motorový olej ===== -->
-          <div class="vgroup" data-group="s-oil">
+          <div class="vgroup" data-group="s-oil" hidden>
             <div data-variant="full">
               <article class="scard">
                 <div class="scard__head scard__head--static">
@@ -2786,14 +2715,6 @@
               </div>
               <div class="scard__body">
                 <div class="svcrow svcrow--empty">
-                  <span class="svcrow__img"><img src="assets/svc-oil.png" alt="" /></span>
-                  <span class="svcrow__col">
-                    <span class="svcrow__title">Motorový olej</span>
-                    <span class="svcrow__sub">Neuvedeno</span>
-                  </span>
-                </div>
-                <hr class="hr" />
-                <div class="svcrow svcrow--empty">
                   <span class="svcrow__img"><img src="assets/svc-tyre.png" alt="" /></span>
                   <span class="svcrow__col">
                     <span class="svcrow__title">Pneumatiky</span>
@@ -2907,25 +2828,18 @@
             <div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div>
             <button class="circlebtn" type="button" data-toggle-proto aria-pressed="false" aria-label="Přepínač stavů (prototyp)"><svg aria-hidden="true"><use href="#ic-smiley" /></svg></button>
           </div>
-          <nav class="segmented" aria-label="Sekce profilu"><button type="button" aria-current="true">Shrnutí</button><button type="button" data-goto="profil-majetku-stav">Revize</button><button type="button" data-goto="profil-majetku-technicke">Technické údaje</button></nav>
+          <nav class="segmented" aria-label="Sekce profilu"><button type="button" aria-current="true">Shrnutí</button><button type="button" data-goto="profil-majetku-technicke">Technické údaje</button></nav>
           <header class="propertyhero"><span class="tag tag--muted">Pojištěno jinde</span><h1>Evropská 1234/32</h1><p>Praha 160 00</p><img src="assets/apartment.png" alt="Byt Evropská 1234/32" /></header>
-          <div class="hscroll propertyalerts"><div class="hscroll__track"><article class="icard"><div class="icard__head"><svg aria-hidden="true"><use href="#ic-card" /></svg><div class="icard__col"><h2 class="icard__title">Revize kotle</h2><p class="icard__text">Pohlídáme termín další revize.</p></div></div><button class="btn btn--secondary" type="button" data-goto="profil-majetku-stav">Nastavit revizi</button></article><article class="icard icard--plain"><div class="icard__head"><svg aria-hidden="true"><use href="#ic-shield" /></svg><div class="icard__col"><h2 class="icard__title">Prodloužená záruka na elektroniku</h2><p class="icard__text">Elektroniku ochráníte i po skončení záruky výrobce.</p></div></div></article></div></div><div class="dots propertyalerts__dots" aria-hidden="true"><i class="is-active"></i><i></i></div>
+          <div class="hscroll propertyalerts"><div class="hscroll__track"><article class="icard icard--plain"><div class="icard__head"><svg aria-hidden="true"><use href="#ic-shield" /></svg><div class="icard__col"><h2 class="icard__title">Prodloužená záruka na elektroniku</h2><p class="icard__text">Elektroniku ochráníte i po skončení záruky výrobce.</p></div></div></article></div></div>
           <div class="dblock"><article class="statcard statcard--dark"><h2 class="statcard__label">Tržní cena bytu</h2><p class="statcard__value">5 mil. Kč</p><p class="statcard__meta"><svg aria-hidden="true"><use href="#ic-info" /></svg>Hodnota vychází z dostupných údajů o nemovitosti.</p><p class="statcard__meta">Pohlídejte si u vaší pojišťovny, abyste měli byt pojištěn na stavební hodnotu. A nebo si nechte majetek pojistit u nás a my vám cenu pohlídáme.</p><div class="statcard__foot"><button class="btn btn--ghost-light" type="button">Pojistit u Directu<svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button></div></article></div>
           <div class="dblock"><article class="scard"><div class="scard__head scard__head--static"><h2 class="scard__title">Pojištění</h2></div><div class="scard__body"><div class="trow"><span class="trow__label">Stav</span><span class="trow__tags"><span class="tag tag--muted">Pojištěno jinde</span></span></div><div class="trow"><span class="trow__label">Platnost</span><span class="trow__value">do 1. 10. 2026</span></div><p class="noterow__text">Podpojištění ukážeme jen u nemovitosti pojištěné u Directu.</p></div></article></div>
           <div class="dblock"><article class="scard"><div class="scard__head scard__head--static"><h2 class="scard__title">Základní údaje</h2></div><div class="scard__body"><div class="trow"><span class="trow__label">Podlahová plocha</span><span class="trow__value">78 m²</span></div><div class="trow"><span class="trow__label">Typ stavby</span><span class="trow__value">Byt</span></div><div class="scard__foot"><button class="btn btn--secondary" type="button" data-goto="profil-majetku-technicke">Technické údaje</button></div></div></article></div>
           <div class="dblock"><div class="cardhead"><h2 class="cardhead__title">Potřebujete pomoc?</h2></div><div class="helpcard"><span class="helpcard__icon"><svg aria-hidden="true"><use href="#ic-shield" /></svg></span><h3 class="helpcard__title">Asistenční linka (nonstop)</h3><p class="helpcard__text">Pokud potřebujete pomoc s nemovitostí, zavolejte nám.</p><a class="btn btn--lime" href="tel:291291291"><svg aria-hidden="true"><use href="#ic-phone" /></svg>291 291 291</a></div></div>
         </section>
 
-        <section class="screen" id="screen-profil-majetku-stav" data-screen="profil-majetku-stav" data-tab-parent="muj-svet" aria-labelledby="t-profil-majetku-stav">
-          <div class="detailbar"><button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku-stav">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div></div>
-          <nav class="segmented" aria-label="Sekce profilu"><button type="button" data-goto="profil-majetku">Shrnutí</button><button type="button" aria-current="true">Revize</button><button type="button" data-goto="profil-majetku-technicke">Technické údaje</button></nav>
-          <div class="blockhead"><h1 class="blockhead__title">Revize</h1><p class="blockhead__sub">Pohlídáme termíny, které se doma snadno ztratí.</p></div>
-          <div class="reviewlist"><article class="reviewcard" data-review="boiler"></article><article class="reviewcard" data-review="chimney"></article><article class="reviewcard" data-review="extinguisher"></article></div>
-        </section>
-
         <section class="screen" id="screen-profil-majetku-technicke" data-screen="profil-majetku-technicke" data-tab-parent="muj-svet" aria-labelledby="t-profil-majetku-technicke">
           <div class="detailbar"><button class="circlebtn circlebtn--back" type="button" data-back aria-label="Zpět"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="detailbar__col"><p class="detailbar__title" id="t-profil-majetku-technicke">Profil majetku</p><p class="detailbar__sub">Evropská 1234/32</p></div></div>
-          <nav class="segmented" aria-label="Sekce profilu"><button type="button" data-goto="profil-majetku">Shrnutí</button><button type="button" data-goto="profil-majetku-stav">Revize</button><button type="button" aria-current="true">Technické údaje</button></nav>
+          <nav class="segmented" aria-label="Sekce profilu"><button type="button" data-goto="profil-majetku">Shrnutí</button><button type="button" aria-current="true">Technické údaje</button></nav>
           <div class="blockhead"><h1 class="blockhead__title">Údaje o majetku</h1></div>
           <div class="datacard propertydata"><div class="trow"><span class="trow__label">Nemovitost</span><span class="trow__value">Byt</span></div><div class="trow"><span class="trow__label">Adresa</span><span class="trow__value">Evropská 1234/32,<br>Praha 160 00</span></div><div class="trow"><span class="trow__label">Podlahová plocha</span><span class="trow__value">78 m²</span></div><div class="trow"><span class="trow__label">Dispozice</span><span class="trow__value">2+1</span></div><div class="trow"><span class="trow__label">Hodnota nemovitosti</span><span class="trow__value">5 mil. Kč</span></div><div class="trow"><span class="trow__label">Kvalita bytu</span><span class="trow__value">Standard</span></div><div class="trow"><span class="trow__label">Byt ve vyšším patře</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Balkon/terasa</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Garážové stání</span><span class="trow__value">Ano</span></div><div class="trow"><span class="trow__label">Vedlejší stavby</span><span class="trow__value">Garáž, hrob</span></div></div>
         </section>
