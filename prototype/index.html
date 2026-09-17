@@ -995,18 +995,18 @@
             <h1 class="reward-summary__title">Odměny</h1>
             <div class="reward-summary__stat">
               <span>Nasbíráno</span>
-              <strong data-rewards-earned>50 Kč</strong>
+              <strong data-rewards-earned>420 Kč</strong>
             </div>
             <div class="reward-summary__stat">
               <span>Převedeno</span>
               <strong data-rewards-sent>0 Kč</strong>
             </div>
-            <div class="reward-progresses" style="--reward-progress-first: 10%; --reward-progress-second: 0%" aria-hidden="true">
+            <div class="reward-progresses" style="--reward-progress-first: 84%; --reward-progress-second: 0%" aria-hidden="true">
               <div class="reward-progress reward-progress--first"><i></i></div>
               <div class="reward-progress reward-progress--second"><i></i></div>
             </div>
             <div class="reward-progress__labels">
-              <strong>Chybí <span data-rewards-gap>450 Kč</span></strong>
+              <strong>Chybí <span data-rewards-gap>80 Kč</span></strong>
               <span data-rewards-goal>500 Kč</span>
               <strong>z 1 000 Kč</strong>
             </div>
@@ -1094,7 +1094,7 @@
           <section class="reward-all__section" aria-labelledby="t-vsechny-odmeny-list">
             <h1 class="sr-only" id="t-vsechny-odmeny-list">Seznam všech odměn</h1>
             <div class="reward-all__list" data-all-rewards-list></div>
-            <p class="reward-all__note"><strong data-all-rewards-earned>50 Kč</strong> nasbíráno · do 500 Kč zbývá <strong data-all-rewards-gap>450 Kč</strong></p>
+            <p class="reward-all__note"><strong data-all-rewards-earned>420 Kč</strong> nasbíráno · do 500 Kč zbývá <strong data-all-rewards-gap>80 Kč</strong></p>
           </section>
         </section>
 
@@ -1299,7 +1299,7 @@
               </div>
             </article>
 
-            <button class="promo" type="button">
+            <button class="promo" type="button" data-goto="pridat-majetek">
               <span class="promo__col">
                 <span class="promo__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span>
                 <span class="promo__title">Přidat nemovitost</span>
@@ -1467,7 +1467,7 @@
                   <span class="tile__text">Připomeneme vám důležité termíny vašeho mazlíčka</span>
                 </button>
 
-                <button class="tile tile--dark" type="button">
+                <button class="tile tile--dark" type="button" data-goto="pridat-majetek">
                   <span class="tile__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span>
                   <span class="tile__row">
                     <span class="tile__title">Přidat nemovitost</span>
@@ -3756,6 +3756,79 @@
             </article>
           </div>
         </section>
+
+        <!-- ============================================================
+             Přidání vozidla a nemovitosti
+             Figma: 20691:15575 (Přidat)
+             ============================================================ -->
+        <section class="screen" id="screen-pridat-vozidlo" data-screen="pridat-vozidlo" data-tab-parent="pridat" aria-labelledby="t-pridat-vozidlo">
+          <div class="detailbar detailbar--center">
+            <button class="circlebtn circlebtn--back" type="button" data-goto="muj-svet" data-reset-add-flow="vehicle" aria-label="Zrušit přidání vozidla"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+            <p class="detailbar__title" id="t-pridat-vozidlo">Přidat vozidlo</p>
+          </div>
+          <div class="addflow" data-add-flow="vehicle">
+            <div data-add-step="start">
+              <div class="addflow__hero"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span><h1>Vyhledat vozidlo</h1><p>Zadejte VIN a SPZ. Základní údaje si najdeme sami.</p></div>
+              <div class="field"><label for="vehicle-vin">VIN *</label><input id="vehicle-vin" type="text" autocomplete="off" placeholder="VIN vozidla" /></div>
+              <div class="field"><label for="vehicle-plate">SPZ</label><input id="vehicle-plate" type="text" autocomplete="off" placeholder="SPZ vozidla" /></div>
+              <p class="field__helper" data-vehicle-error hidden>Vyplňte prosím VIN vozidla.</p>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="lookup">Pokračovat</button>
+            </div>
+            <div data-add-step="details" hidden>
+              <div class="addflow__hero addflow__hero--compact"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-check" /></svg></span><h1>Nalezené vozidlo</h1><p>Zkontrolujte, že jde o správné vozidlo.</p></div>
+              <article class="addflow__summary"><span>Vozidlo</span><strong>Mazda CX-5</strong><span data-vin-summary>—</span></article>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="save">Přidat vozidlo</button>
+            </div>
+            <div data-add-step="done" hidden>
+              <div class="addflow__hero addflow__hero--done"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-check" /></svg></span><h1>Vozidlo je přidané</h1><p>Technickou, výměnu pneumatik a další důležité termíny vám budeme hlídat tady v aplikaci.</p></div>
+              <button class="btn btn--primary btn--block" type="button" data-goto="muj-svet">Zobrazit v Mém světě</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-pridat-majetek" data-screen="pridat-majetek" data-tab-parent="pridat" aria-labelledby="t-pridat-majetek">
+          <div class="detailbar detailbar--center">
+            <button class="circlebtn circlebtn--back" type="button" data-goto="muj-svet" data-reset-add-flow="property" aria-label="Zrušit přidání nemovitosti"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+            <p class="detailbar__title" id="t-pridat-majetek">Přidat nemovitost</p>
+          </div>
+          <div class="addflow" data-add-flow="property">
+            <div data-add-step="start">
+              <div class="addflow__hero"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span><h1>Přidat nemovitost</h1><p>Vyberte, co chcete přidat.</p></div>
+              <button class="option" type="button" data-add-action="choose-flat"><span class="option__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span><span class="option__col"><span class="option__title">Byt</span><span class="option__text">Doplníte adresu a základní informace o bytu.</span></span><svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+              <button class="option" type="button" data-add-action="choose-house"><span class="option__icon"><svg aria-hidden="true"><use href="#ic-home" /></svg></span><span class="option__col"><span class="option__title">Dům</span><span class="option__text">Doplníte adresu a základní informace o domě.</span></span><svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg></button>
+            </div>
+            <div data-add-step="address" hidden>
+              <div class="addflow__hero addflow__hero--compact"><h1 data-property-address-title>Adresa bytu</h1><p>Zadejte adresu nemovitosti.</p></div>
+              <div class="field"><label for="property-street">Ulice</label><input id="property-street" type="text" placeholder="Ulice" /></div>
+              <div class="field"><label for="property-number">Číslo popisné</label><input id="property-number" type="text" placeholder="Číslo popisné" /></div>
+              <div class="field"><label for="property-city">Město</label><input id="property-city" type="text" placeholder="Město" /></div>
+              <div class="field"><label for="property-zip">PSČ</label><input id="property-zip" type="text" inputmode="numeric" placeholder="PSČ" /></div>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="property-address">Pokračovat</button>
+            </div>
+            <div data-add-step="flat-details" hidden>
+              <div class="addflow__hero addflow__hero--compact"><h1>Informace o bytu</h1><p>Doplňte základní informace o bytu.</p></div>
+              <div class="field"><label for="flat-floor">Podlaží</label><input id="flat-floor" type="text" placeholder="Např. 3" /></div>
+              <div class="field"><label for="flat-area">Plocha bytu</label><input id="flat-area" type="text" inputmode="numeric" placeholder="m²" /></div>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="property-summary">Pokračovat</button>
+            </div>
+            <div data-add-step="house-details" hidden>
+              <div class="addflow__hero addflow__hero--compact"><h1>Informace o domě</h1><p>Doplňte základní informace o domě.</p></div>
+              <div class="field"><label for="house-area">Plocha domu</label><input id="house-area" type="text" inputmode="numeric" placeholder="m²" /></div>
+              <div class="field"><label for="house-floors">Počet podlaží</label><input id="house-floors" type="text" inputmode="numeric" placeholder="Počet podlaží" /></div>
+              <div class="field"><label for="house-year">Rok výstavby</label><input id="house-year" type="text" inputmode="numeric" placeholder="Rok výstavby" /></div>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="property-summary">Pokračovat</button>
+            </div>
+            <div data-add-step="details" hidden>
+              <div class="addflow__hero addflow__hero--compact"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-check" /></svg></span><h1>Nalezená nemovitost</h1><p>Zkontrolujte údaje před přidáním.</p></div>
+              <article class="addflow__summary"><span>Adresa</span><strong data-address-summary>—</strong><span data-property-type-summary>—</span></article>
+              <button class="btn btn--primary btn--block" type="button" data-add-action="save">Přidat nemovitost</button>
+            </div>
+            <div data-add-step="done" hidden>
+              <div class="addflow__hero addflow__hero--done"><span class="addflow__icon"><svg aria-hidden="true"><use href="#ic-check" /></svg></span><h1>Nemovitost je přidaná</h1><p>Odteď vám připomeneme důležité revize a pomůžeme držet pojištění aktuální.</p></div>
+              <button class="btn btn--primary btn--block" type="button" data-goto="muj-svet">Zobrazit v Mém světě</button>
+            </div>
+          </div>
+        </section>
       </main>
 
       <nav class="tabbar" aria-label="Hlavní navigace">
@@ -3795,7 +3868,7 @@
           <h2 class="sheet__title" id="sheet-t">Přidat vozidlo</h2>
           <p class="sheet__sub">Vyberte si co potřebujete</p>
 
-          <button class="option" type="button">
+          <button class="option" type="button" data-goto="pridat-vozidlo">
             <span class="option__icon"><svg aria-hidden="true"><use href="#ic-car" /></svg></span>
             <span class="option__col">
               <span class="option__title">Přidat vozidlo</span>
@@ -3806,7 +3879,7 @@
             <svg class="promo__chevron" aria-hidden="true"><use href="#ic-arrow-right" /></svg>
           </button>
 
-          <button class="option" type="button">
+          <button class="option" type="button" data-goto="pridat-vozidlo">
             <span class="option__icon option__icon--lime">
               <svg aria-hidden="true"><use href="#ic-shield" /></svg>
             </span>

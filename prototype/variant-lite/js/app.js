@@ -69,7 +69,7 @@
     current: "earned",
     states: {
       earned: {
-        rewardsValue: "50 Kč",
+        rewardsValue: "420 Kč",
         rewardsNote: "nasbíráno",
         cashbackValue: "80 Kč",
         cashbackNote: "připravujeme k poslání",

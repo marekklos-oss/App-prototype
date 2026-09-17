@@ -4067,3 +4067,18 @@ a.promo {
 .propertydata .trow:last-child { border-bottom: 0; }
 .propertydata .trow__value { text-align: right; }
 .toast { position: fixed; z-index: 30; bottom: 104px; left: 50%; width: calc(100% - 48px); max-width: 360px; transform: translateX(-50%); padding: 14px 16px; border-radius: 12px; background: var(--green-900); color: #fff; box-shadow: var(--shadow-card); font-size: var(--fs-body2); }
+
+/* ---------- Přidání vozidla / nemovitosti ---------- */
+.addflow { padding-top: var(--sp-24); }
+.addflow__hero { margin: 0 0 var(--sp-32); text-align: center; }
+.addflow__hero--compact { margin-bottom: var(--sp-24); }
+.addflow__hero--done { padding-top: var(--sp-32); }
+.addflow__icon { width: 64px; height: 64px; margin: 0 auto var(--sp-16); display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--dark-green-25); color: var(--dark-green-900); }
+.addflow__icon svg { width: 32px; height: 32px; }
+.addflow__hero--done .addflow__icon { background: var(--green-200); }
+.addflow__hero h1 { margin: 0 0 var(--sp-8); font-size: var(--fs-h3); line-height: 1.15; }
+.addflow__hero p { max-width: 330px; margin: 0 auto; color: var(--content-secondary); font-size: var(--fs-body2); line-height: 1.4; }
+.addflow__summary { display: flex; flex-direction: column; gap: var(--sp-4); margin: 0 0 var(--sp-16); padding: var(--sp-16); border: 1px solid var(--dark-green-25); border-radius: var(--r-16); background: var(--surface); }
+.addflow__summary span { font-size: var(--fs-body3); color: var(--helper); }
+.addflow__summary strong { font-size: var(--fs-body1); font-weight: 500; overflow-wrap: anywhere; }
+.field__helper[data-vehicle-error] { color: var(--error-600); }

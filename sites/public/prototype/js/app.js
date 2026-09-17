@@ -69,7 +69,7 @@
     current: "earned",
     states: {
       earned: {
-        rewardsValue: "50 Kč",
+        rewardsValue: "420 Kč",
         rewardsNote: "nasbíráno",
         cashbackValue: "80 Kč",
         cashbackNote: "připravujeme k poslání",
@@ -364,6 +364,65 @@
   });
 
   window.addEventListener("hashchange", closeSheets);
+
+  /* Add-product flows stay local to the prototype. The lookup is intentionally
+     not connected to a registry; it only lets the reviewed steps be clicked. */
+  function showAddStep(flow, step) {
+    flow.querySelectorAll("[data-add-step]").forEach(function (panel) {
+      panel.hidden = panel.dataset.addStep !== step;
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var reset = e.target.closest("[data-reset-add-flow]");
+    if (!reset) return;
+    var flow = document.querySelector('[data-add-flow="' + reset.dataset.resetAddFlow + '"]');
+    if (!flow) return;
+    flow.querySelectorAll("input").forEach(function (input) { input.value = ""; });
+    if (flow.dataset.addFlow === "property") delete flow.dataset.propertyType;
+    var error = flow.querySelector("[data-vehicle-error]");
+    if (error) error.hidden = true;
+    showAddStep(flow, "start");
+  });
+  document.addEventListener("click", function (e) {
+    var action = e.target.closest("[data-add-action]");
+    if (!action) return;
+    var flow = action.closest("[data-add-flow]");
+    if (!flow) return;
+    var isVehicle = flow.dataset.addFlow === "vehicle";
+    if (!isVehicle && action.dataset.addAction === "choose-flat") {
+      flow.dataset.propertyType = "byt";
+      flow.querySelector("[data-property-address-title]").textContent = "Adresa bytu";
+      showAddStep(flow, "address");
+      return;
+    }
+    if (!isVehicle && action.dataset.addAction === "choose-house") {
+      flow.dataset.propertyType = "dům";
+      flow.querySelector("[data-property-address-title]").textContent = "Adresa domu";
+      showAddStep(flow, "address");
+      return;
+    }
+    if (action.dataset.addAction === "lookup") {
+      var input = flow.querySelector("#vehicle-vin");
+      if (!input.value.trim()) {
+        flow.querySelector("[data-vehicle-error]").hidden = false;
+        input.focus();
+        return;
+      }
+      var summary = flow.querySelector("[data-vin-summary]");
+      summary.textContent = input.value.trim() + (flow.querySelector("#vehicle-plate").value.trim() ? " · " + flow.querySelector("#vehicle-plate").value.trim() : "");
+      showAddStep(flow, "details");
+    }
+    if (!isVehicle && action.dataset.addAction === "property-address") {
+      showAddStep(flow, flow.dataset.propertyType === "dům" ? "house-details" : "flat-details");
+    }
+    if (!isVehicle && action.dataset.addAction === "property-summary") {
+      var address = ["#property-street", "#property-number", "#property-city", "#property-zip"].map(function (selector) { return flow.querySelector(selector).value.trim(); }).filter(Boolean).join(", ");
+      flow.querySelector("[data-address-summary]").textContent = address || "Adresu doplníte později";
+      flow.querySelector("[data-property-type-summary]").textContent = flow.dataset.propertyType === "dům" ? "Dům" : "Byt";
+      showAddStep(flow, "details");
+    }
+    if (action.dataset.addAction === "save") showAddStep(flow, "done");
+  });
 
   /* Property reviews. The prototype keeps the data deliberately local: the
      production source will be DS, while this makes every state and form flow
