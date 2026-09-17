@@ -81,7 +81,8 @@
     }
   };
   var initialRewardsValue = Number(rewardsState.states.earned.rewardsValue.replace(/[^0-9]/g, ""));
-  var rewardClaims = { safeYear: false };
+  var rewardClaims = { safeYear: false, codeOpened: false };
+  var rewardCode = "DRCT-7K2M-9XQ4";
 
   var rewardItems = [
     { id: "safeYear", title: "Rok bez zaviněné škody", meta: "Auto · Volvo XC90", amount: 100, state: "ready", icon: "ic-car", text: "Nikomu jsi za rok neublížil. Tohle je tvoje." },
@@ -129,6 +130,7 @@
     var earnedText = earned + " Kč";
     var goal = Number(state.rewardsGoal.replace(/[^0-9]/g, ""));
     var remaining = Math.max(0, goal - earned);
+    var canCreateCode = earned >= goal;
     if (card) {
       card.querySelector("[data-rewards-value]").textContent = earnedText;
       card.querySelector("[data-rewards-note]").textContent = state.rewardsNote;
@@ -139,6 +141,14 @@
     document.querySelectorAll("[data-rewards-sent]").forEach(function (el) { el.textContent = state.rewardsSent; });
     document.querySelectorAll("[data-rewards-goal]").forEach(function (el) { el.textContent = state.rewardsGoal; });
     document.querySelectorAll("[data-rewards-gap]").forEach(function (el) { el.textContent = remaining + " Kč"; });
+    document.querySelectorAll("[data-rewards-progress-message]").forEach(function (el) {
+      el.textContent = canCreateCode ? "Nasbíral jsi " + earnedText : "Chybí " + remaining + " Kč";
+    });
+    document.querySelectorAll("[data-rewards-in-code]").forEach(function (el) { el.textContent = earnedText; });
+    document.querySelectorAll("[data-reward-code-value]").forEach(function (el) { el.textContent = earnedText; });
+    document.querySelectorAll("[data-reward-code]").forEach(function (el) { el.textContent = rewardCode; });
+    document.querySelectorAll("[data-reward-code-teaser]").forEach(function (el) { el.hidden = !canCreateCode; });
+    document.querySelectorAll("[data-rewards-in-code-row]").forEach(function (el) { el.hidden = !rewardClaims.codeOpened; });
     document.querySelectorAll(".reward-progresses").forEach(function (el) {
       el.style.setProperty("--reward-progress-first", Math.min(100, earned / goal * 100) + "%");
       el.style.setProperty("--reward-progress-second", Math.max(0, Math.min(100, (earned - goal) / goal * 100)) + "%");
@@ -173,8 +183,21 @@
       renderRewards();
       return;
     }
+    var showCode = e.target.closest("[data-reward-show-code]");
+    if (showCode) {
+      rewardClaims.codeOpened = true;
+      renderRewards();
+      return;
+    }
+    var copyCode = e.target.closest("[data-copy-reward-code]");
+    if (copyCode) {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(rewardCode).catch(function () {});
+      document.querySelectorAll("[data-copy-reward-code]").forEach(function (el) { el.textContent = "Kód zkopírován"; });
+      return;
+    }
     if (e.target.closest("[data-reset-rewards]")) {
       rewardClaims.safeYear = false;
+      rewardClaims.codeOpened = false;
       renderRewards();
     }
   });
