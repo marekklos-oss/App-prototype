@@ -9,6 +9,7 @@
     return s.dataset.screen;
   });
   var screenTabOrigins = {};
+  var pendingScrollTarget = null;
 
   function tabFromHash() {
     var id = (location.hash || "").replace(/^#\/?/, "");
@@ -23,6 +24,11 @@
       if (active) {
         current = s;
         s.scrollTop = 0;
+        if (pendingScrollTarget && s.dataset.screen === id) {
+          var target = s.querySelector("#" + pendingScrollTarget);
+          if (target) target.scrollIntoView({ block: "start" });
+          pendingScrollTarget = null;
+        }
       }
     });
     /* The contract subnav scrolls — bring the active pill into view, otherwise
@@ -217,6 +223,7 @@
       if (origin && tabs.some(function (t) { return t.dataset.tab === origin; })) {
         screenTabOrigins[g.dataset.goto] = origin;
       }
+      pendingScrollTarget = g.dataset.scrollTarget || null;
       location.hash = "#/" + g.dataset.goto;
       return;
     }
@@ -230,6 +237,7 @@
     var g = e.target.closest('[data-goto][role="button"]');
     if (g) {
       e.preventDefault();
+      pendingScrollTarget = g.dataset.scrollTarget || null;
       location.hash = "#/" + g.dataset.goto;
       return;
     }
