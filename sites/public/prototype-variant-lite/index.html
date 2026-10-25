@@ -504,6 +504,13 @@
         </g>
       </symbol>
 
+      <symbol id="ic-document" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 2.75h7.5L20 8.25V19a2.25 2.25 0 0 1-2.25 2.25H7A2.25 2.25 0 0 1 4.75 19V5A2.25 2.25 0 0 1 7 2.75Z" />
+          <path d="M14.5 2.75v5.5H20M8.5 12h7M8.5 16h7" />
+        </g>
+      </symbol>
+
       <symbol id="ic-phone" viewBox="0 0 24 24">
         <g
           fill="none"
@@ -692,14 +699,70 @@
             />
           </svg>
 
-          <!-- ===== Moje pojištění ===== -->
-          <div class="dblock"><button class="cardhead" type="button" data-goto="muj-svet"><h1 class="cardhead__title" id="t-domu">Moje pojištění</h1><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="hscroll"><div class="hscroll__track"><article class="insurance-card" data-goto="pojisteni-vozidlo" role="button" tabindex="0"><div class="insurance-card__head"><span class="panel__label">POJIŠTĚNÍ VOZIDLA</span><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></div><span class="tag">Aktivní</span><div class="insurance-card__row"><span>Volvo XC90 · 1AA 4990</span></div><button class="iconlink" type="button" data-stop data-goto="pojisteni-vozidlo-dokumenty"><svg aria-hidden="true"><use href="#ic-card" /></svg>Zelená karta</button><div class="insurance-card__payment"><div><strong>6 091 Kč</strong><span>Do 5. 10. 2026</span></div><button class="btn btn--primary" type="button" data-goto="pojisteni-vozidlo-platby">Zaplatit</button></div></article><article class="insurance-card"><div class="insurance-card__head"><span class="panel__label">CESTOVNÍ POJIŠTĚNÍ</span></div><span class="tag tag--warning">Čeká na zaplacení</span><div class="insurance-card__row"><span>Celý svět bez USA a Kanady</span></div><div class="insurance-card__payment"><div><strong>1 084 Kč</strong><span>Do 20. 10. 2026</span></div><button class="btn btn--warning" type="button">Zaplatit</button></div></article></div></div><div class="dots" aria-hidden="true"></div></div>
-          <!-- ===== Můj svět ===== -->
-          <div class="dblock"><button class="cardhead" type="button" data-goto="muj-svet"><h2 class="cardhead__title">Můj svět</h2><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></button><div class="hscroll"><div class="hscroll__track"><article class="subject-card" data-goto="profil-auta" role="button" tabindex="0"><div><span class="panel__label">VOZIDLO</span><h3>Volvo XC90</h3><p>1AA 4990</p></div><img src="assets/vehicle-volvo.png" alt="Volvo XC90" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article><article class="subject-card" data-goto="profil-majetku" role="button" tabindex="0"><div><span class="panel__label">NEMOVITOST</span><h3>Evropská 1234/32</h3><p>Praha 160 00</p></div><img src="assets/apartment.png" alt="Evropská 1234/32" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article><article class="subject-card" data-goto="profil-fiat" role="button" tabindex="0"><div><span class="panel__label">VOZIDLO</span><h3>Fiat Ducato</h3><p>2B3 5921</p></div><img src="assets/vehicle-van.png" alt="Fiat Ducato" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article></div></div><div class="dots" aria-hidden="true"></div></div>
+          <!-- ===== Můj svět: pojištění a profily ===== -->
+          <div class="dblock dblock--world">
+            <button class="cardhead" type="button" data-goto="muj-svet">
+              <h1 class="cardhead__title" id="t-domu">Můj svět</h1>
+              <svg aria-hidden="true"><use href="#ic-arrow-right" /></svg>
+            </button>
 
-          <!-- ===== Peněženka ===== -->
-          <div class="dblock">
-            <div class="cardhead"><h2 class="cardhead__title">Peněženka</h2></div>
+            <div class="dashboard-carousel dashboard-carousel--insurance">
+              <div class="hscroll">
+                <div class="hscroll__track">
+                  <article class="insurance-card" data-goto="pojisteni-vozidlo" role="button" tabindex="0">
+                    <div class="insurance-card__head">
+                      <span class="panel__label">POJIŠTĚNÍ VOZIDLA</span>
+                    </div>
+                    <span class="tag">Aktivní</span>
+                    <div class="insurance-card__row"><span>Volvo XC90 · 1AA 4990</span></div>
+                    <img class="insurance-card__image" src="assets/car.png" alt="" />
+                    <button class="iconlink" type="button" data-stop data-goto="pojisteni-vozidlo-dokumenty">
+                      <svg aria-hidden="true"><use href="#ic-card" /></svg>Zelená karta
+                    </button>
+                    <div class="insurance-card__validity">
+                      <span>Platnost</span>
+                      <span>19. 7. 2026 – neurčito</span>
+                    </div>
+                  </article>
+                  <article class="insurance-card insurance-card--travel">
+                    <div class="insurance-card__head"><span class="panel__label">CESTOVNÍ POJIŠTĚNÍ</span></div>
+                    <span class="tag">Aktivní</span>
+                    <div class="insurance-card__row"><span>Celý svět bez USA a Kanady</span></div>
+                    <img class="insurance-card__image insurance-card__image--globe" src="assets/globe.png" alt="" />
+                    <div class="insurance-card__validity">
+                      <span>Platnost</span>
+                      <span>25. 10. – 8. 11.</span>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="dots" aria-hidden="true"></div>
+            </div>
+
+            <div class="dashboard-carousel dashboard-carousel--profile">
+              <div class="hscroll">
+                <div class="hscroll__track">
+                  <article class="subject-card" data-goto="profil-auta" role="button" tabindex="0">
+                    <div><span class="panel__label">VOZIDLO</span><h3>Volvo XC90</h3><p>1AA 4990</p></div>
+                    <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                  </article>
+                  <article class="subject-card" data-goto="profil-majetku" role="button" tabindex="0">
+                    <div><span class="panel__label">NEMOVITOST</span><h3>Evropská 1234/32</h3><p>Praha 160 00</p></div>
+                    <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                  </article>
+                  <article class="subject-card" data-goto="profil-fiat" role="button" tabindex="0">
+                    <div><span class="panel__label">VOZIDLO</span><h3>Fiat Ducato</h3><p>2B3 5921</p></div>
+                    <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+                  </article>
+                </div>
+              </div>
+              <div class="dots" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <!-- ===== Moje výhody ===== -->
+          <div class="dblock dblock--benefits">
+            <div class="cardhead"><h2 class="cardhead__title">Moje výhody</h2></div>
             <article class="rewards-card" data-rewards-card>
               <div class="rewards-card__head">
                 <span class="rewards-card__icon" aria-hidden="true"></span>
@@ -974,43 +1037,21 @@
           data-screen="muj-svet"
           aria-labelledby="t-muj-svet"
         >
-          <header class="hero">
+          <header class="hero hero--world">
             <svg class="hero__deco" viewBox="0 0 460.618 499.884" aria-hidden="true">
               <path
                 fill="url(#swoosh)"
                 d="M155.553 0C209.418 152.029 288.956 192.302 366.984 192.302C420.345 192.302 458.101 173.173 458.101 173.173L460.618 175.69L103.702 499.884V365.978L294.494 200.356C63.4296 174.684 0 0 0 0H155.553Z"
               />
             </svg>
-            <div class="hero__nav">
-              <div class="pillnav">
-                <button type="button" aria-label="Sjednané osoby">
-                  <svg aria-hidden="true"><use href="#ic-group" /></svg>
-                </button>
-                <button type="button" aria-label="Přehled">
-                  <svg aria-hidden="true"><use href="#ic-graph-up" /></svg>
-                </button>
-                <button type="button" aria-label="Notifikace">
-                  <svg aria-hidden="true"><use href="#ic-bell" /></svg>
-                </button>
-              </div>
-            </div>
-
             <h1 class="hero__title" id="t-muj-svet">Můj svět</h1>
-            <p class="hero__sub">Máte <b>2 aktivní smlouvy</b> u Direct</p>
-            <div class="hero__actions">
-              <button
-                class="btn btn--secondary"
-                type="button"
-                data-toggle-ended
-                aria-expanded="false"
-                aria-controls="ukoncene"
-              >
-                Zobrazit ukončené
-              </button>
-            </div>
           </header>
+          <nav class="world-switch" aria-label="Smlouvy">
+            <button type="button" data-world-view="active" aria-current="page">Aktivní</button>
+            <button type="button" data-world-view="ended">Ukončené</button>
+          </nav>
 
-          <!-- ===== Ukončené smlouvy — rozbaluje tlačítko v hlavičce =====
+          <!-- ===== Ukončené smlouvy — zobrazuje přepínač Aktivní/Ukončené =====
                Figma: 4321:179339 (varianta bez nedoplatku) -->
           <section class="section" id="ukoncene" hidden>
             <h2 class="section__title">Ukončené</h2>
@@ -1036,10 +1077,63 @@
             </article>
           </section>
 
-          <!-- ===== Moje pojištění ===== -->
-          <section class="section"><h2 class="section__title">Moje pojištění</h2><article class="insurance-card" data-goto="pojisteni-vozidlo" role="button" tabindex="0"><div class="insurance-card__head"><span class="panel__label">POJIŠTĚNÍ VOZIDLA</span><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></div><span class="tag">Aktivní</span><div class="insurance-card__row"><span>Volvo XC90 · 1AA 4990</span></div><div class="insurance-card__payment"><div><strong>6 091 Kč</strong><span>Do 5. 10. 2026</span></div><button class="btn btn--primary" type="button" data-goto="pojisteni-vozidlo-platby">Zaplatit</button></div></article><article class="insurance-card"><div class="insurance-card__head"><span class="panel__label">CESTOVNÍ POJIŠTĚNÍ</span></div><span class="tag tag--warning">Čeká na zaplacení</span><div class="insurance-card__row"><span>Celý svět bez USA a Kanady</span></div><div class="insurance-card__payment"><div><strong>1 084 Kč</strong><span>Do 20. 10. 2026</span></div><button class="btn btn--warning" type="button">Zaplatit</button></div></article><button class="btn btn--secondary section__cta" type="button" data-goto="pridat" data-scroll-target="add-insurance">Sjednat pojištění</button></section>
-          <!-- ===== Můj svět ===== -->
-          <section class="section"><h2 class="section__title">Můj svět</h2><article class="subject-card" data-goto="profil-auta" role="button" tabindex="0"><div><span class="panel__label">VOZIDLO</span><h3>Volvo XC90</h3><p>1AA 4990</p></div><img src="assets/vehicle-volvo.png" alt="Volvo XC90" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article><article class="subject-card" data-goto="profil-majetku" role="button" tabindex="0"><div><span class="panel__label">NEMOVITOST</span><h3>Evropská 1234/32</h3><p>Praha 160 00</p></div><img src="assets/apartment.png" alt="Evropská 1234/32" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article><article class="subject-card" data-goto="profil-fiat" role="button" tabindex="0"><div><span class="panel__label">VOZIDLO</span><h3>Fiat Ducato</h3><p>2B3 5921</p></div><img src="assets/vehicle-van.png" alt="Fiat Ducato" /><span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span></article><button class="btn btn--secondary section__cta" type="button" data-goto="pridat" data-scroll-target="add-world">Přidat do Mého světa</button></section>
+          <!-- ===== Aktivní smlouvy ===== -->
+          <section class="section world-active world-section">
+            <div class="world-section__header">
+              <h2 class="section__title">Aktivní smlouvy</h2>
+              <button class="world-section__action" type="button" data-goto="pridat" data-scroll-target="add-insurance">
+                <svg aria-hidden="true"><use href="#ic-plus-circle" /></svg>Sjednat
+              </button>
+            </div>
+            <article class="insurance-card" data-goto="pojisteni-vozidlo" role="button" tabindex="0">
+              <div class="insurance-card__head">
+                <span class="panel__label">POJIŠTĚNÍ VOZIDLA</span>
+                <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+              </div>
+              <span class="tag">Aktivní</span>
+              <div class="insurance-card__row"><span>Volvo XC90 · 1AA 4990</span></div>
+              <img class="insurance-card__image" src="assets/car.png" alt="" />
+              <div class="insurance-card__validity">
+                <span>Platnost</span>
+                <span>19. 7. 2026 – neurčito</span>
+              </div>
+            </article>
+            <article class="insurance-card insurance-card--travel">
+              <div class="insurance-card__head"><span class="panel__label">CESTOVNÍ POJIŠTĚNÍ</span></div>
+              <span class="tag">Aktivní</span>
+              <div class="insurance-card__row"><span>Celý svět bez USA a Kanady</span></div>
+              <img class="insurance-card__image insurance-card__image--globe" src="assets/globe.png" alt="" />
+              <div class="insurance-card__validity">
+                <span>Platnost</span>
+                <span>25. 10. – 8. 11.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ===== Profily ===== -->
+          <section class="section world-active world-section world-section--profiles">
+            <div class="world-section__header">
+              <div class="world-section__heading">
+                <span class="tag tag--new">Novinka</span>
+                <h2 class="section__title">Profily</h2>
+              </div>
+              <button class="world-section__action" type="button" data-goto="pridat" data-scroll-target="add-world">
+                <svg aria-hidden="true"><use href="#ic-plus-circle" /></svg>Přidat
+              </button>
+            </div>
+            <article class="subject-card" data-goto="profil-auta" role="button" tabindex="0">
+              <div><span class="panel__label">VOZIDLO</span><h3>Volvo XC90</h3><p>1AA 4990</p></div>
+              <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+            </article>
+            <article class="subject-card" data-goto="profil-majetku" role="button" tabindex="0">
+              <div><span class="panel__label">NEMOVITOST</span><h3>Evropská 1234/32</h3><p>Praha 160 00</p></div>
+              <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+            </article>
+            <article class="subject-card" data-goto="profil-fiat" role="button" tabindex="0">
+              <div><span class="panel__label">VOZIDLO</span><h3>Fiat Ducato</h3><p>2B3 5921</p></div>
+              <span class="circlebtn"><svg aria-hidden="true"><use href="#ic-arrow-right" /></svg></span>
+            </article>
+          </section>
         </section>
 
         <section class="screen" id="screen-pridat" data-screen="pridat" aria-labelledby="t-pridat">
@@ -1327,6 +1421,7 @@
             <button type="button" data-goto="profil-stav">Stav</button>
             <button type="button">Hodnota</button>
             <button type="button" data-goto="profil-technicke">Technické údaje</button>
+            <button class="nav-crosslink" type="button" data-goto="pojisteni-vozidlo"><svg aria-hidden="true"><use href="#ic-document" /></svg>Moje smlouva</button>
           </nav>
 
           <!-- Prototype-only: flips the card states drawn in Figma.
@@ -1655,7 +1750,7 @@
                   </div>
                   <div class="trow">
                     <span class="trow__label">Platnost</span>
-                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                    <span class="trow__value">19. 7. 2026 – neurčito</span>
                   </div>
                 </div>
               </article>
@@ -1687,7 +1782,7 @@
                   </div>
                   <div class="trow">
                     <span class="trow__label">Platnost</span>
-                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                    <span class="trow__value">19. 7. 2026 – neurčito</span>
                   </div>
                 </div>
               </article>
@@ -1719,7 +1814,7 @@
                   </div>
                   <div class="trow">
                     <span class="trow__label">Platnost</span>
-                    <span class="trow__value">12. 3. 2023 – neurčito</span>
+                    <span class="trow__value">19. 7. 2026 – neurčito</span>
                   </div>
                 </div>
               </article>
@@ -1845,6 +1940,7 @@
             <button type="button" aria-current="true">Stav</button>
             <button type="button">Hodnota</button>
             <button type="button" data-goto="profil-technicke">Technické údaje</button>
+            <button class="nav-crosslink" type="button" data-goto="pojisteni-vozidlo"><svg aria-hidden="true"><use href="#ic-document" /></svg>Moje smlouva</button>
           </nav>
 
           <div class="protobar" hidden>
@@ -2195,6 +2291,7 @@
             <button type="button" data-goto="profil-stav">Stav</button>
             <button type="button">Hodnota</button>
             <button type="button" aria-current="true">Technické údaje</button>
+            <button class="nav-crosslink" type="button" data-goto="pojisteni-vozidlo"><svg aria-hidden="true"><use href="#ic-document" /></svg>Moje smlouva</button>
           </nav>
 
           <div class="protobar" hidden>
@@ -2545,6 +2642,7 @@
               <button type="button" data-goto="pojisteni-vozidlo-platby">Platby</button>
               <button type="button" data-goto="pojisteni-vozidlo-dokumenty">Dokumenty</button>
               <button type="button" data-goto="pojisteni-vozidlo-osoby">Osoby</button>
+              <button class="nav-crosslink" type="button" data-goto="profil-auta"><svg aria-hidden="true"><use href="#ic-car" /></svg>Moje vozidlo</button>
             </div>
           </nav>
 
@@ -2565,7 +2663,7 @@
             </div>
             <div class="trow">
               <span class="trow__label">Platnost</span>
-              <span class="trow__value">12. 3. 2023 – neurčito</span>
+              <span class="trow__value">19. 7. 2026 – neurčito</span>
             </div>
           </article>
 
@@ -2658,7 +2756,7 @@
                   </div>
                 </div>
                 <div class="trow trow--tight">
-                  <span class="trow__label">Další platba ve výši</span>
+                  <span class="trow__label">Pojistné za období</span>
                   <span class="trow__value">6 091 Kč</span>
                 </div>
                 <div class="trow trow--sub">
@@ -2770,6 +2868,7 @@
               <button type="button" data-goto="pojisteni-vozidlo-platby">Platby</button>
               <button type="button" data-goto="pojisteni-vozidlo-dokumenty">Dokumenty</button>
               <button type="button" data-goto="pojisteni-vozidlo-osoby">Osoby</button>
+              <button class="nav-crosslink" type="button" data-goto="profil-auta"><svg aria-hidden="true"><use href="#ic-car" /></svg>Moje vozidlo</button>
             </div>
           </nav>
 
@@ -3000,6 +3099,7 @@
               <button type="button" aria-current="true">Platby</button>
               <button type="button" data-goto="pojisteni-vozidlo-dokumenty">Dokumenty</button>
               <button type="button" data-goto="pojisteni-vozidlo-osoby">Osoby</button>
+              <button class="nav-crosslink" type="button" data-goto="profil-auta"><svg aria-hidden="true"><use href="#ic-car" /></svg>Moje vozidlo</button>
             </div>
           </nav>
 
@@ -3021,7 +3121,7 @@
                   </div>
                 </div>
                 <div class="trow trow--tight">
-                  <span class="trow__label">Další platba ve výši</span>
+                  <span class="trow__label">Pojistné za období</span>
                   <span class="trow__value">6 091 Kč</span>
                 </div>
                 <div class="trow trow--sub">
@@ -3061,8 +3161,8 @@
                   <button type="button">Platby</button>
                 </div>
 
-                <div class="payrow payrow--due">
-                  <svg class="payrow__icon" aria-hidden="true"><use href="#ic-clock" /></svg>
+                <div class="payrow">
+                  <svg class="payrow__icon" aria-hidden="true"><use href="#ic-check" /></svg>
                   <div class="payrow__col">
                     <button class="payrow__kind" type="button">Pojistné • Pololetní</button>
                     <p class="payrow__date">5. 10. 2026</p>
@@ -3117,6 +3217,7 @@
               <button type="button" data-goto="pojisteni-vozidlo-platby">Platby</button>
               <button type="button" aria-current="true">Dokumenty</button>
               <button type="button" data-goto="pojisteni-vozidlo-osoby">Osoby</button>
+              <button class="nav-crosslink" type="button" data-goto="profil-auta"><svg aria-hidden="true"><use href="#ic-car" /></svg>Moje vozidlo</button>
             </div>
           </nav>
 
@@ -3272,6 +3373,7 @@
               <button type="button" data-goto="pojisteni-vozidlo-platby">Platby</button>
               <button type="button" data-goto="pojisteni-vozidlo-dokumenty">Dokumenty</button>
               <button type="button" aria-current="true">Osoby</button>
+              <button class="nav-crosslink" type="button" data-goto="profil-auta"><svg aria-hidden="true"><use href="#ic-car" /></svg>Moje vozidlo</button>
             </div>
           </nav>
 

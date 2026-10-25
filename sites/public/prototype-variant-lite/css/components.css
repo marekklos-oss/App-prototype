@@ -1881,6 +1881,19 @@ a.promo {
   font-weight: 600;
 }
 
+.segmented .nav-crosslink,
+.subnav .nav-crosslink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.nav-crosslink svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
 /* ---------- Car hero ---------- */
 
 .carhero {
@@ -4097,12 +4110,183 @@ a.promo {
 .reward-code-steps li::before { content: counter(reward-step); position: absolute; left: 0; top: 0; display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--dark-green-900); color: var(--surface); font-size: 11px; font-weight: 500; }
 .reward-code-steps li strong { color: var(--content-primary); font-size: var(--fs-body2); font-weight: 500; }
 
-/* Lite: pojištění a předmět jsou samostatné karty; obrázek patří jen předmětu. */
+/* Lite cards shared by the dashboard and Můj svět detail. */
 .insurance-card, .subject-card { width: 343px; max-width: 86vw; box-sizing: border-box; border: 1px solid var(--green-200); border-radius: var(--r-28); background: var(--surface); box-shadow: var(--shadow-app); }
 .insurance-card { --insurance-border: var(--green-500); --insurance-background: linear-gradient(180deg, #f9fce2 0%, #eaf3a3 100%); position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--sp-12); padding: var(--sp-16); margin-bottom: var(--sp-16); border-color: var(--insurance-border); background: var(--insurance-background); }
 .insurance-card:has(.tag--warning), .insurance-card--warning { --insurance-border: var(--warning-400); --insurance-background: linear-gradient(180deg, #fff7ed 0%, #ffeed5 100%); }
 .insurance-card--error { --insurance-border: var(--error-600); --insurance-background: linear-gradient(180deg, #fff5f3 0%, #ffdcd9 100%); }
 .insurance-card--disabled { --insurance-border: var(--grey-500); --insurance-background: linear-gradient(180deg, #f6f9f8 0%, #ccd9d6 100%); }
-.insurance-card__head, .insurance-card__row, .insurance-card__payment { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); }
-.insurance-card__row { font-size: var(--fs-body2); color: var(--green-800); }.insurance-card__payment { padding: var(--sp-12); border: 1px solid var(--insurance-border); border-radius: var(--r-12); }.insurance-card__payment strong,.insurance-card__payment span { display:block; }.insurance-card__payment strong { font-size:var(--fs-h5); font-weight:500; }.insurance-card__payment span { margin-top:2px; font-size:var(--fs-body3); color:var(--helper); }
+.insurance-card__head, .insurance-card__row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); }
+.insurance-card__row { font-size: var(--fs-body2); color: var(--green-800); }
+.insurance-card__validity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--green-200);
+  color: var(--green-800);
+  font-size: var(--fs-body3);
+  line-height: 1.2;
+}
+.insurance-card__validity span:last-child {
+  color: var(--green-900);
+  font-weight: 500;
+  text-align: right;
+}
 .subject-card { position:relative; display:flex; min-height:144px; padding:var(--sp-16); overflow:hidden; cursor:pointer; margin-bottom:var(--sp-16); }.subject-card > div { position:relative;z-index:1;width:58%; }.subject-card h3 { margin:var(--sp-8) 0 var(--sp-4);font-size:var(--fs-h4);font-weight:500;line-height:22px; }.subject-card p { margin:0;color:var(--green-800);font-size:var(--fs-body1); }.subject-card img { position:absolute;right:-18px;bottom:-12px;width:174px;height:116px;object-fit:contain;object-position:right bottom;pointer-events:none; }.subject-card .circlebtn { position:absolute;z-index:1;top:var(--sp-16);right:var(--sp-16); }.section__cta { width:100%;justify-content:center;margin-top:var(--sp-8); }
+
+/* Lite dashboard: one header over insurance and profile carousels. */
+#screen-domu .dashboard-carousel + .dashboard-carousel { margin-top: var(--sp-16); }
+#screen-domu .dashboard-carousel .hscroll { padding-bottom: 0; }
+#screen-domu .dashboard-carousel .insurance-card,
+#screen-domu .dashboard-carousel .subject-card {
+  width: 345px;
+  max-width: calc(100vw - 48px);
+  margin-bottom: 0;
+}
+#screen-domu .dashboard-carousel .insurance-card { max-width: calc(100vw - 48px); }
+#screen-domu .dashboard-carousel .dots { padding: var(--sp-8) 0 0; }
+#screen-domu .dashboard-carousel--insurance .hscroll__track { align-items: start; }
+#screen-domu .dashboard-carousel--insurance .insurance-card:first-child {
+  background: linear-gradient(180deg, var(--surface) 0%, rgba(196, 222, 0, .3) 100%);
+}
+#screen-domu .dashboard-carousel--insurance .insurance-card:first-child .insurance-card__row {
+  max-width: 170px;
+}
+#screen-domu .dashboard-carousel--insurance .insurance-card:first-child .insurance-card__image {
+  position: absolute;
+  top: 70px;
+  right: var(--sp-16);
+  align-self: auto;
+}
+#screen-domu .insurance-card__image {
+  display: block;
+  width: 140px;
+  height: 77px;
+  align-self: flex-end;
+  object-fit: contain;
+  pointer-events: none;
+}
+#screen-domu .dashboard-carousel--profile .subject-card {
+  min-height: 130px;
+  border-color: var(--green-500);
+  background: linear-gradient(180deg, var(--green-500), #e1ff00);
+}
+#screen-domu .dashboard-carousel--profile .subject-card > div { width: calc(100% - 40px); }
+#screen-domu .dblock--world + .dblock--benefits {
+  margin-top: var(--sp-24);
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Můj svět: compact toolbar, contract switch and section actions. */
+#screen-muj-svet .hero--world {
+  display: grid;
+  height: 54px;
+  padding: 0;
+  place-items: center;
+}
+#screen-muj-svet .hero--world .hero__title {
+  margin: 0;
+  font-size: var(--fs-h4);
+}
+#screen-muj-svet .world-switch {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--sp-4);
+  padding: var(--sp-12);
+  border: 1px solid var(--dark-green-900);
+  border-radius: var(--r-28);
+  background: var(--surface);
+}
+#screen-muj-svet .world-switch button {
+  flex: 1;
+  height: 36px;
+  border: 0;
+  border-radius: var(--r-20);
+  background: transparent;
+  color: var(--dark-green-900);
+  font: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  cursor: pointer;
+}
+#screen-muj-svet .world-switch button[aria-current="page"] {
+  background: var(--dark-green-900);
+  color: var(--white);
+}
+#screen-muj-svet #ukoncene + .world-section {
+  margin-top: 0;
+  border-top: 0;
+}
+#screen-muj-svet .world-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-12);
+  min-height: 56px;
+  margin-bottom: 20px;
+}
+#screen-muj-svet .world-section__header .section__title { margin: 0; }
+#screen-muj-svet .world-section__heading {
+  display: grid;
+  justify-items: start;
+  gap: var(--sp-12);
+}
+#screen-muj-svet .world-section__action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dark-green-900);
+  font: inherit;
+  font-size: var(--fs-body2);
+  font-weight: 600;
+  cursor: pointer;
+}
+#screen-muj-svet .world-section__action svg {
+  width: 16px;
+  height: 16px;
+}
+#screen-muj-svet .tag--new {
+  background: var(--highlight-400);
+  color: var(--white);
+}
+#screen-muj-svet .insurance-card,
+#screen-muj-svet .subject-card {
+  width: 100%;
+  max-width: none;
+}
+#screen-muj-svet .insurance-card__image {
+  display: block;
+  width: 140px;
+  height: 77px;
+  align-self: flex-end;
+  object-fit: contain;
+  pointer-events: none;
+}
+#screen-domu .insurance-card--travel .insurance-card__row,
+#screen-muj-svet .insurance-card--travel .insurance-card__row {
+  max-width: 170px;
+}
+#screen-domu .insurance-card--travel .insurance-card__image--globe,
+#screen-muj-svet .insurance-card--travel .insurance-card__image--globe {
+  position: absolute;
+  top: 20px;
+  right: var(--sp-32);
+  width: 89px;
+  height: 89px;
+  align-self: auto;
+}
+#screen-muj-svet .world-section--profiles .subject-card {
+  min-height: 113px;
+  border-color: var(--green-500);
+  background: linear-gradient(180deg, var(--green-500), #e1ff00);
+}
+#screen-muj-svet .world-section--profiles .subject-card > div { width: calc(100% - 40px); }

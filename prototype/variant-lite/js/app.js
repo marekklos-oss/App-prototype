@@ -257,13 +257,23 @@
 
     dots.innerHTML = "";
     for (var i = 0; i < slides.length; i++) dots.appendChild(document.createElement("i"));
+    if (!slides.length) return;
     dots.children[0].classList.add("is-active");
 
     box.addEventListener(
       "scroll",
       function () {
-        var step = box.scrollWidth / slides.length;
-        var idx = Math.min(slides.length - 1, Math.round(box.scrollLeft / step));
+        var center = box.getBoundingClientRect().left + box.clientWidth / 2;
+        var idx = 0;
+        var distance = Infinity;
+        for (var i = 0; i < slides.length; i++) {
+          var slideCenter = slides[i].getBoundingClientRect().left + slides[i].offsetWidth / 2;
+          var delta = Math.abs(center - slideCenter);
+          if (delta < distance) {
+            distance = delta;
+            idx = i;
+          }
+        }
         for (var j = 0; j < dots.children.length; j++) {
           dots.children[j].classList.toggle("is-active", j === idx);
         }
@@ -282,29 +292,27 @@
     });
   });
 
-  /* "Zobrazit ukončené" switches the Můj svět body between the active contracts
-     and the archive — the two are never on screen at the same time. */
-  document.querySelectorAll("[data-toggle-ended]").forEach(function (btn) {
-    var screen = btn.closest(".screen");
-    var ended = document.getElementById(btn.getAttribute("aria-controls"));
-    if (!screen || !ended) return;
-    var active = Array.prototype.filter.call(
-      screen.querySelectorAll(".section"),
-      function (s) {
-        return s !== ended;
-      }
-    );
-    btn.addEventListener("click", function () {
-      var showEnded = ended.hidden;
-      ended.hidden = !showEnded;
-      active.forEach(function (s) {
-        s.hidden = showEnded;
+  /* Switch the Můj svět content while preserving the ended-contract cards. */
+  var worldScreen = document.getElementById("screen-muj-svet");
+  if (worldScreen) {
+    var ended = worldScreen.querySelector("#ukoncene");
+    var active = worldScreen.querySelectorAll(".world-active");
+    var worldButtons = worldScreen.querySelectorAll("[data-world-view]");
+    worldButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var showEnded = btn.dataset.worldView === "ended";
+        ended.hidden = !showEnded;
+        active.forEach(function (section) {
+          section.hidden = showEnded;
+        });
+        worldButtons.forEach(function (button) {
+          if (button === btn) button.setAttribute("aria-current", "page");
+          else button.removeAttribute("aria-current");
+        });
+        worldScreen.scrollTop = 0;
       });
-      btn.setAttribute("aria-expanded", String(showEnded));
-      btn.textContent = showEnded ? "Zobrazit aktivní" : "Zobrazit ukončené";
-      screen.scrollTop = 0;
     });
-  });
+  }
 
   /* Prototype state switcher: a .protobar row flips the variants inside the
      matching .vgroup (all variants live in the DOM, hidden via [hidden]). */
